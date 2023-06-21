@@ -3,7 +3,7 @@ package model;
 public class EndUser extends User {
 	
 	public EndUser() {
-		
+	
 	}
 	
 	public EndUser(long id, String name, String surname, String email, String password) {
@@ -54,9 +54,27 @@ public class EndUser extends User {
 		this.password = password;
 	}
 	
-	/*
-	 * ... 
-	 */
+	public String toString() {
+		return getClass().getName()+"[id="+id+",name="+name+",surname="+surname+
+				",email="+email+",password="+password+"]";
+	}
+	
+	public boolean equals(Object otherObject) {
+		if(otherObject == null)
+			return false;
+		if(getClass() != otherObject.getClass())
+			return false;
+		
+		EndUser other = (EndUser)otherObject;
+		
+		return Long.compare(id, other.id) == 0 &&
+				name.equals(other.name) && surname.equals(other.surname) &&
+				email.equals(other.email) && password.equals(other.password);
+	}
+	
+	public EndUser clone() {
+		return (EndUser)super.clone();
+	}
 	
 	private long id;
 	private String name, surname, email, password;

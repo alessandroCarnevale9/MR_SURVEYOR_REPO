@@ -1,14 +1,18 @@
 package model;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 
 public class Order implements Cloneable {
 	
 	public Order() {
 		this.card = new CreditCard();
+		this.orderProducts = new LinkedList<>();
+		this.orderManager = new Manager();
 	}
 	
-	public Order(long id, Date orderDate, double totalPrice, Date shipmentDate, String trackingNumber, String courierName, State state, CreditCard card) {
+	public Order(long id, Date orderDate, double totalPrice, Date shipmentDate, String trackingNumber, String courierName, State state, CreditCard card, Collection<Product> orderProducts, Manager orderManager) {
 		this.id = id;
 		this.orderDate = orderDate;
 		this.totalPrice = totalPrice;
@@ -17,6 +21,8 @@ public class Order implements Cloneable {
 		this.courierName = courierName;
 		this.state = state;
 		this.card = card.clone();
+		this.orderProducts = orderProducts;
+		this.orderManager = orderManager;
 	}
 	
 	public long getId() {
@@ -83,6 +89,35 @@ public class Order implements Cloneable {
 		this.card = card;
 	}
 	
+	public void addOrderProduct(Product orderProduct) {
+		if(orderProducts.contains(orderProduct)) {
+			int tmp = orderProduct.getQuantity();
+			tmp += 1;
+			orderProduct.setQuantity(tmp);
+		}
+		else
+			orderProducts.add(orderProduct);
+	}
+	
+	public void removeOrderProduct(Product orderProduct) {
+		if(!orderProducts.isEmpty() && orderProducts.contains(orderProduct)) {
+			if(orderProduct.getQuantity() > 1) {
+				int tmp = orderProduct.getQuantity();
+				tmp -= 1;
+				orderProduct.setQuantity(tmp);
+			}
+			else
+				orderProducts.remove(orderProduct);
+		}
+	}
+	
+	public void removeAllOrderProducts() {
+		orderProducts.removeAll(orderProducts);
+	}
+	
+	public Collection<Product> getOrderProducts() {
+		return orderProducts;
+	}
 	
 	public String toString() {
 		return getClass().getName()+"[id="+id+",orderDate="+orderDate+
@@ -106,13 +141,25 @@ public class Order implements Cloneable {
 				Double.compare(totalPrice, other.totalPrice) == 0 &&
 				trackingNumber.equals(other.trackingNumber) &&
 				courierName.equals(other.courierName) &&
-				state.equals(other.state) && card.equals(other.card);
+				state.equals(other.state) && card.equals(other.card) &&
+				orderProducts.equals(other.orderProducts) && orderManager.equals(other.orderManager);
 	}
 	
 	public Order clone() {
 		
 		try {
-			return (Order)super.clone();
+			
+			Order cloned = (Order)super.clone();
+			
+			cloned.card = card.clone();
+			
+			Collection<Product> orderProductsCloned = new LinkedList<>();
+			for(Product p : orderProducts)
+				orderProductsCloned.add(p.clone());
+			
+			cloned.orderProducts = orderProductsCloned;
+			
+			return cloned;
 		}
 		catch(CloneNotSupportedException e) {
 			e.printStackTrace();
@@ -126,6 +173,8 @@ public class Order implements Cloneable {
 	private String trackingNumber, courierName;
 	private State state;
 	private CreditCard card;
+	private Collection<Product> orderProducts;
+	private Manager orderManager;
 	
 	public enum State {
 		TO_SEND,

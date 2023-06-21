@@ -1,12 +1,16 @@
 package model;
 
-public class Product {
+import java.util.Collection;
+import java.util.LinkedList;
+
+public class Product implements Cloneable {
 	
 	public Product() {
-		
+		rootCategory = new Category();
+		subcategories = new LinkedList<>();
 	}
 	
-	public Product(long id, String imagePath, String name, String description, double price, int quantity) {
+	public Product(long id, String imagePath, String name, String description, double price, int quantity, Category rootCategory, Collection<Subcategory> subcategories) {
 		
 		this.id = id;
 		this.imagePath = imagePath;
@@ -14,6 +18,31 @@ public class Product {
 		this.description = description;
 		this.price = price;
 		this.quantity = quantity;
+		this.rootCategory = rootCategory;
+		this.subcategories = subcategories;
+	}
+	
+	public Category getProductRootCategory() {
+		return rootCategory;
+	}
+	
+	public void setProductRootCategory(Category rootCategory) {
+		this.rootCategory = rootCategory;
+	}
+	
+	// aggiungo una sottocategoria soltanto se essa è coerente con la categoria padre
+	public void addSubcategory(Subcategory subcategory) {
+		if(subcategory.getRootCategory().equals(rootCategory))
+			subcategories.add(subcategory);
+	}
+	
+	public void removeSubcategory(Subcategory subcategory) {
+		if(!subcategories.isEmpty() && subcategories.contains(subcategory))
+			subcategories.remove(subcategory);
+	}
+	
+	public Collection<Subcategory> getSubcategories() {
+		return subcategories;
 	}
 	
 	public long getId() {
@@ -64,12 +93,53 @@ public class Product {
 		this.quantity = quantity;
 	}
 
-	/*
-	 * ... 
-	 */
+	public String toString() {
+		return getClass().getName()+"[id="+id+",imagePath="+imagePath+
+				",name="+name+",price="+price+",quantity="+quantity+",rootCategory"+
+				rootCategory+",description="+description+"]";
+	}
+	
+	public boolean equals(Object otherObject) {
+		if(otherObject == null)
+			return false;
+		
+		if(getClass() != otherObject.getClass())
+			return false;
+		
+		Product other = (Product)otherObject;
+		
+		return Long.compare(id, other.id) == 0 && imagePath.equals(other.imagePath) &&
+				name.equals(other.name) && description.equals(other.description) && rootCategory.equals(other.rootCategory) &&
+				Integer.compare(quantity, other.quantity) == 0 && subcategories.equals(other.subcategories);
+	}
+	
+	public Product clone() {
+		
+		try {
+			Product cloned = (Product)super.clone();
+			
+			cloned.rootCategory = rootCategory.clone();
+			
+			Collection<Subcategory> subcategoriesCloned = new LinkedList<>();
+			
+			for(Subcategory s : subcategories)
+				subcategoriesCloned.add(s.clone());
+			
+			cloned.subcategories = subcategoriesCloned;
+			
+			return cloned;
+		}
+		catch(CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	private long id;
 	private String imagePath, name, description;
 	private double price;
 	private int quantity;
+	
+	private Category rootCategory;
+	private Collection<Subcategory> subcategories;
 }

@@ -6,9 +6,10 @@ public class Manager extends User {
 		
 	}
 	
-	public Manager(String username, String password) {
+	public Manager(String username, String password, Role role) {
 		this.username = username;
 		this.password = password;
+		this.role = role;
 	}
 	
 	public String getUsername() {
@@ -27,9 +28,36 @@ public class Manager extends User {
 		this.password = password;
 	}
 	
-	/*
-	 * ...
-	 */
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public String toString() {
+		return getClass().getName()+"[username="+username+",password="+password+
+				",role="+role+"]";
+	}
+	
+	public boolean equals(Object otherObject) {
+		if(otherObject == null)
+			return false;
+		if(getClass() != otherObject.getClass())
+			return false;
+		
+		Manager other = (Manager)otherObject;
+		
+		return username.equals(other.username) && password.equals(other.password) &&
+				role.equals(other.role);
+	}
 
 	private String username, password;
+	private Role role;
+	
+	public enum Role {
+		ORDER_MANAGER,
+		CATALOG_MANAGER
+	}
 }
