@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 
-public class CreditCard {
+public class CreditCard implements Cloneable {
 	
 	public CreditCard() {
 		
@@ -45,6 +45,36 @@ public class CreditCard {
 
 	public void setHolderName(String holderName) {
 		this.holderName = holderName;
+	}
+	
+	public String toString() {
+		return getClass().getName()+"[cardNumber="+cardNumber+",cvc="+cvc+
+				",exipirationDate="+expirationDate+",holderName="+holderName+"]";
+	}
+	
+	public boolean equals(Object otherObject) {
+		if(otherObject == null)
+			return false;
+		
+		if(getClass() != otherObject.getClass())
+			return false;
+		
+		CreditCard other = (CreditCard)otherObject;
+		
+		return Integer.compare(cardNumber,other.cardNumber) == 0 && 
+				Integer.compare(cvc,other.cvc) == 0 &&
+				expirationDate.equals(other.expirationDate) && holderName.equals(other.holderName);
+	}
+	
+	public CreditCard clone() {
+		
+		try {
+			return (CreditCard)super.clone();
+		}
+		catch(CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	private int cardNumber, cvc;
