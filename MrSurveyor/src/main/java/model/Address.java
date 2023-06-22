@@ -1,6 +1,6 @@
 package model;
 
-public class Address {
+public class Address implements Cloneable {
 
 	public Address() {
 		
@@ -62,6 +62,36 @@ public class Address {
 
 	public void setCap(int cap) {
 		this.cap = cap;
+	}
+	
+	public String toString() {
+		return getClass().getName()+"[region="+region+",province="+province+
+				"city="+city+",street="+street+",houseNumber="+houseNumber+",cap="+cap+"]";
+	}
+	
+	public boolean equals(Object otherObject) {
+		if(otherObject == null)
+			return false;
+		
+		if(getClass() != otherObject.getClass())
+			return false;
+		
+		Address other = (Address)otherObject;
+		
+		return region.equals(other.region) && province.equals(other.province) &&
+				city.equals(other.city) && street.equals(other.street) &&
+				Integer.compare(houseNumber, other.houseNumber) == 0 &&
+				Integer.compare(cap, other.cap) == 0;
+	}
+
+	public Address clone() {
+		try {
+			return (Address)super.clone();
+		}
+		catch(CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	private String region, province, city, street;

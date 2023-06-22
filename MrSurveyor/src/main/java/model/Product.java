@@ -8,9 +8,10 @@ public class Product implements Cloneable {
 	public Product() {
 		rootCategory = new Category();
 		subcategories = new LinkedList<>();
+		catalogManager = new Manager(); // Manager che gestisce il prodotto
 	}
 	
-	public Product(long id, String imagePath, String name, String description, double price, int quantity, Category rootCategory, Collection<Subcategory> subcategories) {
+	public Product(long id, String imagePath, String name, String description, double price, int quantity, Category rootCategory, Collection<Subcategory> subcategories, Manager cataloManager) {
 		
 		this.id = id;
 		this.imagePath = imagePath;
@@ -20,6 +21,7 @@ public class Product implements Cloneable {
 		this.quantity = quantity;
 		this.rootCategory = rootCategory;
 		this.subcategories = subcategories;
+		this.catalogManager = cataloManager;
 	}
 	
 	public Category getProductRootCategory() {
@@ -93,6 +95,14 @@ public class Product implements Cloneable {
 		this.quantity = quantity;
 	}
 
+	public Manager getCatalogManager() {
+		return catalogManager;
+	}
+
+	public void setCatalogManager(Manager catalogManager) {
+		this.catalogManager = catalogManager;
+	}
+
 	public String toString() {
 		return getClass().getName()+"[id="+id+",imagePath="+imagePath+
 				",name="+name+",price="+price+",quantity="+quantity+",rootCategory"+
@@ -119,6 +129,7 @@ public class Product implements Cloneable {
 			Product cloned = (Product)super.clone();
 			
 			cloned.rootCategory = rootCategory.clone();
+			cloned.catalogManager = catalogManager.clone();
 			
 			Collection<Subcategory> subcategoriesCloned = new LinkedList<>();
 			
@@ -142,4 +153,5 @@ public class Product implements Cloneable {
 	
 	private Category rootCategory;
 	private Collection<Subcategory> subcategories;
+	private Manager catalogManager;
 }

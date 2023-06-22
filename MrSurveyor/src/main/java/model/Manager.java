@@ -52,6 +52,10 @@ public class Manager extends User {
 		return username.equals(other.username) && password.equals(other.password) &&
 				role.equals(other.role);
 	}
+	
+	public Manager clone() {
+		return (Manager)super.clone();
+	}
 
 	private String username, password;
 	private Role role;

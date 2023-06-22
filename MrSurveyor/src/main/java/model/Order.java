@@ -7,12 +7,13 @@ import java.util.LinkedList;
 public class Order implements Cloneable {
 	
 	public Order() {
-		this.card = new CreditCard();
-		this.orderProducts = new LinkedList<>();
-		this.orderManager = new Manager();
+		this.card = new CreditCard(); // carta con la quale è stato pagato l'ordine
+		this.orderProducts = new LinkedList<>(); // prodotti dell'ordine
+		this.orderManager = new Manager(); // Manager che gestisce l'ordine
+		this.endUser = new RegisteredEndUser(); // Utente che effettua l'ordine
 	}
 	
-	public Order(long id, Date orderDate, double totalPrice, Date shipmentDate, String trackingNumber, String courierName, State state, CreditCard card, Collection<Product> orderProducts, Manager orderManager) {
+	public Order(long id, Date orderDate, double totalPrice, Date shipmentDate, String trackingNumber, String courierName, State state, CreditCard card, Collection<Product> orderProducts, Manager orderManager, RegisteredEndUser endUser) {
 		this.id = id;
 		this.orderDate = orderDate;
 		this.totalPrice = totalPrice;
@@ -23,6 +24,7 @@ public class Order implements Cloneable {
 		this.card = card.clone();
 		this.orderProducts = orderProducts;
 		this.orderManager = orderManager;
+		this.endUser = endUser;
 	}
 	
 	public long getId() {
@@ -89,6 +91,34 @@ public class Order implements Cloneable {
 		this.card = card;
 	}
 	
+	public CreditCard getCard() {
+		return card;
+	}
+
+	public void setCard(CreditCard card) {
+		this.card = card;
+	}
+
+	public Manager getOrderManager() {
+		return orderManager;
+	}
+
+	public void setOrderManager(Manager orderManager) {
+		this.orderManager = orderManager;
+	}
+
+	public RegisteredEndUser getEndUser() {
+		return endUser;
+	}
+
+	public void setEndUser(RegisteredEndUser endUser) {
+		this.endUser = endUser;
+	}
+	
+	public Collection<Product> getOrderProducts() {
+		return orderProducts;
+	}
+
 	public void addOrderProduct(Product orderProduct) {
 		if(orderProducts.contains(orderProduct)) {
 			int tmp = orderProduct.getQuantity();
@@ -113,10 +143,6 @@ public class Order implements Cloneable {
 	
 	public void removeAllOrderProducts() {
 		orderProducts.removeAll(orderProducts);
-	}
-	
-	public Collection<Product> getOrderProducts() {
-		return orderProducts;
 	}
 	
 	public String toString() {
@@ -152,6 +178,8 @@ public class Order implements Cloneable {
 			Order cloned = (Order)super.clone();
 			
 			cloned.card = card.clone();
+			cloned.orderManager = orderManager.clone();
+			cloned.endUser = endUser.clone();
 			
 			Collection<Product> orderProductsCloned = new LinkedList<>();
 			for(Product p : orderProducts)
@@ -175,6 +203,7 @@ public class Order implements Cloneable {
 	private CreditCard card;
 	private Collection<Product> orderProducts;
 	private Manager orderManager;
+	private RegisteredEndUser endUser;
 	
 	public enum State {
 		TO_SEND,

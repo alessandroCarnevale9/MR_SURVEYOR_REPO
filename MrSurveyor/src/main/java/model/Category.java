@@ -7,7 +7,6 @@ public class Category implements Cloneable {
 	}
 	
 	public Category(String name, String description) {
-		
 		this.name = name;
 		this.description = description;
 	}

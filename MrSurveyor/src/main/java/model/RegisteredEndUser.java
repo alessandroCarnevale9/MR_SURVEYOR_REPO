@@ -53,6 +53,24 @@ public class RegisteredEndUser extends EndUser {
 		return addresses.equals(other.addresses) && cards.equals(other.cards);
 	}
 	
+	public RegisteredEndUser clone() {
+		RegisteredEndUser cloned = (RegisteredEndUser)super.clone();
+		
+		Collection<Address> clonedAddresses = new LinkedList<>();
+		for(Address a : addresses)
+			clonedAddresses.add(a.clone());
+		
+		cloned.addresses = clonedAddresses;
+		
+		Collection<CreditCard> clonedCards = new LinkedList<>();
+		for(CreditCard c : cards)
+			clonedCards.add(c.clone());
+		
+		cloned.cards = clonedCards;
+		
+		return cloned;
+	}
+	
 	private Collection<Address> addresses;
 	private Collection<CreditCard> cards;
 }
