@@ -1,6 +1,6 @@
 package model;
 
-public class EndUser extends User {
+public class EndUser implements Cloneable {
 	
 	public EndUser() {
 	
@@ -73,7 +73,13 @@ public class EndUser extends User {
 	}
 	
 	public EndUser clone() {
-		return (EndUser)super.clone();
+		try {
+			return (EndUser)super.clone();
+		}
+		catch(CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	private long id;

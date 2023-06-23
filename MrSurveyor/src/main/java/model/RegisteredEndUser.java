@@ -7,28 +7,12 @@ public class RegisteredEndUser extends EndUser {
 	
 	public RegisteredEndUser() {
 		super();
-		addresses = new LinkedList<>();
 		cards = new LinkedList<>();
 	}
 	
-	public RegisteredEndUser(long id, String name, String surname, String email, String password, Collection<Address> addresses, Collection<CreditCard> cards) {
+	public RegisteredEndUser(long id, String name, String surname, String email, String password, Collection<CreditCard> cards) {
 		super(id, name, surname, email, password);
-		this.addresses = addresses;
 		this.cards = cards;
-	}
-	
-	public Collection<Address> getAddresses() {
-		return addresses;
-	}
-	
-	public void addAddress(Address address) {
-		if(!addresses.contains(address))
-			addresses.add(address);
-	}
-	
-	public void removeAddress(Address address) {
-		if(!addresses.isEmpty() && addresses.contains(address))
-				addresses.remove(address);
 	}
 	
 	public Collection<CreditCard> getCreditCards() {
@@ -50,17 +34,13 @@ public class RegisteredEndUser extends EndUser {
 		
 		RegisteredEndUser other = (RegisteredEndUser)otherObject;
 		
-		return addresses.equals(other.addresses) && cards.equals(other.cards);
+		return address.equals(other.address) && cards.equals(other.cards);
 	}
 	
 	public RegisteredEndUser clone() {
 		RegisteredEndUser cloned = (RegisteredEndUser)super.clone();
 		
-		Collection<Address> clonedAddresses = new LinkedList<>();
-		for(Address a : addresses)
-			clonedAddresses.add(a.clone());
-		
-		cloned.addresses = clonedAddresses;
+		cloned.address = address.clone();
 		
 		Collection<CreditCard> clonedCards = new LinkedList<>();
 		for(CreditCard c : cards)
@@ -71,6 +51,6 @@ public class RegisteredEndUser extends EndUser {
 		return cloned;
 	}
 	
-	private Collection<Address> addresses;
+	private Address address;
 	private Collection<CreditCard> cards;
 }

@@ -1,6 +1,6 @@
 package model;
 
-public class Manager extends User {
+public class Manager implements Cloneable {
 	
 	public Manager() {
 		
@@ -54,7 +54,13 @@ public class Manager extends User {
 	}
 	
 	public Manager clone() {
-		return (Manager)super.clone();
+		try {
+			return (Manager)super.clone();
+		}
+		catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	private String username, password;
