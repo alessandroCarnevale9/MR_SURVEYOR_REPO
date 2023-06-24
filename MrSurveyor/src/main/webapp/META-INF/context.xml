@@ -7,5 +7,5 @@
         type="javax.sql.DataSource"
         username="root"
         password="alessandro7"
-        url="jdbc:mysql://localhost:3306/MrSurveyorDB?serverTimezone=Europe/Rome"/>
+        url="jdbc:mysql://localhost:3306/MrSurveyorDB?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;autoReconnect=true&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/> 
 </Context>
