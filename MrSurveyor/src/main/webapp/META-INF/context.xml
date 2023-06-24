@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+    <Resource name="jdbc/MrSurveyorDB"
+        auth="Container"
+        driverClassName="com.mysql.cj.jdbc.Driver"
+        type="javax.sql.DataSource"
+        username="root"
+        password="alessandro7"
+        url="jdbc:mysql://localhost:3306/MrSurveyorDB?serverTimezone=Europe/Rome"/>
+</Context>
