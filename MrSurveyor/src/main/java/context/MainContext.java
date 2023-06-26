@@ -3,6 +3,7 @@ package context;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,9 +17,12 @@ import javax.sql.DataSource;
 @WebListener
 public class MainContext implements ServletContextListener {
 
+	private static Logger logger = Logger.getLogger("MyLog");
+	
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		System.out.println("Startup web application");
+		
+		logger.info("Startup web application");
 	
 		ServletContext servletContext = sce.getServletContext();
 		
@@ -39,8 +43,8 @@ public class MainContext implements ServletContextListener {
 				// Stampo il nome del DBMS al quale mi sto connettendo accedendo ai metadati
 				DatabaseMetaData metaData = (DatabaseMetaData)testConnection.getMetaData();
 				
-				System.out.println("DBMS name: "+metaData.getDatabaseProductName());
-				System.out.println("DBMS version: "+metaData.getDatabaseProductVersion());
+				logger.info("DBMS name: "+metaData.getDatabaseProductName());
+				logger.info("DBMS version: "+metaData.getDatabaseProductVersion());
 				
 				} finally {
 					if(testConnection != null)
@@ -61,6 +65,6 @@ public class MainContext implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		System.out.println("Shutdown web application");
+		logger.info("Shutdown web application");
 	}
 }
