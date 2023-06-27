@@ -20,6 +20,9 @@ public class EndUserDAOImp implements EndUserDAO {
 
 	private static final String SELECT_USER_BY_EMAIL = "SELECT end_user_id " + "FROM " + ENDUSER_TABLE
 			+ " WHERE end_user_email = ?;";
+	
+	private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT end_user_id " + "FROM " + ENDUSER_TABLE
+			+ " WHERE end_user_email = ? AND end_user_password = ?;";
 
 	public EndUserDAOImp(DataSource ds) {
 		EndUserDAOImp.ds = ds;
@@ -85,7 +88,37 @@ public class EndUserDAOImp implements EndUserDAO {
 			}
 		}
 	}
+	
+	@Override
+	public boolean checkEndUser(String userEmail, String userPassword) throws SQLException {
+		
+		if(userEmail == null || userPassword == null || userEmail.trim().equals("") ||
+				userPassword.trim().equals(""))
+			return false;
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL_AND_PASSWORD);
+			preparedStatement.setString(1, userEmail);
+			preparedStatement.setString(2, userPassword);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			return rs.next(); // false if there are no rows in the result set
+		}
+		finally {
+			try {
+				if(preparedStatement != null)
+					preparedStatement.close();
+			}
+			finally {
+				if(connection != null)
+					connection.close();
+			}
+		}
+	}
 
 	private static DataSource ds;
-
 }
