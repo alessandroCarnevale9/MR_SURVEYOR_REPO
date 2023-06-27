@@ -35,6 +35,18 @@
 			
 		</fieldset>
 	</form>
+	
+	<%
+	String errorMessage = (String) request.getAttribute("error");
+
+	if (errorMessage != null && !errorMessage.trim().equals("")) {
+	%>
+	<div id="error_message">
+		<%=errorMessage%>
+	</div>
+	<%
+	}
+	%>
 		
 	<jsp:include page="footer.jsp"></jsp:include>
 

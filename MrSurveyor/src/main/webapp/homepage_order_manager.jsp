@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home Page End User</title>
+<title>Home Page Gestore Ordini</title>
 </head>
 <body>
-
-	<h1>Home page end user</h1>
-
+	<h1>Home page gestore ordini</h1>
 </body>
 </html>
