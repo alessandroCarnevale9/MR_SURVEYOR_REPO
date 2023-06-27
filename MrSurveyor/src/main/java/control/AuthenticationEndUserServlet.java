@@ -14,9 +14,7 @@ import javax.sql.DataSource;
 import dao.EndUserDAO;
 import dao.EndUserDAOImp;
 
-/**
- * Servlet implementation class AuthenticationEndUserServlet
- */
+
 @WebServlet("/AuthenticationEndUserServlet")
 public class AuthenticationEndUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
