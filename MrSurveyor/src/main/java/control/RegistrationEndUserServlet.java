@@ -36,8 +36,8 @@ public class RegistrationEndUserServlet extends HttpServlet {
 		String endUserPassword = request.getParameter("password");
 		String endUserConfirmPassword = request.getParameter("confirm_password");
 
-		if (endUserName == null && endUserSurname == null && endUserEmail == null && endUserPassword == null
-				&& endUserConfirmPassword == null) {
+		if (endUserName == null || endUserSurname == null || endUserEmail == null || endUserPassword == null
+				|| endUserConfirmPassword == null) {
 
 			request.setAttribute("error", "Compila tutti i campi");
 
