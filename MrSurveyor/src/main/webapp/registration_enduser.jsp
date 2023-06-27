@@ -10,7 +10,7 @@
 
 	<jsp:include page="header.jsp"></jsp:include>
 
-	<form action="#" method="post">
+	<form action="${pageContext.request.contextPath}/LoginEndUserServlet" method="post">
 		<fieldset>
 			<legend>Registrati</legend>
 

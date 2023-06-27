@@ -6,7 +6,7 @@ public class Address implements Cloneable {
 		
 	}
 	
-	public Address(String region, String province, String city, String street, int houseNumber, int cap) {
+	public Address(String region, String province, String city, String street, int houseNumber, String cap) {
 		
 		this.region = region;
 		this.province = province;
@@ -56,11 +56,11 @@ public class Address implements Cloneable {
 		this.houseNumber = houseNumber;
 	}
 
-	public int getCap() {
+	public String getCap() {
 		return cap;
 	}
 
-	public void setCap(int cap) {
+	public void setCap(String cap) {
 		this.cap = cap;
 	}
 	
@@ -81,7 +81,7 @@ public class Address implements Cloneable {
 		return region.equals(other.region) && province.equals(other.province) &&
 				city.equals(other.city) && street.equals(other.street) &&
 				Integer.compare(houseNumber, other.houseNumber) == 0 &&
-				Integer.compare(cap, other.cap) == 0;
+				cap.equals(other.cap);
 	}
 
 	public Address clone() {
@@ -94,6 +94,6 @@ public class Address implements Cloneable {
 		}
 	}
 
-	private String region, province, city, street;
-	private int houseNumber, cap;
+	private String region, province, city, street, cap;
+	private int houseNumber;
 }

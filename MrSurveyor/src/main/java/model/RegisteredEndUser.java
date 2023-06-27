@@ -5,6 +5,14 @@ import java.util.LinkedList;
 
 public class RegisteredEndUser extends EndUser {
 	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	public RegisteredEndUser() {
 		super();
 		cards = new LinkedList<>();
