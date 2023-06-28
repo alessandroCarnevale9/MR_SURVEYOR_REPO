@@ -12,7 +12,7 @@ import model.Manager.Role;
 
 public class ManagerDAOImp implements ManagerDAO {
 
-	private static final String MANAGER_TABLE = "";
+	private static final String MANAGER_TABLE = "manager";
 	
 	private static final String SELECT_MANAGER = "SELECT manager_username"
 			+ " FROM "+MANAGER_TABLE+
@@ -31,13 +31,20 @@ public class ManagerDAOImp implements ManagerDAO {
 		String managerUsername = manager.getUsername();
 		String managerPassword = manager.getPassword();
 		Manager.Role managerRole = manager.getRole();
-		
 		if(managerUsername == null || managerPassword == null || managerRole == null ||
 				managerUsername.trim().equals("") || managerPassword.trim().equals(""))
 			return false;
 		
+		String managerRoleStr = null;
+		
 		if(managerRole != Role.CATALOG_MANAGER && managerRole != Role.ORDER_MANAGER)
 			return false;
+		
+		else if(managerRole.equals(Role.CATALOG_MANAGER))
+			managerRoleStr = "catalog_manager";
+		
+		else
+			managerRoleStr = "order_manager";
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -48,9 +55,7 @@ public class ManagerDAOImp implements ManagerDAO {
 			preparedStatement = connection.prepareStatement(SELECT_MANAGER);
 			preparedStatement.setString(1, managerUsername);
 			preparedStatement.setString(2, managerPassword);
-			preparedStatement.setString(3, managerRole.toString());
-			
-			System.err.println(managerRole.toString());
+			preparedStatement.setString(3, managerRoleStr);
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			return rs.next(); // false if there are no rows in the result set

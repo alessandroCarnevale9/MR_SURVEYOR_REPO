@@ -33,6 +33,7 @@ public class AuthenticationManagerServlet extends HttpServlet {
 		String managerPassword = (String)request.getParameter("password");
 		String managerRole = (String)request.getParameter("role");
 		
+		
 		if(managerUsername == null || managerPassword == null || managerRole == null) {
 			response.sendRedirect(getServletContext().getContextPath()+"/authentication_manager.jsp");
 			return;
@@ -43,12 +44,15 @@ public class AuthenticationManagerServlet extends HttpServlet {
 			
 			Manager manager = new Manager();
 			
+			manager.setUsername(managerUsername);
+			manager.setPassword(managerPassword);
+			
 			if(managerRole.equalsIgnoreCase("catalog_manager")) {
 				manager.setRole(Role.CATALOG_MANAGER);
 				homepage = "/homepage_catalog_manager.jsp";
 			}
 			
-			if(managerRole.equalsIgnoreCase("order_manager")) {
+			else if(managerRole.equalsIgnoreCase("order_manager")) {
 				manager.setRole(Role.ORDER_MANAGER);
 				homepage = "/homepage_order_manager.jsp";
 			}
@@ -79,5 +83,4 @@ public class AuthenticationManagerServlet extends HttpServlet {
 			}
 		}
 	}
-
 }
