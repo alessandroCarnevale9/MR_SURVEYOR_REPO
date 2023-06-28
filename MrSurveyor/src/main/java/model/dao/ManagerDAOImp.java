@@ -1,4 +1,4 @@
-package dao;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import model.Manager;
-import model.Manager.Role;
+import model.bean.Manager;
+import model.bean.Manager.Role;
 
 public class ManagerDAOImp implements ManagerDAO {
 

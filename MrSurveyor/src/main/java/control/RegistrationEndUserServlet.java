@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import dao.EndUserDAO;
-import dao.EndUserDAOImp;
-import model.Address;
-import model.RegisteredEndUser;
+import model.bean.Address;
+import model.bean.RegisteredEndUser;
+import model.dao.EndUserDAO;
+import model.dao.EndUserDAOImp;
 
 @WebServlet("/RegistrationEndUserServlet")
 public class RegistrationEndUserServlet extends HttpServlet {

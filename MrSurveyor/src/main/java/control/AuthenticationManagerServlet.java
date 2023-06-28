@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import dao.ManagerDAO;
-import dao.ManagerDAOImp;
-import model.Manager;
-import model.Manager.Role;
+import model.bean.Manager;
+import model.bean.Manager.Role;
+import model.dao.ManagerDAO;
+import model.dao.ManagerDAOImp;
 
 @WebServlet("/AuthenticationManagerServlet")
 public class AuthenticationManagerServlet extends HttpServlet {

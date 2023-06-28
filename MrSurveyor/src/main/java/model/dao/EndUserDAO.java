@@ -1,8 +1,8 @@
-package dao;
+package model.dao;
 
 import java.sql.SQLException;
 
-import model.RegisteredEndUser;
+import model.bean.RegisteredEndUser;
 
 public interface EndUserDAO {
 	

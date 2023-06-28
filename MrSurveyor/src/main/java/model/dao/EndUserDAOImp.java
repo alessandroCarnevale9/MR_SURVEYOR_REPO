@@ -1,4 +1,4 @@
-package dao;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import model.RegisteredEndUser;
+import model.bean.RegisteredEndUser;
 
 public class EndUserDAOImp implements EndUserDAO {
 

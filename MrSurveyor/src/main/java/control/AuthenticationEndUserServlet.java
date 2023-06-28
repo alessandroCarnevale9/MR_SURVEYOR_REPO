@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import dao.EndUserDAO;
-import dao.EndUserDAOImp;
+import model.dao.EndUserDAO;
+import model.dao.EndUserDAOImp;
 
 
 @WebServlet("/AuthenticationEndUserServlet")
