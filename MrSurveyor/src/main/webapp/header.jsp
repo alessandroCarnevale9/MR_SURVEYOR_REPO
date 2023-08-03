@@ -8,7 +8,7 @@
 </head>
 <body>
 	<header>
-		<img alt="Web site logo" src="logo.png">
+		<img alt="Web site logo" src="images/logo.png">
 	</header>
 </body>
 </html>

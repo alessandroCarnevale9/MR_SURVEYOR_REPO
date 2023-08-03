@@ -8,6 +8,7 @@
 </head>
 <body>
 	<footer>
+		<img alt="Web site logo" src="images/logo2.png">
 		<p>Copyright &copy; 2023 - Nome del tuo sito web</p>
 		<nav>
 			<ul>
