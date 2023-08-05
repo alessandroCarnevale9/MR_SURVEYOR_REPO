@@ -4,17 +4,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="#">
+<link rel="stylesheet" type="text/css" href="styles/footer_style.css">
 </head>
 <body>
 	<footer>
-		<img alt="Web site logo" src="images/logo2.png">
-		<p>Copyright &copy; 2023 - Nome del tuo sito web</p>
-		<nav>
+	<div id="logo">
+		<a href="#"><img alt="Web site logo" src="images/logo2.png"></a>
+	</div>
+	<div>
+		<p>&copy; 2023 - MrSurveyor.it &#124; All rights reserved</p>
+	</div>
+		<nav class="links">
+		<span>Seguici</span>
 			<ul>
-				<li><a href="#">Termini di servizio</a></li>
-				<li><a href="#">Privacy</a></li>
-				<li><a href="#">Contattaci</a></li>
+				<li class="social"><a href="#"><img alt="linkedin" src="images/linkedin.png"></a></li>
+				<li class="social"><a href="#"><img alt="facebook" src="images/facebook.png"></a></li>
+				<li>
+					<div id="contacts">
+						<img alt="contacts_img" src="images/headphone.png">
+						<div>
+							Contattaci subito:<br>Tel. 023.994562<br>info&#64;mrsurveyor.it
+						</div>
+					</div>
+				</li>
 			</ul>
 		</nav>
 	</footer>
