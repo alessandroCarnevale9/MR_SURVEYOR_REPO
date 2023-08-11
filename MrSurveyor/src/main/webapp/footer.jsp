@@ -11,7 +11,7 @@
 	<div id="logo">
 		<a href="#"><img alt="Web site logo" src="images/logo2.png"></a>
 	</div>
-	<div>
+	<div id="middle-text">
 		<p>&copy; 2023 - MrSurveyor.it &#124; All rights reserved</p>
 	</div>
 		<nav class="links">

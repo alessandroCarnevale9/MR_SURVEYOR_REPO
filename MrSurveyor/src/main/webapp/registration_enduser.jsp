@@ -5,12 +5,34 @@
 <head>
 <meta charset="UTF-8">
 <title>Registrazione</title>
+<link rel="stylesheet" href="styles/form_style.css">
 </head>
 <body>
 
 	<jsp:include page="header.jsp"></jsp:include>
+	
+	<div class="main-box">
+		<div class="child-box">
+			<h1 id="header">Registrati</h1>
+			<form class="auth-form" action="${pageContext.request.contextPath}/RegistrationEndUserServlet" method="POST">
+				<input type="text" name="name" placeholder="Nome" required>
+				<input type="text" name="surname" placeholder="Cognome" required>
+				<input type="email" name="email" placeholder="Email" required>
+				<input type="password" name="password" placeholder="Password" required>
+				<input type="password" name="confirm-password" placeholder="Conferma Password" required>
 
-	<form action="${pageContext.request.contextPath}/RegistrationEndUserServlet"
+				<div class="submit">
+					<input type="submit" value="Sign Up">
+				</div>
+
+				<div class="help-info">
+					<div>Hai gi&#xE0; un account&#x3F; <a href="#">Accedi</a></div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- <form action="${pageContext.request.contextPath}/RegistrationEndUserServlet"
 		method="post">
 		<fieldset>
 			<legend>Registrati</legend>
@@ -33,8 +55,7 @@
 			</div>
 
 		</fieldset>
-	</form>
-
+	</form>  -->
 	<%
 	String errorMessage = (String) request.getAttribute("error");
 

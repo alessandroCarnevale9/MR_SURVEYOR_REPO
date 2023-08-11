@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+@import "fonts/inter_font.css";
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', sans-serif;
+}
+
 footer {
 	display: flex;
 	justify-content: space-between;
@@ -7,7 +15,8 @@ footer {
 	background-color: #433a3f;
 	color: #eff1ed;
 	font-size: 12px;
-	padding: 0 10px 0 10px;
+	padding: 0;
+	width: 100%;
 }
 
 #logo img {
@@ -42,16 +51,17 @@ footer {
 	height: 40px;
 }
 
+#middle-text {
+	margin: 0 auto;
+}
+
 #contacts {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin: 0 5px 0 0;
+	margin-right: 10px;
 }
 
 #contacts img {
 	margin: 0 10px 0 30px;
 }
-
-
-

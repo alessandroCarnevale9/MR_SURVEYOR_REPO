@@ -1,53 +1,60 @@
 @charset "UTF-8";
 
+@import "fonts/inter_font.css";
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', sans-serif;
 }
 
 header {
-    background-color: #f3a712;
-    color: #fff;
-    padding: 10px;
+	background-color: #f3a712;
+	color: #fff;
+	padding: 10px 0;
+	width: 100%;
 }
 
 .navbar-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .logo img {
-    height: 50px;
+	height: 50px;
 }
 
 .nav-links {
-    list-style: none;
-    display: flex;
+	margin: 0 auto;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	justify-content: center;
 }
 
 .nav-links li {
-    margin-right: 20px;
+	padding: 0 40px;
 }
 
 .nav-links a {
-    text-decoration: none;
-    color: #433a3f;
+	text-decoration: none;
+	color: #433a3f;
 }
 
 .nav-right {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
+	margin-right: 10px;
 }
 
 .search-bar {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 5px;
-    margin-right: 10px;
+	display: flex;
+	align-items: center;
+	background-color: #fff;
+	border-radius: 20px;
+	padding: 5px;
+	margin-right: 10px;
 }
 
 .search-bar form {
@@ -56,47 +63,47 @@ header {
 }
 
 .input-container {
-    position: relative;
-    display: flex;
-    align-items: center;
+	position: relative;
+	display: flex;
+	align-items: center;
 }
 
 .input-container button {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .search-bar img {
 	vertical-align: middle;
-    margin-right: 5px;
-    height: 30px;
+	margin-right: 5px;
+	height: 30px;
 }
 
 .search-bar input {
-    border: none;
-    padding: 5px;
-    width: 200px;
-    background-color: transparent;
-    margin: 0;
-    font-size: 15px;
-    line-height: 15px;
+	border: none;
+	padding: 5px;
+	width: 200px;
+	background-color: transparent;
+	margin: 0;
+	font-size: 15px;
+	line-height: 15px;
 }
 
 .search-bar input:focus {
-    outline: none;
+	outline: none;
 }
 
 .search-bar button {
-    background-color: transparent;
-    border: none;
-    color: #433a3f;
-    cursor: pointer;
+	background-color: transparent;
+	border: none;
+	color: #433a3f;
+	cursor: pointer;
 }
 
 .cart-icon img, .user-icon img {
-    width: 30px;
-    margin-left: 20px;
-    cursor: pointer;
+	width: 30px;
+	margin-left: 20px;
+	cursor: pointer;
 }

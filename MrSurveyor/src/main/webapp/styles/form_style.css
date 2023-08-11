@@ -1,0 +1,141 @@
+@charset "ISO-8859-1";
+
+@import "fonts/inter_font.css";
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Inter', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.main-box {
+	background-color: #eff1ed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100%;
+}
+
+.child-box {
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	padding: 0 30px;
+	width: 300px;
+	border-radius: 15px;
+	border: 1px solid black;
+}
+
+#header {
+	font-size: 40px;
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+input {
+	background-color: #eff1ed;
+	display: block;
+	width: 90%;
+	border: 2px solid transparent;
+	border-radius: 15px;
+	padding: 8px 12px;
+	margin-bottom: 50px;
+	transition: border-color 0.5s;
+}
+
+input::placeholder {
+	color: #a19a9a;
+}
+
+input:hover {
+	border-color: #5f96f4;
+}
+
+input:focus {
+	outline-color: #5f96f4;
+}
+
+input[type="submit"] {
+	width: auto;
+	margin: 0;
+	padding: 10px 20px;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	transition: background-color 0.5s, color 0.5s, box-shadow 0.3s;
+}
+
+input[type="submit"]:hover {
+	box-shadow: 4px 3px 6px rgba(0, 0, 0, 0.3);
+	background-color: #f3a712;
+	color: black;
+}
+
+.submit {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.radio-btns {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+.radio-btns input {
+	margin: 0;
+}
+
+.radio-btns input[type="radio"] {
+	width: 14px;
+}
+
+.radio-btns label {
+	color: black;
+	font-size: 14px;
+	margin: 0 20px;
+}
+
+.r-btn {
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: space-between;
+	align-items: center;
+	height: 40px;
+}
+
+.help-info {
+	font-size: 14px;
+	margin: 30px 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.help-info a {
+	text-decoration: none;
+	color: #5f96f4;
+	transition: color 0.5s;
+}
+
+.help-info a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
+.help-info a:visited {
+	color: #5f96f4;
+}

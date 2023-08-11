@@ -45,8 +45,7 @@ public class RegistrationEndUserServlet extends HttpServlet {
 			return;
 		}
 
-		else if (endUserPassword != null && endUserConfirmPassword != null
-				&& !endUserPassword.equals(endUserConfirmPassword)) {
+		else if (!endUserPassword.equals(endUserConfirmPassword)) {
 
 			request.setAttribute("error", "Password e Conferma password contengono dati differenti");
 

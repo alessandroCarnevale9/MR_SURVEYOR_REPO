@@ -5,12 +5,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Autenticazione</title>
+<link rel="stylesheet" href="styles/form_style.css">
 </head>
 <body>
 
 	<jsp:include page="header.jsp"></jsp:include>
+	
+	<div class="main-box">
+		<div class="child-box">
+			<h1 id="header">Accedi</h1>
+			<form class="auth-form" action="${pageContext.request.contextPath}/AuthenticationEndUserServlet" method="POST">
+				<input type="email" name="email" placeholder="Email" required>
+				<input type="password" name="password" placeholder="Password" required>
+				
+				<div class="submit">
+            <input type="submit" value="Log In">
+          </div>
 
-	<form action="${pageContext.request.contextPath}/AuthenticationEndUserServlet" method="post">
+          <div class="help-info">
+            <a href="#">Password dimenticata&#x3F;</a><br>
+            <div>Non hai un account&#x3F; <a href="#">Registrati</a></div>
+          </div>
+          
+			</form>
+		</div>
+	</div>
+	
+	<!-- <form action="${pageContext.request.contextPath}/AuthenticationEndUserServlet" method="post">
 		<fieldset>
 			<legend>Accedi</legend>
 
@@ -27,7 +48,7 @@
 				Non hai un account?<a href="#">Registrati</a>
 			</div>
 		</fieldset>
-	</form>
+	</form> -->
 
 	<%
 	String errorMessage = (String) request.getAttribute("error");
