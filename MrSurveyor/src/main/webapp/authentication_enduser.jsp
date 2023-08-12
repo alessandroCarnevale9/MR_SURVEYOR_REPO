@@ -31,8 +31,6 @@
 		</div>
 	</div>
 	
-	<p>PROVA</p>
-	
 	<!-- <form action="${pageContext.request.contextPath}/AuthenticationEndUserServlet" method="post">
 		<fieldset>
 			<legend>Accedi</legend>
