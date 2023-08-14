@@ -1,6 +1,7 @@
 @charset "ISO-8859-1";
 
 @import "fonts/inter_font.css";
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0");
 
 body {
 	display: flex;
@@ -61,7 +62,15 @@ input:focus {
 	outline-color: #5f96f4;
 }
 
-input[type="submit"] {
+.submit {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.submit input[type="submit"] {
 	width: auto;
 	margin: 0;
 	padding: 10px 20px;
@@ -74,17 +83,56 @@ input[type="submit"] {
 	transition: background-color 0.5s, color 0.5s, box-shadow 0.3s;
 }
 
-input[type="submit"]:hover {
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes changeColor {
+	0% {
+		border-top-color: blue;
+	}
+
+	100% {
+		border-top-color: red;
+	}
+}
+
+.submit::after {
+	position: absolute;
+	content: "";
+	width: 25px;
+	height: 25px;
+	border: 4px solid transparent;
+	border-top-color: blue;
+	border-radius: 50%;
+	animation: spin 2s linear infinite, changeColor 4s linear infinite
+		alternate;
+	visibility: hidden;
+}
+
+.submit.loading {
+	width: 300px;
+	height: 35px;
+}
+
+.submit.loading input[type="submit"] {
+	visibility: hidden;
+}
+
+.submit.loading::after {
+	visibility: visible;
+}
+
+.submit input[type="submit"]:hover {
 	box-shadow: 4px 3px 6px rgba(0, 0, 0, 0.3);
 	background-color: #f3a712;
 	color: black;
-}
-
-.submit {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 }
 
 .radio-btns {
@@ -138,4 +186,46 @@ input[type="submit"]:hover {
 
 .help-info a:visited {
 	color: #5f96f4;
+}
+
+.form-control {
+	position: relative;
+}
+
+.form-control span {
+	visibility: hidden;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+}
+
+.form-control small {
+	visibility: hidden;
+	font-size: 12px;
+	position: absolute;
+	top: 40px;
+	left: 12px;
+}
+
+.form-control.success input {
+	border-color: #2ecc71;
+}
+
+.form-control.success span.check-icon {
+	visibility: visible;
+	color: #2ecc71;
+}
+
+.form-control.error input {
+	border-color: #e74c3c;
+}
+
+.form-control.error span.error-icon {
+	visibility: visible;
+	color: #e74c3c;
+}
+
+.form-control.error small {
+	visibility: visible;
+	color: #e74c3c;
 }

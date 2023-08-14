@@ -15,7 +15,7 @@
 	
 		<div class="child-box">
 			<h1 id="header">Accedi</h1>
-			<form class="auth-form" action="${pageContext.request.contextPath}/AuthenticationManagerServlet" method="POST">
+			<form onsubmit="submitForm();" id="registration-form" action="${pageContext.request.contextPath}/AuthenticationManagerServlet" method="POST">
 			
 			<input type="text" name="username" placeholder="Username" required>
 			<input type="password" name="password" placeholder="Password" required>
@@ -33,7 +33,7 @@
           </div>
           
           <div class="submit">
-            <input type="submit" value="Log In">
+            <input id="submit-btn" type="submit" value="Log In">
           </div>
 
           <div class="help-info">
@@ -84,6 +84,8 @@
 	%>
 		
 	<jsp:include page="footer.jsp"></jsp:include>
+	
+	<script type="text/javascript" src="js/utils.js"></script>
 
 </body>
 </html>

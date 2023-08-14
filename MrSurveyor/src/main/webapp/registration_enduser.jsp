@@ -14,15 +14,45 @@
 	<div class="main-box">
 		<div class="child-box">
 			<h1 id="header">Registrati</h1>
-			<form class="auth-form" action="${pageContext.request.contextPath}/RegistrationEndUserServlet" method="POST">
-				<input type="text" name="name" placeholder="Nome" required>
-				<input type="text" name="surname" placeholder="Cognome" required>
-				<input type="email" name="email" placeholder="Email" required>
-				<input type="password" name="password" placeholder="Password" required>
-				<input type="password" name="confirm-password" placeholder="Conferma Password" required>
+			<form id="registration-form" action="${pageContext.request.contextPath}/RegistrationEndUserServlet" method="POST">
+
+				<div class="form-control">
+					<input id="name" type="text" name="name" placeholder="Nome">
+					<span class="material-symbols-outlined check-icon">check_circle</span>
+					<span class="material-symbols-outlined error-icon">error</span>
+					<small>Error message</small>
+				</div>
+
+				<div class="form-control">
+					<input id="surname" type="text" name="surname" placeholder="Cognome">
+					<span class="material-symbols-outlined check-icon">check_circle</span>
+					<span class="material-symbols-outlined error-icon">error</span>
+					<small>Error message</small>
+				</div>
+
+				<div class="form-control">
+					<input id="email" type="text" name="email" placeholder="Email">
+					<span class="material-symbols-outlined check-icon">check_circle</span>
+					<span class="material-symbols-outlined error-icon">error</span>
+					<small>Error message</small>
+				</div>
+
+				<div class="form-control">
+					<input id="password" type="password" name="password" placeholder="Password">
+					<span class="material-symbols-outlined check-icon">check_circle</span>
+					<span class="material-symbols-outlined error-icon">error</span>
+					<small>Error message</small>
+				</div>
+
+				<div class="form-control">
+					<input id="confirm-password" type="password" name="confirm-password" placeholder="Conferma Password">
+					<span class="material-symbols-outlined check-icon">check_circle</span>
+					<span class="material-symbols-outlined error-icon">error</span>
+					<small>Error message</small>
+				</div>
 
 				<div class="submit">
-					<input type="submit" value="Sign Up">
+					<input id="submit-btn" type="submit" value="Sign Up">
 				</div>
 
 				<div class="help-info">
@@ -69,6 +99,8 @@
 	%>
 
 	<jsp:include page="footer.jsp"></jsp:include>
-
+	
+	<script type="text/javascript" src="js/validation_form.js"></script>
+	
 </body>
 </html>

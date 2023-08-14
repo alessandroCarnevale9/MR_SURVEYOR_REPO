@@ -14,19 +14,19 @@
 	<div class="main-box">
 		<div class="child-box">
 			<h1 id="header">Accedi</h1>
-			<form class="auth-form" action="${pageContext.request.contextPath}/AuthenticationEndUserServlet" method="POST">
+			<form id="registration-form" action="${pageContext.request.contextPath}/AuthenticationEndUserServlet" method="POST">
 				<input type="email" name="email" placeholder="Email" required>
 				<input type="password" name="password" placeholder="Password" required>
-				
-				<div class="submit">
-            <input type="submit" value="Log In">
-          </div>
 
-          <div class="help-info">
-            <a href="#">Password dimenticata&#x3F;</a><br>
-            <div>Non hai un account&#x3F; <a href="#">Registrati</a></div>
-          </div>
-          
+				<div class="submit">
+					<input id="submit-btn" type="submit" value="Log In">
+				</div>
+
+				<div class="help-info">
+					<a href="#">Password dimenticata&#x3F;</a><br>
+					<div>Non hai un account&#x3F; <a href="#">Registrati</a></div>
+				</div>
+
 			</form>
 		</div>
 	</div>
@@ -63,6 +63,8 @@
 	%>
 
 	<jsp:include page="footer.jsp"></jsp:include>
+	
+	<script type="text/javascript" src="js/utils.js"></script>
 
 </body>
 </html>

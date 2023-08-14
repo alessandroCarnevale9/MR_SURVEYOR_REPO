@@ -68,7 +68,7 @@ public class RegistrationEndUserServlet extends HttpServlet {
 					return;
 
 				} else {
-					request.setAttribute("error", "Questo indirizzo email è già associato a un account esistente");
+					request.setAttribute("error", "Questo indirizzo email "+ "\u00E8 "+"gi"+"\u00E0 "+"associato a un account esistente");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
