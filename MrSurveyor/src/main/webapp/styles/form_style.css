@@ -187,6 +187,7 @@ input:focus {
 	text-decoration: none;
 	color: #5f96f4;
 	transition: color 0.5s;
+	padding-bottom: 10px;
 }
 
 .help-info a:hover {

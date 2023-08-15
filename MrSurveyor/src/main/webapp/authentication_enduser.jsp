@@ -23,7 +23,7 @@
 				</div>
 
 				<div class="help-info">
-					<a href="#">Password dimenticata&#x3F;</a><br>
+					<a href="#">Password dimenticata&#x3F;</a>
 					<div>Non hai un account&#x3F; <a href="${pageContext.request.contextPath}/registration_enduser.jsp">Registrati</a></div>
 				</div>
 
