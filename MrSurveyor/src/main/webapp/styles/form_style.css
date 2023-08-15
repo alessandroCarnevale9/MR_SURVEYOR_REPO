@@ -1,7 +1,7 @@
 @charset "ISO-8859-1";
 
 @import "fonts/inter_font.css";
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0");
+@import "icons/material_outlined.css";
 
 body {
 	display: flex;

@@ -101,7 +101,7 @@ DROP TABLE IF EXISTS user_order;
 CREATE TABLE user_order (
     order_id INT NOT NULL AUTO_INCREMENT,
     order_date DATE NOT NULL,
-    shipment_date DATE NOT NULL,
+    shipment_date DATE,
     total_price DOUBLE(7,2) NOT NULL,
     courier_name VARCHAR(255),
     tracking_number CHAR(25),

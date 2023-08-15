@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import model.bean.Cart;
 import model.dao.EndUserDAO;
 import model.dao.EndUserDAOImp;
 
@@ -35,7 +36,6 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 				|| userPassword.trim().equals("")) {
 			
 			response.sendRedirect(getServletContext().getContextPath()+"/authentication_enduser.jsp");
-			return;
 		}
 		else {
 			
@@ -60,8 +60,7 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 					 */
 					currentSession.setAttribute("userEmail", userEmail);
 					currentSession.setAttribute("userPassword", userPassword);
-					
-					// *** devo prendermi il suo carrello e metterlo nella sessione ***
+					currentSession.setAttribute("userCart", new Cart());
 					
 					currentSession.setMaxInactiveInterval(5*60); // 5 minuti di inattività massima, dopo cancella la sessione
 				
