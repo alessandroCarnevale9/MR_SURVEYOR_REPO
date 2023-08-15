@@ -24,6 +24,7 @@ body {
 }
 
 .child-box {
+	position: relative;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
@@ -31,6 +32,15 @@ body {
 	width: 300px;
 	border-radius: 15px;
 	border: 1px solid black;
+}
+
+#error-message {
+	position: absolute;
+	font-size: 14px;
+	font-weight: bold;
+	color: #e74c3c;
+	top: -40px;
+	left: 0;
 }
 
 #header {

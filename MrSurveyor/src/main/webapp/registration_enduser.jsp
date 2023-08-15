@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,39 +14,98 @@
 	
 	<div class="main-box">
 		<div class="child-box">
+		
+		<%
+		if(request.getAttribute("error") != null) {
+		%>
+			<small id="error-message">${error}</small>
+		<%
+		}
+		%>
+			
 			<h1 id="header">Registrati</h1>
 			<form id="registration-form" action="${pageContext.request.contextPath}/RegistrationEndUserServlet" method="POST">
-
-				<div class="form-control">
-					<input id="name" type="text" name="name" placeholder="Nome">
+			
+				<div class="form-control">					
+					<%
+					if(request.getAttribute("prevName") != null) {
+					%>
+						<input id="name" type="text" name="name" placeholder="Nome" value="${prevName}">
+					<%
+					} else {
+					%>
+						<input id="name" type="text" name="name" placeholder="Nome">
+					<%
+					}
+					%>
 					<span class="material-symbols-outlined check-icon">check_circle</span>
 					<span class="material-symbols-outlined error-icon">error</span>
 					<small>Error message</small>
 				</div>
 
 				<div class="form-control">
-					<input id="surname" type="text" name="surname" placeholder="Cognome">
+					<%
+					if(request.getAttribute("prevSurname") != null) {
+					%>
+					<input id="surname" type="text" name="surname" placeholder="Cognome" value="${prevSurname}">
+					<%
+					} else {
+					%>
+						<input id="surname" type="text" name="surname" placeholder="Cognome">
+					<%
+					}
+					%>
 					<span class="material-symbols-outlined check-icon">check_circle</span>
 					<span class="material-symbols-outlined error-icon">error</span>
 					<small>Error message</small>
 				</div>
 
 				<div class="form-control">
-					<input id="email" type="text" name="email" placeholder="Email">
+					<%
+					if(request.getAttribute("prevEmail") != null) {
+					%>
+						<input id="email" type="text" name="email" placeholder="Email" value="${prevEmail}">
+					<%
+					} else {
+					%>
+						<input id="email" type="text" name="email" placeholder="Email">
+					<%
+					}
+					%>
 					<span class="material-symbols-outlined check-icon">check_circle</span>
 					<span class="material-symbols-outlined error-icon">error</span>
 					<small>Error message</small>
 				</div>
 
 				<div class="form-control">
+					<%
+					if(request.getAttribute("prevPasswd") != null) {
+					%>
+						<input id="password" type="password" name="password" placeholder="Password" value="${prevPasswd}">
+					<%
+					} else {
+					%>
 					<input id="password" type="password" name="password" placeholder="Password">
+					<%
+					}
+					%>
 					<span class="material-symbols-outlined check-icon">check_circle</span>
 					<span class="material-symbols-outlined error-icon">error</span>
 					<small>Error message</small>
 				</div>
 
 				<div class="form-control">
-					<input id="confirm-password" type="password" name="confirm-password" placeholder="Conferma Password">
+					<%
+					if(request.getAttribute("prevConfirmPasswd") != null) {
+					%>
+						<input id="confirm-password" type="password" name="confirm_password" placeholder="Conferma Password" value="${prevConfirmPasswd}">
+					<%
+					} else {
+					%>
+						<input id="confirm-password" type="password" name="confirm_password" placeholder="Conferma Password">
+					<%
+					}
+					%>
 					<span class="material-symbols-outlined check-icon">check_circle</span>
 					<span class="material-symbols-outlined error-icon">error</span>
 					<small>Error message</small>
@@ -56,47 +116,11 @@
 				</div>
 
 				<div class="help-info">
-					<div>Hai gi&#xE0; un account&#x3F; <a href="#">Accedi</a></div>
+					<div>Hai gi&#xE0; un account&#x3F; <a href="${pageContext.request.contextPath}/authentication_enduser.jsp">Accedi</a></div>
 				</div>
 			</form>
 		</div>
 	</div>
-
-	<!-- <form action="${pageContext.request.contextPath}/RegistrationEndUserServlet"
-		method="post">
-		<fieldset>
-			<legend>Registrati</legend>
-
-			<label for="name">Nome:</label> <input type="text" id="name"
-				name="name" required><br>
-			<br> <label for="surname">Cognome:</label> <input type="text"
-				id="surname" name="surname" required><br> <br> <label
-				for="email">Email:</label> <input type="email" id="email"
-				name="email" required><br>
-			<br> <label for="password">Password:</label> <input
-				type="password" id="password" name="password" required><br>
-			<br> <label for="confirm_password">Conferma Password:</label> <input
-				type="password" id="confirm_password" name="confirm_password"
-				required><br>
-			<br> <input type="submit" value="Sign Up">
-
-			<div>
-				Hai già un account? <a href="#">Accedi</a>
-			</div>
-
-		</fieldset>
-	</form>  -->
-	<%
-	String errorMessage = (String) request.getAttribute("error");
-
-	if (errorMessage != null && !errorMessage.trim().equals("")) {
-	%>
-		<div id="error_message">
-			<%=errorMessage%>
-		</div>
-	<%
-	}
-	%>
 
 	<jsp:include page="footer.jsp"></jsp:include>
 	

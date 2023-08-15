@@ -9,15 +9,19 @@ const confirmPassword = document.getElementById("confirm-password");
 
 form.addEventListener("submit", (e) => {
 
-  e.preventDefault();
+	e.preventDefault();
 
-  if(checkInputs()) {
-    button.disabled = true;
-    button.textContent = "";
-    button.parentElement.className = "submit loading";
+	const currentText = button.textContent;
 
-    setTimeout(function() {
+	if(checkInputs()) {
+		button.disabled = true;
+		button.textContent = "";
+		button.parentElement.className = "submit loading";
+
+	setTimeout(function() {
 		button.disabled = false;
+		button.textContent = currentText;
+		button.parentElement.className = "submit";
 		form.submit();
     }, 2000);
   }
@@ -35,7 +39,7 @@ function checkInputs() {
       result = false;
     }
     else if(!isValid(nameValue)) {
-      setErrorFor(name, "Sono consetite solo lettere maiuscole, minuscole e spazi");
+      setErrorFor(name, "Sono consetite solo lettere, spazi, apostrofi e trattini");
       result = false;
     }
     else {
@@ -52,7 +56,7 @@ function checkInputs() {
       result = false;
     }
     else if(!isValid(surnameValue)) {
-      setErrorFor(surname, "Sono consetite solo lettere maiuscole, minuscole e spazi");
+      setErrorFor(surname, "Sono consetite solo lettere, spazi, apostrofi e trattini");
       result = false;
     }
     else {
@@ -116,7 +120,7 @@ function checkInputs() {
 }
 
 function isValid(name) {
-  return /^[a-zA-Z ]+$/; // Solo maiuscole, minuscole e spazi
+  return /^[A-Za-z\u00C0-\u024F\s'-]+$/.test(name);
 }
 
 function isEmail(email) {
@@ -125,7 +129,7 @@ function isEmail(email) {
 
 function isSecure(password) {
   // La password deve contenere almeno 8 caratteri e deve includere almeno un numero e un carattere speciale.
-  return /^(?=.*\d)(?=.*[\W_]).{8,}$/.test(password);
+  return /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!_\-.,:;?< >\/()|*^?]).{8,}$/.test(password);
 }
 
 function setErrorFor(input, message) {

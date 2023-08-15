@@ -15,7 +15,7 @@
 	
 		<div class="child-box">
 			<h1 id="header">Accedi</h1>
-			<form onsubmit="submitForm();" id="registration-form" action="${pageContext.request.contextPath}/AuthenticationManagerServlet" method="POST">
+			<form id="registration-form" action="${pageContext.request.contextPath}/AuthenticationManagerServlet" method="POST">
 			
 			<input type="text" name="username" placeholder="Username" required>
 			<input type="password" name="password" placeholder="Password" required>

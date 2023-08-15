@@ -24,32 +24,13 @@
 
 				<div class="help-info">
 					<a href="#">Password dimenticata&#x3F;</a><br>
-					<div>Non hai un account&#x3F; <a href="#">Registrati</a></div>
+					<div>Non hai un account&#x3F; <a href="${pageContext.request.contextPath}/registration_enduser.jsp">Registrati</a></div>
 				</div>
 
 			</form>
 		</div>
 	</div>
 	
-	<!-- <form action="${pageContext.request.contextPath}/AuthenticationEndUserServlet" method="post">
-		<fieldset>
-			<legend>Accedi</legend>
-
-			<label for="email">Email:</label> <input type="email" id="email"
-				name="email" required><br>
-			<br> <label for="password">Password:</label> <input
-				type="password" id="password" name="password" required> <input
-				type="submit" value="Log In">
-
-			<div>
-				<a href="#">Password dimenticata?</a>
-			</div>
-			<div>
-				Non hai un account?<a href="#">Registrati</a>
-			</div>
-		</fieldset>
-	</form> -->
-
 	<%
 	String errorMessage = (String) request.getAttribute("error");
 

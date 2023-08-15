@@ -1,21 +1,20 @@
 const form = document.getElementById("registration-form");
 const button = document.getElementById("submit-btn");
-
-submitForm();
-
-function submitForm() {
 	
-	form.addEventListener("submit", (e) => {
+form.addEventListener("submit", (e) => {
 		
-		e.preventDefault();
+	e.preventDefault();
+	
+	const currentText = button.textContent;
+	
+	button.disabled = true;
+	button.textContent = "";
+	button.parentElement.className = "submit loading";
 		
-		button.disabled = true;
-		button.textContent = "";
-		button.parentElement.className = "submit loading";
-		
-		setTimeout(function() {
-			button.disabled = false;
-			form.submit();
-		}, 2000);
-	});
-}
+	setTimeout(function() {
+		button.disabled = false;
+		button.textContent = currentText;
+		button.parentElement.className = "submit";
+		form.submit();
+	}, 2000);
+});
