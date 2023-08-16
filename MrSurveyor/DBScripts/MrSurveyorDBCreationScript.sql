@@ -38,11 +38,19 @@ CREATE TABLE product (
     product_price DOUBLE(7,2) NOT NULL,
     product_quantity INT NOT NULL,
     product_description VARCHAR(255) NOT NULL,
-    category_name VARCHAR(255) NOT NULL,
     manager_username VARCHAR(50) NOT NULL,
     PRIMARY KEY(product_id),
-    FOREIGN KEY(category_name) REFERENCES category(category_name) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(manager_username) REFERENCES manager(manager_username) ON UPDATE CASCADE ON DELETE CASCADE
+);
+SHOW WARNINGS;
+
+DROP TABLE IF EXISTS has_category_product;
+CREATE TABLE has_category_product (
+    product_id INT NOT NULL,
+    category_name VARCHAR(255) NOT NULL,
+    PRIMARY KEY(product_id, category_name),
+    FOREIGN KEY(product_id) REFERENCES product(product_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(category_name) REFERENCES category(category_name) ON UPDATE CASCADE ON DELETE CASCADE
 );
 SHOW WARNINGS;
 
@@ -127,4 +135,3 @@ CREATE TABLE order_product (
     FOREIGN KEY(order_id) REFERENCES user_order(order_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 SHOW WARNINGS;
-

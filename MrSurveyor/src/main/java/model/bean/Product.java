@@ -6,12 +6,12 @@ import java.util.LinkedList;
 public class Product implements Cloneable {
 	
 	public Product() {
-		rootCategory = new Category();
+		categories = new LinkedList<>();
 		subcategories = new LinkedList<>();
 		catalogManager = new Manager(); // Manager che gestisce il prodotto
 	}
 	
-	public Product(long id, String imagePath, String name, String description, double price, int quantity, Category rootCategory, Collection<Subcategory> subcategories, Manager cataloManager) {
+	public Product(long id, String imagePath, String name, String description, double price, int quantity, Collection<Category> categories, Collection<Subcategory> subcategories, Manager cataloManager) {
 		
 		this.id = id;
 		this.imagePath = imagePath;
@@ -19,28 +19,33 @@ public class Product implements Cloneable {
 		this.description = description;
 		this.price = price;
 		this.quantity = quantity;
-		this.rootCategory = rootCategory;
+		this.categories = categories;
 		this.subcategories = subcategories;
 		this.catalogManager = cataloManager;
 	}
 	
-	public Category getProductRootCategory() {
-		return rootCategory;
+	public void addCategory(Category category) {
+		if(category != null)
+			categories.add(category);
 	}
 	
-	public void setProductRootCategory(Category rootCategory) {
-		this.rootCategory = rootCategory;
-	}
-	
-	// aggiungo una sottocategoria soltanto se essa è coerente con la categoria padre
 	public void addSubcategory(Subcategory subcategory) {
-		if(subcategory.getRootCategory().equals(rootCategory))
+		if(subcategory != null)
 			subcategories.add(subcategory);
+	}
+	
+	public void removeCategory(Category category) {
+		if(!categories.isEmpty() && categories.contains(category))
+			categories.remove(category);
 	}
 	
 	public void removeSubcategory(Subcategory subcategory) {
 		if(!subcategories.isEmpty() && subcategories.contains(subcategory))
 			subcategories.remove(subcategory);
+	}
+	
+	public Collection<Category> getCategories() {
+		return categories;
 	}
 	
 	public Collection<Subcategory> getSubcategories() {
@@ -105,8 +110,8 @@ public class Product implements Cloneable {
 
 	public String toString() {
 		return getClass().getName()+"[id="+id+",imagePath="+imagePath+
-				",name="+name+",price="+price+",quantity="+quantity+",rootCategory"+
-				rootCategory+",description="+description+"]";
+				",name="+name+",price="+price+",quantity="+quantity+
+				",description="+description+"]";
 	}
 	
 	public boolean equals(Object otherObject) {
@@ -119,7 +124,7 @@ public class Product implements Cloneable {
 		Product other = (Product)otherObject;
 		
 		return Long.compare(id, other.id) == 0 && imagePath.equals(other.imagePath) &&
-				name.equals(other.name) && description.equals(other.description) && rootCategory.equals(other.rootCategory) &&
+				name.equals(other.name) && description.equals(other.description) && categories.equals(other.categories) &&
 				Integer.compare(quantity, other.quantity) == 0 && subcategories.equals(other.subcategories);
 	}
 	
@@ -128,8 +133,14 @@ public class Product implements Cloneable {
 		try {
 			Product cloned = (Product)super.clone();
 			
-			cloned.rootCategory = rootCategory.clone();
 			cloned.catalogManager = catalogManager.clone();
+			
+			Collection<Category> categoriesCloned = new LinkedList<>();
+			
+			for(Category c : categories)
+				categoriesCloned.add(c.clone());
+			
+			cloned.categories = categoriesCloned;
 			
 			Collection<Subcategory> subcategoriesCloned = new LinkedList<>();
 			
@@ -151,7 +162,7 @@ public class Product implements Cloneable {
 	private double price;
 	private int quantity;
 	
-	private Category rootCategory;
+	private Collection<Category> categories;
 	private Collection<Subcategory> subcategories;
 	private Manager catalogManager;
 }
