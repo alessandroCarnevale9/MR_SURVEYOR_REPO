@@ -6,6 +6,7 @@ USE MrSurveyorDB;
 DROP TABLE IF EXISTS category;
 CREATE TABLE category (
     category_name VARCHAR(255) NOT NULL,
+    image_path VARCHAR(255) NOT NULL,
     category_description VARCHAR(255) NOT NULL,
     PRIMARY KEY(category_name)
 );
