@@ -14,10 +14,11 @@ SHOW WARNINGS;
 
 DROP TABLE IF EXISTS subcategory;
 CREATE TABLE subcategory (
+	subcategory_id INT NOT NULL AUTO_INCREMENT,
     subcategory_name VARCHAR(255) NOT NULL,
     subcategory_description VARCHAR(255) NOT NULL,
     category_name VARCHAR(255) NOT NULL,
-    PRIMARY KEY(subcategory_name),
+    PRIMARY KEY(subcategory_id),
     FOREIGN KEY(category_name) REFERENCES category(category_name) ON UPDATE CASCADE ON DELETE CASCADE
 );
 SHOW WARNINGS;
@@ -58,10 +59,10 @@ SHOW WARNINGS;
 DROP TABLE IF EXISTS has_subcategory_product;
 CREATE TABLE has_subcategory_product (
     product_id INT NOT NULL,
-    subcategory_name VARCHAR(255) NOT NULL,
-    PRIMARY KEY(product_id, subcategory_name),
+    subcategory_id INT NOT NULL,
+    PRIMARY KEY(product_id, subcategory_id),
     FOREIGN KEY(product_id) REFERENCES product(product_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY(subcategory_name) REFERENCES subcategory(subcategory_name) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(subcategory_id) REFERENCES subcategory(subcategory_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 SHOW WARNINGS;
 
