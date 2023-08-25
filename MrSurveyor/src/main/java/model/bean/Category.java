@@ -6,8 +6,9 @@ public class Category implements Cloneable {
 		
 	}
 	
-	public Category(String name, String description) {
+	public Category(String name, String pathImage, String description) {
 		this.name = name;
+		this.pathImage = pathImage;
 		this.description = description;
 	}
 	
@@ -18,6 +19,14 @@ public class Category implements Cloneable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPathImage() {
+		return pathImage;
+	}
+
+	public void setPathImage(String pathImage) {
+		this.pathImage = pathImage;
 	}
 
 	public String getDescription() {
@@ -54,5 +63,5 @@ public class Category implements Cloneable {
 		}
 	}
 
-	private String name, description;
+	private String name, pathImage, description;
 }
