@@ -147,7 +147,7 @@ VALUES
     ('stazione_totale_leica_ts03.png', 'Stazione Totale Leica TS03', 10900.00, 3, 'Efficienza nei rilevamenti topografici con la stazione totale Leica TS03.', 'spike'),
     ('stazione_totale_leica_ts07.png', 'Stazione Totale Leica TS07', 15000.00, 8, 'Rilevamenti precisi e affidabili con la stazione totale Leica TS07.', 'leo_boy'),
     ('leica_gs07_&#x2013_smart_antenna_gnss.png', 'Leica GS07 &#x2013 Smart antenna GNSS', 3000.00, 20, 'Posizionamento GNSS preciso e affidabile con l\'antenna smart Leica GS07.', 'jane_smith'),
-    ('leica_gs18_t_&#x2013_il_rover_rtk_gnss_più_veloce_al_mondo.png', 'Leica GS18 T &#x2013 Il rover RTK GNSS pi&#x00F9 veloce al mondo', 6500.00, 5, 'Massima velocit&#x00E0 e precisione nel posizionamento GNSS con il rover Leica GS18 T.', 'spike'),
+    ('leica_gs18_t_&#x2013_il_rover_rtk_gnss_pi&#x00F9_veloce_al_mondo.png', 'Leica GS18 T &#x2013 Il rover RTK GNSS pi&#x00F9 veloce al mondo', 6500.00, 5, 'Massima velocit&#x00E0 e precisione nel posizionamento GNSS con il rover Leica GS18 T.', 'spike'),
     ('leica_controller_cs20.png', 'Leica Controller CS20', 2500.00, 13, 'Controllo intuitivo e facile con il controller Leica CS20.', 'leo_boy'),
     ('leica_viva_gs16_&#x2013_smart_antenna_gnss_ad_apprendimento_autonomo.png', 'Leica Viva GS16 &#x2013 Smart antenna GNSS ad apprendimento autonomo', 5500.00, 17, 'Antenna smart GNSS con capacit&#x00E0 di apprendimento autonomo, ideale per applicazioni geospaziali.', 'jane_smith'),
     ('leica_rugby_chameleon_clh.png', 'Leica Rugby Chameleon CLH', 2000.00, 15, 'Misurazioni precise con il Leica Rugby Chameleon CLH.', 'jane_smith'),

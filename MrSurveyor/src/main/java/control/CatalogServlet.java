@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import model.bean.Category;
+import model.bean.Product;
 import model.dao.CatalogDAO;
 import model.dao.CatalogDAOImp;
 
@@ -22,6 +23,26 @@ public class CatalogServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		CatalogDAO catalogDAO = new CatalogDAOImp(ds);
+		
+		String page = "/categories_enduser.jsp";
+		
+		if(request.getParameter("category") != null) {
+			
+			page = "/products_enduser.jsp";
+			
+			Collection<Product> products = null;
+			
+			try {
+				products = catalogDAO.retrieveProductsByCategory(request.getParameter("category"));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			if(products != null && !products.isEmpty())
+				request.setAttribute("products", products);
+			else
+				request.setAttribute("error", "Nessun prodotto da mostrare per la categoria "+request.getParameter("category"));
+		}
 		
 		Collection<Category> categories = null;
 		
@@ -36,7 +57,7 @@ public class CatalogServlet extends HttpServlet {
 		else
 			request.setAttribute("error", "Nessuna categoria da mostrare");
 		
-		request.getRequestDispatcher("/categories_enduser.jsp").forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

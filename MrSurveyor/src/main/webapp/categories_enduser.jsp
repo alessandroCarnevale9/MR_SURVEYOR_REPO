@@ -19,7 +19,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Prodotti</title>
-<link rel="stylesheet" href="styles/categories_grid_style.css">
+<link rel="stylesheet" href="styles/grid_style.css">
 </head>
 <body>
 	<div class="grid-container">
@@ -30,8 +30,14 @@
 				Category categoryBean = (Category)it.next();
 		%>
 		<div class="category">
-			<img alt="<%=categoryBean.getName()%>" src="images/categ/<%=categoryBean.getPathImage()%>">
-			<h3><%=categoryBean.getName()%></h3>
+			<a href="${pageContext.request.contextPath}/CatalogServlet?category=<%=categoryBean.getName()%>">
+				<img alt="<%=categoryBean.getName()%>" src="images/categ/<%=categoryBean.getPathImage()%>">
+			</a>
+			<h3>
+				<a href="${pageContext.request.contextPath}/CatalogServlet?category=<%=categoryBean.getName()%>">
+					<%=categoryBean.getName()%>
+				</a>
+			</h3>
 		</div>
 		<%
 			}
