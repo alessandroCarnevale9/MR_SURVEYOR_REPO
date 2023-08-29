@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import model.bean.Category;
 import model.bean.Product;
+import model.bean.Subcategory;
 import model.dao.CatalogDAO;
 import model.dao.CatalogDAOImp;
 
@@ -26,14 +28,22 @@ public class CatalogServlet extends HttpServlet {
 		
 		String page = "/categories_enduser.jsp";
 		
-		if(request.getParameter("category") != null) {
+		String category = request.getParameter("category");
+		String subcategory = request.getParameter("subcategory");
+		
+		if(category != null) {
 			
 			page = "/products_enduser.jsp";
 			
 			Collection<Product> products = null;
 			
 			try {
-				products = catalogDAO.retrieveProductsByCategory(request.getParameter("category"));
+				
+				products = catalogDAO.retrieveProductsByCategory(category);
+				for(Product p : products) {
+					p.addSubcategory(new Subcategory(null, catalogDAO.retrieveSubcategoryByCategoryName(p.getId(), category), ""));
+				}
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -41,7 +51,30 @@ public class CatalogServlet extends HttpServlet {
 			if(products != null && !products.isEmpty())
 				request.setAttribute("products", products);
 			else
-				request.setAttribute("error", "Nessun prodotto da mostrare per la categoria "+request.getParameter("category"));
+				request.setAttribute("error", "Nessun prodotto da mostrare per la categoria "+category);
+		}
+		
+		else if(subcategory != null && !subcategory.trim().equals("")) {
+			
+			HttpSession session = request.getSession();
+			category = (String)session.getAttribute("category");
+			
+			page = "/products_enduser.jsp";
+			
+			Collection<Product> products = null;
+			
+			try {
+				
+				products = catalogDAO.retrieveProductsBySubcategory(subcategory, category);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			if(products != null && !products.isEmpty())
+				request.setAttribute("products", products);
+			else
+				request.setAttribute("error", "Nessun prodotto da mostrare per la sottocategoria "+subcategory);
 		}
 		
 		Collection<Category> categories = null;
@@ -63,5 +96,4 @@ public class CatalogServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

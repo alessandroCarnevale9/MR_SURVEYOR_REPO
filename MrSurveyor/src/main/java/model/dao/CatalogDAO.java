@@ -9,5 +9,7 @@ import model.bean.Product;
 public interface CatalogDAO {
 	
 	Collection<Category> retrieveAllCategories() throws SQLException;
+	String retrieveSubcategoryByCategoryName(long productID, String categoryName) throws SQLException;
 	Collection<Product> retrieveProductsByCategory(String categoryName) throws SQLException;
+	Collection<Product> retrieveProductsBySubcategory(String subcategory, String rootCategory) throws SQLException;
 }

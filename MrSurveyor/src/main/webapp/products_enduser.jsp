@@ -1,3 +1,4 @@
+<%@page import="com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="model.bean.Product"%>
 <%@page import="java.util.Collection"%>
@@ -12,13 +13,47 @@
 		response.sendRedirect(getServletContext().getContextPath()+"/CatalogServlet");
 		return;
 	}
+	
+	String category = request.getParameter("category");
+	String subcategory = request.getParameter("subcategory");
+	
+	String title = category != null ? category : subcategory;
+	
 	%>
-
+	
+	<%!
+	String contextPath = "/MrSurveyor";
+	
+	String categoryLoop(String category, String subcategory) {
+		
+		String result = "";
+		
+		String subcategoryCpy = subcategory;
+		
+		/*
+		if(((category+subcategory).length() > 20)) {
+			subcategoryCpy = subcategory.substring(0, subcategory.length()-subcategory.length()+4);
+			subcategoryCpy += ".";
+		}
+		*/
+		
+		result += (subcategory != null && !subcategory.trim().equals(""))
+				? "<a href=\""+contextPath+"/CatalogServlet?category=" + category + "\">"
+						+ category + "</a>" + ", "
+						+ "<a href=\""+contextPath+"/CatalogServlet?subcategory=" + subcategory
+						+ "\">" + subcategoryCpy + "</a>"
+				: "<a href=\""+contextPath+"/CatalogServlet?category=" + category + "\">" + category
+						+ "</a>";
+						
+		return result;
+	}
+	%>
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title><%=request.getParameter("category")%></title>
+<title><%=title%></title>
 <link rel="stylesheet" href="styles/grid_style.css">
 </head>
 <body>
@@ -28,19 +63,35 @@
 		Iterator<?> it = products.iterator();
 		while(it.hasNext()) {
 			Product productBean = (Product)it.next();
+			
+			if(category != null && !category.trim().equals("")) {
+				session.setAttribute("category", category);
 	%>
-	<div class="product">
-		<img alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
-		<div class="prod-description">
-			<small>categoria, sottocategoria</small>
-			<h2><%=productBean.getName()%></h2>
-			<p><%=productBean.getPrice() %></p>
-		</div>
-	</div>
+	
+			<div class="product">
+				<img alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
+				<div class="prod-description">
+					<small><%=categoryLoop(category, productBean.getSubcategories().get(0).getName())%></small>
+					<h2><%=productBean.getName()%></h2>
+					<p><%=productBean.getPrice() %></p>
+				</div>
+			</div>
 	<%
+			} else if(subcategory != null && !subcategory.trim().equals("")) {
+	%>
+			<div class="product">
+				<img alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
+				<div class="prod-description">
+					<small><%=subcategory %></small>
+					<h2><%=productBean.getName()%></h2>
+					<p><%=productBean.getPrice() %></p>
+				</div>
+			</div>
+	<%
+			}
 		}
 	}
-		%>
+	%>
 	</div>
 </body>
 </html>

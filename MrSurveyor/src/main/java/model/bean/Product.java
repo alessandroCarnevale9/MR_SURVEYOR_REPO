@@ -1,5 +1,6 @@
 package model.bean;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -48,8 +49,8 @@ public class Product implements Cloneable {
 		return categories;
 	}
 	
-	public Collection<Subcategory> getSubcategories() {
-		return subcategories;
+	public ArrayList<Subcategory> getSubcategories() {
+		return new ArrayList<Subcategory>(subcategories);
 	}
 	
 	public long getId() {
