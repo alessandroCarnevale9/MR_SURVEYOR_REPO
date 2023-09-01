@@ -1,5 +1,5 @@
 DROP SCHEMA IF EXISTS MrSurveyorDB;
-CREATE SCHEMA MrSurveyorDB;
+CREATE SCHEMA MrSurveyorDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE MrSurveyorDB;
 
@@ -71,7 +71,7 @@ CREATE TABLE end_user (
     end_user_id INT NOT NULL AUTO_INCREMENT,
     end_user_name VARCHAR(255) NOT NULL,
     end_user_surname VARCHAR(255) NOT NULL,
-    end_user_email VARCHAR(255) NOT NULL,
+    end_user_email VARCHAR(255) NOT NULL UNIQUE,
     end_user_password VARCHAR(255) NOT NULL,
     end_user_region VARCHAR(255),
     end_user_province VARCHAR(255),
