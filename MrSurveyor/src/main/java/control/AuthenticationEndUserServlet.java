@@ -55,11 +55,7 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 					
 					HttpSession currentSession = request.getSession(); // crea una nuova sessione
 					
-					/*
-					 * Mi serve mettere l'email e la password nella sessione ?
-					 */
 					currentSession.setAttribute("userEmail", userEmail);
-					currentSession.setAttribute("userPassword", userPassword);
 					currentSession.setAttribute("userCart", new Cart());
 					
 					currentSession.setMaxInactiveInterval(5*60); // 5 minuti di inattività massima, dopo cancella la sessione

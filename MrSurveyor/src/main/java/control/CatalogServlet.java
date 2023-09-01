@@ -26,10 +26,13 @@ public class CatalogServlet extends HttpServlet {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		CatalogDAO catalogDAO = new CatalogDAOImp(ds);
 		
+		HttpSession session = request.getSession();
+		
 		String page = "/categories_enduser.jsp";
 		
 		String category = request.getParameter("category");
 		String subcategory = request.getParameter("subcategory");
+		String detailProductID = request.getParameter("detailProductID");
 		
 		if(category != null) {
 			
@@ -41,7 +44,7 @@ public class CatalogServlet extends HttpServlet {
 				
 				products = catalogDAO.retrieveProductsByCategory(category);
 				for(Product p : products) {
-					p.addSubcategory(new Subcategory(null, catalogDAO.retrieveSubcategoryByCategoryName(p.getId(), category), ""));
+					p.addSubcategory(new Subcategory(catalogDAO.retrieveSubcategoryByCategoryName(p.getId(), category)));
 				}
 				
 			} catch (SQLException e) {
@@ -56,7 +59,6 @@ public class CatalogServlet extends HttpServlet {
 		
 		else if(subcategory != null && !subcategory.trim().equals("")) {
 			
-			HttpSession session = request.getSession();
 			category = (String)session.getAttribute("category");
 			
 			page = "/products_enduser.jsp";
@@ -75,6 +77,37 @@ public class CatalogServlet extends HttpServlet {
 				request.setAttribute("products", products);
 			else
 				request.setAttribute("error", "Nessun prodotto da mostrare per la sottocategoria "+subcategory);
+		}
+		
+		else if(detailProductID != null) {
+			
+			try {
+				
+				int productID = Integer.parseInt(detailProductID);
+				Product product = catalogDAO.retrieveProductById(productID);
+				Subcategory subcategoryProduct = catalogDAO.retrieveFirstSubcategory(productID);
+				
+				if(product != null && subcategoryProduct.getName() != null) {
+					product.addSubcategory(subcategoryProduct);
+					request.setAttribute("showProduct", product);
+				}
+				else if(subcategoryProduct.getName() == null) {
+					category = (String)session.getAttribute("category");
+					product.addCategory(new Category(category));
+					request.setAttribute("showProduct", product);
+				}
+				else
+					request.setAttribute("error", "Nessun prodotto corrispondente all'id "+productID);
+				
+			} catch(NumberFormatException e) {
+				
+				e.printStackTrace();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+			
+			page = "/show_details_product.jsp";
 		}
 		
 		Collection<Category> categories = null;

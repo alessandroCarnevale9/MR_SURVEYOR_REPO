@@ -1,10 +1,13 @@
 package model.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class Product implements Cloneable {
+public class Product implements Cloneable, Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
 	public Product() {
 		categories = new LinkedList<>();
@@ -45,8 +48,8 @@ public class Product implements Cloneable {
 			subcategories.remove(subcategory);
 	}
 	
-	public Collection<Category> getCategories() {
-		return categories;
+	public ArrayList<Category> getCategories() {
+		return new ArrayList<Category>(categories);
 	}
 	
 	public ArrayList<Subcategory> getSubcategories() {
@@ -125,8 +128,7 @@ public class Product implements Cloneable {
 		Product other = (Product)otherObject;
 		
 		return Long.compare(id, other.id) == 0 && imagePath.equals(other.imagePath) &&
-				name.equals(other.name) && description.equals(other.description) && categories.equals(other.categories) &&
-				Integer.compare(quantity, other.quantity) == 0 && subcategories.equals(other.subcategories);
+				name.equals(other.name) && description.equals(other.description);
 	}
 	
 	public Product clone() {

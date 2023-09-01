@@ -1,7 +1,11 @@
 package model.bean;
 
-public class Manager implements Cloneable {
-	
+import java.io.Serializable;
+
+public class Manager implements Cloneable, Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	public Manager() {
 		
 	}

@@ -1,6 +1,10 @@
 package model.bean;
 
-public class EndUser implements Cloneable {
+import java.io.Serializable;
+
+public class EndUser implements Cloneable, Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	public EndUser() {
 	

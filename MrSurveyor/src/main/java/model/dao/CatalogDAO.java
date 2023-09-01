@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import model.bean.Category;
 import model.bean.Product;
+import model.bean.Subcategory;
 
 public interface CatalogDAO {
 	
@@ -12,4 +13,6 @@ public interface CatalogDAO {
 	String retrieveSubcategoryByCategoryName(long productID, String categoryName) throws SQLException;
 	Collection<Product> retrieveProductsByCategory(String categoryName) throws SQLException;
 	Collection<Product> retrieveProductsBySubcategory(String subcategory, String rootCategory) throws SQLException;
+	Product retrieveProductById(int productId) throws SQLException;
+	Subcategory retrieveFirstSubcategory(int productId) throws SQLException;
 }

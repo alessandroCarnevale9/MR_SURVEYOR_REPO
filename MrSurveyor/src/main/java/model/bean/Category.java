@@ -6,6 +6,10 @@ public class Category implements Cloneable {
 		
 	}
 	
+	public Category(String name) {
+		this.name = name;
+	}
+	
 	public Category(String name, String pathImage, String description) {
 		this.name = name;
 		this.pathImage = pathImage;

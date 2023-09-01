@@ -1,19 +1,19 @@
 package model.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 
 public class Cart implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	public Cart() {
-		cartProducts = new LinkedList<>();
+		cartProducts = new ArrayList<Product>();
 		cartHolder = new EndUser();
 	}
 	
-	public Cart(Collection<Product> products, EndUser cartHolder) {
+	public Cart(ArrayList<Product> products, EndUser cartHolder) {
 		this.cartProducts = products;
 		this.cartHolder = cartHolder;
 	}
@@ -30,7 +30,24 @@ public class Cart implements Serializable {
 		return cartProducts;
 	}
 	
-	// Se il prodotto è già presente incremento di 1 la quantità
+	
+	public void addProduct(Product product, int quantity) {
+		
+		if(product != null && quantity > 0) {
+			if(!cartProducts.contains(product)) {
+				product.setQuantity(quantity);
+				cartProducts.add(product);
+			}
+			else {
+				
+				int currentQuantity = cartProducts.get(cartProducts.indexOf(product)).getQuantity();
+				currentQuantity += quantity;
+				cartProducts.get(cartProducts.indexOf(product)).setQuantity(currentQuantity);
+			}
+		}
+	}
+	
+	/*�
 	public void addProduct(Product product) {
 		if(cartProducts.contains(product)) {
 			int tmp = product.getQuantity();
@@ -40,6 +57,7 @@ public class Cart implements Serializable {
 		else
 			cartProducts.add(product);
 	}
+	*/
 	
 	public void removeProduct(Product product) {
 		if(!cartProducts.isEmpty() && cartProducts.contains(product)) {
@@ -57,6 +75,6 @@ public class Cart implements Serializable {
 		cartProducts.removeAll(cartProducts);
 	}
 	
-	private Collection<Product> cartProducts;
+	private ArrayList<Product> cartProducts;
 	private EndUser cartHolder;
 }

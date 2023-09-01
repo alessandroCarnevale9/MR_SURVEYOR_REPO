@@ -69,10 +69,14 @@
 	%>
 	
 			<div class="product">
+			<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>">
 				<img alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
+			</a>	
 				<div class="prod-description">
 					<small><%=categoryLoop(category, productBean.getSubcategories().get(0).getName())%></small>
-					<h2><%=productBean.getName()%></h2>
+					<h2>
+					<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>"><%=productBean.getName()%></a>
+					</h2>
 					<p><%=productBean.getPrice() %></p>
 				</div>
 			</div>
@@ -80,10 +84,20 @@
 			} else if(subcategory != null && !subcategory.trim().equals("")) {
 	%>
 			<div class="product">
+			<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>">
 				<img alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
+			</a>
 				<div class="prod-description">
-					<small><%=subcategory %></small>
-					<h2><%=productBean.getName()%></h2>
+					<small>
+					<a href="${pageContext.request.contextPath}/CatalogServlet?subcategory=<%=subcategory %>">
+					<%=subcategory %>
+					</a>
+					</small>
+					<h2>
+					<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>">
+					<%=productBean.getName()%>
+					</a>
+					</h2>
 					<p><%=productBean.getPrice() %></p>
 				</div>
 			</div>

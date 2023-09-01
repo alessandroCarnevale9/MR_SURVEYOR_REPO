@@ -6,10 +6,23 @@ public class Subcategory implements Cloneable {
 		rootCategory = new Category();
 	}
 	
-	public Subcategory(Category rootCategory, String name, String description) {
+	public Subcategory(String name) {
+		this.name = name;
+	}
+	
+	public Subcategory(int id, Category rootCategory, String name, String description) {
+		this.id = id;
 		this.rootCategory = rootCategory;
 		this.name = name;
 		this.description = description;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Category getRootCategory() {
@@ -37,7 +50,7 @@ public class Subcategory implements Cloneable {
 	}
 	
 	public String toString() {
-		return getClass().getName()+"[rootCategory="+rootCategory.toString()+
+		return getClass().getName()+"[id="+id+",rootCategory="+rootCategory.toString()+
 				",name="+name+",description"+description+"]";
 	}
 	
@@ -50,7 +63,7 @@ public class Subcategory implements Cloneable {
 		
 		Subcategory other = (Subcategory)otherObject;
 		
-		return rootCategory.equals(other.rootCategory) && name.equals(other.name) &&
+		return id == other.id && rootCategory.equals(other.rootCategory) && name.equals(other.name) &&
 				description.equals(other.description);
 	}
 	
@@ -65,6 +78,7 @@ public class Subcategory implements Cloneable {
 		}
 	}
 
+	private int id;
 	private Category rootCategory;
 	private String name, description;
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +7,16 @@
 <title>Home Page End User</title>
 </head>
 <body>
-
-	<h1>Home page end user</h1>
-	<p>Prova</p>
+	<aside class="left-bar">
+		<nav class="links">
+			<ul>
+				<li><a href="#">BACHECA</a></li>
+				<li><a href="#">ORDINI</a></li>
+				<li><a href="#">INDIRIZZO</a></li>
+				<li><a href="#">DETTAGLI ACCOUNT</a></li>
+				<li><a href="#">LOGOUT</a></li>
+			</ul>
+		</nav>
+	</aside>
 </body>
 </html>

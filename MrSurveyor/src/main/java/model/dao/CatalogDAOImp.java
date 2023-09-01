@@ -13,9 +13,10 @@ import model.bean.Category;
 import model.bean.Manager;
 import model.bean.Manager.Role;
 import model.bean.Product;
+import model.bean.Subcategory;
 
 public class CatalogDAOImp implements CatalogDAO {
-	
+
 	private static final String CATEGORY_TABLE = "category";
 	private static final String SUBCATEGORY_TABLE = "subcategory";
 	private static final String PRODUCT_TABLE = "product";
@@ -38,7 +39,13 @@ public class CatalogDAOImp implements CatalogDAO {
 			+ "IN (SELECT P.product_id "
 			+ "FROM product AS P, subcategory AS S, has_subcategory_product AS HS "
 			+ "WHERE P.product_id=HS.product_id AND HS.subcategory_id=S.subcategory_id AND S.subcategory_name=? AND S.category_name=?)";
-
+	
+	private static final String RETRIEVE_PRODUCT_BY_ID = "SELECT * FROM "+PRODUCT_TABLE+" WHERE product_id=?";
+	
+	private static final String RETRIEVE_FIRST_SUBCATEGORY = "SELECT * "
+			+ "FROM subcategory AS S, has_subcategory_product AS HS "
+			+ "WHERE S.subcategory_id=HS.subcategory_id AND HS.product_id=?";
+	
 	public CatalogDAOImp(DataSource ds) {
 		CatalogDAOImp.ds = ds;
 	}
@@ -193,6 +200,79 @@ public class CatalogDAOImp implements CatalogDAO {
 		
 		return products;
 	}
+	
+	@Override
+	public Product retrieveProductById(int productId) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Product product = new Product();
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(RETRIEVE_PRODUCT_BY_ID);
+			
+			preparedStatement.setInt(1, productId);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if(rs.next()) {
+				product.setId(rs.getLong("product_id"));
+				product.setImagePath(rs.getString("product_image_path"));
+				product.setName(rs.getString("product_name"));
+				product.setPrice(rs.getDouble("product_price"));
+				product.setQuantity(rs.getInt("product_quantity"));
+				product.setDescription(rs.getString("product_description"));
+				product.setCatalogManager(new Manager(rs.getString("manager_username"), "", Role.CATALOG_MANAGER));
+			}
+		} finally {
+			try {
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if(connection != null)
+					connection.close();
+			}
+		}
+		
+		return product;
+	}
+
+	@Override
+	public Subcategory retrieveFirstSubcategory(int productId) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Subcategory subcategory = new Subcategory();
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(RETRIEVE_FIRST_SUBCATEGORY);
+			
+			preparedStatement.setInt(1, productId);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if(rs.next()) {
+				subcategory.setId(rs.getInt("subcategory_id"));
+				subcategory.setName(rs.getString("subcategory_name"));
+				subcategory.setDescription(rs.getString("subcategory_description"));
+				subcategory.setRootCategory(new Category(rs.getString("category_name")));
+			}
+		} finally {
+			try {
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if(connection != null)
+					connection.close();
+			}
+		}
+		
+		return subcategory;
+	}
+
+
 
 	private static DataSource ds;
 }
