@@ -12,13 +12,13 @@
         <nav class="navbar-container">
             
             <div class="logo">
-            	<a href="#"><img src="images/logo.png" alt="Logo del sito"></a>
+            	<a href="homepage.jsp"><img src="images/logo.png" alt="Logo del sito"></a>
             </div>
             
             <ul class="nav-links">
-                <li><a href="#">HOME</a></li>
+                <li><a href="homepage.jsp">HOME</a></li>
                 <li><a href="#">CHI SIAMO</a></li>
-                <li><a href="#">PRODOTTI</a></li>
+                <li><a href="categories_enduser.jsp">PRODOTTI</a></li>
                 <li><a href="#">CONTATTI</a></li>
             </ul>
             
@@ -33,10 +33,10 @@
                 </div>
                 
                 <div class="cart-icon">
-                <a href="#"><img alt="cart_img" src="images/shopping_cart.png"></a>
+                <a href="cart_view.jsp"><img alt="cart_img" src="images/shopping_cart.png"></a>
                 </div>
                 <div class="user-icon">
-                <a href="#"><img alt="user_img" src="images/user.png"></a>
+                <a href="homepage_enduser.jsp"><img alt="user_img" src="images/user.png"></a>
                 </div>
             </div>
         </nav>

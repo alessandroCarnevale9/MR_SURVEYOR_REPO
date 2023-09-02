@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +34,44 @@ public class CatalogServlet extends HttpServlet {
 		String category = request.getParameter("category");
 		String subcategory = request.getParameter("subcategory");
 		String detailProductID = request.getParameter("detailProductID");
+		
+		if(request.getParameter("homepage") != null) {
+			page = "/homepage.jsp";
+			
+			Collection<Collection<Product>> productsCollection = new LinkedList<Collection<Product>>();
+			
+			try {
+				
+				Collection<Product> collection1 = catalogDAO.retrieveProductsByCategory("Termocamere FLIR");
+				Collection<Product> collection2 = catalogDAO.retrieveProductsByCategory("Misuratori laser Leica DISTO");
+				Collection<Product> collection3 = catalogDAO.retrieveProductsByCategory("Strumenti Topografici");
+				
+				for(Product p : collection1) {
+					p.addCategory(new Category("Termocamere FLIR"));
+					p.addSubcategory(new Subcategory(catalogDAO.retrieveSubcategoryByCategoryName(p.getId(), "Termocamere FLIR")));
+				}
+				
+				for(Product p : collection2) {
+					p.addCategory(new Category("Misuratori laser Leica DISTO"));
+					p.addSubcategory(new Subcategory(catalogDAO.retrieveSubcategoryByCategoryName(p.getId(), "Misuratori laser Leica DISTO")));
+				}
+				
+				for(Product p : collection3) {
+					p.addCategory(new Category("Strumenti Topografici"));
+					p.addSubcategory(new Subcategory(catalogDAO.retrieveSubcategoryByCategoryName(p.getId(), "Strumenti Topografici")));
+				}
+				
+				productsCollection.add(collection1);
+				productsCollection.add(collection2);
+				productsCollection.add(collection3);
+
+				
+				request.setAttribute("homepage_products", productsCollection);
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		if(category != null) {
 			
