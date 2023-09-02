@@ -9,13 +9,8 @@ public class Cart implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public Cart() {
-		cartProducts = new ArrayList<Product>();
+		cartProducts = new ArrayList<CartProduct>();
 		cartHolder = new EndUser();
-	}
-	
-	public Cart(ArrayList<Product> products, EndUser cartHolder) {
-		this.cartProducts = products;
-		this.cartHolder = cartHolder;
 	}
 	
 	public EndUser getCartHolder() {
@@ -26,55 +21,64 @@ public class Cart implements Serializable {
 		this.cartHolder = cartHolder;
 	}
 	
-	public Collection<Product> getProducts() {
+	public Collection<CartProduct> getProducts() {
 		return cartProducts;
 	}
 	
 	
-	public void addProduct(Product product, int quantity) {
+	public void addProduct(CartProduct product, int quantity) throws IllegalArgumentException {
 		
-		if(product != null && quantity > 0) {
+		if(product != null) {
 			if(!cartProducts.contains(product)) {
-				product.setQuantity(quantity);
-				cartProducts.add(product);
+				
+				if(quantity > 0 && quantity <= product.getMaxQuantity()) {
+					product.setQuantity(quantity);
+					cartProducts.add(product);
+				}
+				else
+					throw new IllegalArgumentException("Quantità di prodotto non disponibile ("+quantity+")");
 			}
 			else {
 				
 				int currentQuantity = cartProducts.get(cartProducts.indexOf(product)).getQuantity();
 				currentQuantity += quantity;
-				cartProducts.get(cartProducts.indexOf(product)).setQuantity(currentQuantity);
+				
+				if(currentQuantity > 0 && currentQuantity <= product.getMaxQuantity())
+					cartProducts.get(cartProducts.indexOf(product)).setQuantity(currentQuantity);
+				else
+					throw new IllegalArgumentException("Quantità di prodotto non disponibile ("+currentQuantity+")");
 			}
 		}
 	}
 	
-	/*�
-	public void addProduct(Product product) {
-		if(cartProducts.contains(product)) {
-			int tmp = product.getQuantity();
-			tmp += 1;
-			product.setQuantity(tmp);
-		}
-		else
-			cartProducts.add(product);
-	}
-	*/
-	
-	public void removeProduct(Product product) {
+	public void removeProduct(CartProduct product) {
 		if(!cartProducts.isEmpty() && cartProducts.contains(product)) {
-			if(product.getQuantity() > 1) {
-				int tmp = product.getQuantity();
-				tmp -= 1;
-				product.setQuantity(tmp);
-			}
+			
+			int currentQuantity = cartProducts.get(cartProducts.indexOf(product)).getQuantity();
+			currentQuantity -= 1;
+			
+			if(currentQuantity == 0)
+				cartProducts.remove(cartProducts.indexOf(product));
 			else
-				cartProducts.remove(product);
+				cartProducts.get(cartProducts.indexOf(product)).setQuantity(currentQuantity);
 		}	
 	}
 	
-	public void reomoveAllProducts() {
-		cartProducts.removeAll(cartProducts);
+	public void setQuantity(CartProduct product, int quantity) throws IllegalArgumentException {
+		if(!cartProducts.isEmpty() && cartProducts.contains(product)) {
+			if(quantity > 0 && quantity <= product.getMaxQuantity()) {
+				cartProducts.get(cartProducts.indexOf(product)).setQuantity(quantity);
+			}
+			else {
+				throw new IllegalArgumentException("Quantità di prodotto non disponibile ("+quantity+")");
+			}
+		}
 	}
 	
-	private ArrayList<Product> cartProducts;
+	public boolean isEmpty() {
+		return cartProducts.isEmpty();
+	}
+	
+	private ArrayList<CartProduct> cartProducts;
 	private EndUser cartHolder;
 }

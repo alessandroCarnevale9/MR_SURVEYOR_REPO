@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import model.bean.Cart;
+import model.bean.CartProduct;
+import model.bean.Product;
 import model.dao.CatalogDAO;
 import model.dao.CatalogDAOImp;
 
@@ -25,45 +27,116 @@ public class CartServlet extends HttpServlet {
 		CatalogDAO catalogDAO = new CatalogDAOImp(ds);
 		
 		HttpSession endUserSession = request.getSession();
-		
+
 		Cart userCart = (Cart)endUserSession.getAttribute("userCart");
+		
+		int productID = 0;
+		int quantity = 0;
 		
 		if(userCart == null) {
 			userCart = new Cart();
 			endUserSession.setAttribute("userCart", userCart);
 		}
 		
-		String paramID = request.getParameter("productID");
-		String paramQuantity = request.getParameter("quantity");
+		String removeID = request.getParameter("removeID");
+		String setQuantityID = request.getParameter("quantityID");
+		String cartQuantity = request.getParameter("cart_quantity");
 		
-		int productID = 0;
-		int quantity = 0;
-		try {
-			if(paramID != null)
-				productID = Integer.parseInt(paramID);
+		if(cartQuantity != null && setQuantityID != null) {
+			try {
+				productID = Integer.parseInt(setQuantityID);
+				quantity = Integer.parseInt(cartQuantity);
+				
+				Product product = catalogDAO.retrieveProductById(productID);
+				
+				CartProduct cartProduct = new CartProduct(product.getQuantity());
+				
+				cartProduct.setId(product.getId());
+				cartProduct.setImagePath(product.getImagePath());
+				cartProduct.setName(product.getName());
+				cartProduct.setPrice(product.getPrice());
+				
+				userCart.setQuantity(cartProduct, quantity);
+			}
+			catch(NumberFormatException e) {
+				e.printStackTrace();
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			catch (IllegalArgumentException e) {
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("/cart_view.jsp").forward(request, response);
+				return;
+			}
+		}
+		else if(removeID != null) {
+			try {
+				productID = Integer.parseInt(removeID);
+				
+				Product product = catalogDAO.retrieveProductById(productID);
+				
+				CartProduct cartProduct = new CartProduct(product.getQuantity());
+				
+				cartProduct.setId(product.getId());
+				cartProduct.setImagePath(product.getImagePath());
+				cartProduct.setName(product.getName());
+				cartProduct.setPrice(product.getPrice());
+				
+				
+				userCart.removeProduct(cartProduct);
+			}
+			catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			String paramID = request.getParameter("productID");
+			String paramQuantity = request.getParameter("quantity");
 			
-			if(paramQuantity != null)
-				quantity = Integer.parseInt(paramQuantity);
-		}
-		catch(NumberFormatException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			userCart.addProduct(catalogDAO.retrieveProductById(productID), quantity);
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				if(paramID != null)
+					productID = Integer.parseInt(paramID);
+				
+				if(paramQuantity != null)
+					quantity = Integer.parseInt(paramQuantity);
+			}
+			catch(NumberFormatException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				Product product = catalogDAO.retrieveProductById(productID);
+				
+				CartProduct cartProduct = new CartProduct(product.getQuantity());
+				
+				cartProduct.setId(product.getId());
+				cartProduct.setImagePath(product.getImagePath());
+				cartProduct.setName(product.getName());
+				cartProduct.setPrice(product.getPrice());
+				
+				userCart.addProduct(cartProduct, quantity);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			catch (IllegalArgumentException e) {
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("/cart_view.jsp").forward(request, response);
+				return;
+			}
 		}
 		
 		endUserSession.removeAttribute("userCart");
 		endUserSession.setAttribute("userCart", userCart);
 		
-		request.getRequestDispatcher("/cart_view.jsp").forward(request, response);
+		response.sendRedirect(getServletContext().getContextPath()+"/cart_view.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

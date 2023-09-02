@@ -128,7 +128,7 @@ public class Product implements Cloneable, Serializable {
 		Product other = (Product)otherObject;
 		
 		return Long.compare(id, other.id) == 0 && imagePath.equals(other.imagePath) &&
-				name.equals(other.name) && description.equals(other.description);
+				name.equals(other.name);
 	}
 	
 	public Product clone() {

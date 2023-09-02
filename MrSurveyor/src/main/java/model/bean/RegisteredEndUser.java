@@ -5,6 +5,9 @@ import java.util.LinkedList;
 
 public class RegisteredEndUser extends EndUser {
 	
+	
+	private static final long serialVersionUID = 1L;
+	
 	public Address getAddress() {
 		return address;
 	}
