@@ -62,9 +62,13 @@
     <div class="prducts">
     
     <%
+    int slideID = 0;
     if(productsCollection != null && productsCollection.size() != 0) {
     	Iterator<?> it = productsCollection.iterator();
     	while(it.hasNext()) {
+    		
+    		slideID++;
+    		
     		LinkedList<?> products = (LinkedList<?>)it.next();
     		Product first = (Product)products.get(0);
     		String rootCategory = first.getCategories().get(0).getName();
@@ -72,13 +76,13 @@
     		<div class="head-slider">
     		<h2><%=rootCategory %></h2>
     		<div class="arrows">
-    			<a class="prev" onclick="prev()">&#10094;</a>
-    			<a class="next" onclick="next()">&#10095;</a>
+    			<a class="prev" onclick="prev('<%=slideID%>')">&#10094;</a>
+    			<a class="next" onclick="next('<%=slideID%>')">&#10095;</a>
     		</div>
     		</div>
    
     		<div class="slider-container">
-    		<div class="slides fade">
+    		<div class="slides fade" id="<%=slideID %>">
     		 <%
     			Iterator<?> prodIterator = products.iterator();
     			while(prodIterator.hasNext()) {
