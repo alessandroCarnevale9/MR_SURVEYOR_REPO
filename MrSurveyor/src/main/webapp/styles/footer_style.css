@@ -65,3 +65,9 @@ footer {
 #contacts img {
 	margin: 0 10px 0 30px;
 }
+
+@media (max-width: 960px) {
+	.links {
+		display: none;
+	}
+}

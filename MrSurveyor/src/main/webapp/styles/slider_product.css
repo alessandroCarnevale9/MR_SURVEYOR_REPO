@@ -13,7 +13,15 @@
 	margin-top: 50px;
 }
 
+.head-slider h2 {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+}
+
 .arrows {
+	white-space: nowrap;
 	cursor: pointer;
 	user-select: none;
 }

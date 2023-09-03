@@ -1,7 +1,3 @@
-let moving = false;
-let mouseLastPosition = 0;
-let debounceInterval = 100; // Intervallo di debounce in millisecondi
-let debounceTimeout;
 
 allSlides.forEach((slides, i) => {
   slides.addEventListener("mousedown", (e) => {

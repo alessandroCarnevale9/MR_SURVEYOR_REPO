@@ -1,11 +1,3 @@
-const sliderContainer = document.querySelector(".slider-container");
-const containerWidth = sliderContainer.offsetWidth;
-const sliderWidth = 250;
-
-
-const values = [];
-
-const allSlides = document.querySelectorAll(".slides");
 
 allSlides.forEach((slider, i) => {
   values.push({id: i+1, currentPosition: 0, numSlides: slider.querySelectorAll(".slide-item").length});

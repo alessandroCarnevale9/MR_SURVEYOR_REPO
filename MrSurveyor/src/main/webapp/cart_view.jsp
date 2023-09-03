@@ -25,7 +25,9 @@
 <link rel="stylesheet" href="styles/cart.css">
 </head>
 <body>
-	
+	<div class="flex-container">
+	<jsp:include page="header.jsp"></jsp:include>
+	<main>
 	<%
 	if(userCart.isEmpty()) {
 	%>
@@ -86,6 +88,9 @@
 	<%
 	}
 	%>
+	</div>
+	</main>
+	<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>

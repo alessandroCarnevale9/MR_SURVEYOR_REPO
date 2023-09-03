@@ -22,8 +22,10 @@
 <title>Home Page</title>
 <link rel="stylesheet" href="styles/slider.css">
 <link rel="stylesheet" href="styles/slider_product.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+	<div class="flex-container">
 	<jsp:include page="header.jsp"></jsp:include>
 	
 	<div class="hero-slider-container">
@@ -31,19 +33,25 @@
       <div class="hero-slides hero-fade">
         <div class="numbertext">1 / 3</div>
         <img class="hero-slide-img" src="images/slider/1.jpg" alt="image1">
-        <div class="text">Caption Text</div>
+        <div class="text" id="text1">Scopri la nostra vasta gamma di strumenti topografici 
+        di alta precisione, perfetti per<br>professionisti 
+        del settore e appassionati di topografia.</div>
       </div>
 
       <div class="hero-slides hero-fade">
         <div class="numbertext">2 / 3</div>
         <img class="hero-slide-img" src="images/slider/2.jpg" alt="image2">
-        <div class="text">Caption Two</div>
+        <div class="text" id="text2">Misura e mappa il territorio con facilità 
+        grazie ai nostri innovativi strumenti topografici,<br>
+        progettati per garantire risultati accurati e affidabili.</div>
       </div>
 
       <div class="hero-slides hero-fade">
         <div class="numbertext">3 / 3</div>
         <img class="hero-slide-img" src="images/slider/3.jpg" alt="image3">
-        <div class="text">Caption Three</div>
+        <div class="text" id="text3">Affronta qualsiasi sfida topografica con
+         fiducia grazie alla nostra selezione di strumenti<br>ad alta precisione 
+         e tecnologicamente avanzati, pronti a soddisfare le tue esigenze.</div>
       </div>
 
       <a class="hero-prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -119,6 +127,7 @@
     %>
     </div>
 
+	<script type="text/javascript" src="js/global_vars.js"></script>
     <script type="text/javascript" src="js/slider.js"></script>
     <script type="text/javascript" src="js/product_slider.js"></script>
     <script type="text/javascript" src="js/slider-mouse-event.js"></script>
@@ -126,5 +135,10 @@
     
 	<jsp:include page="footer.jsp"></jsp:include>
 	
+	</div>
+	
+	<script type="text/javascript" src="js/slider.js"></script>
+    <script type="text/javascript" src="js/product_slider.js"></script>
+    <script type="text/javascript" src="js/slider-mouse-event.js"></script>
 </body>
 </html>

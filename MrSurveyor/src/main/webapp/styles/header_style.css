@@ -8,6 +8,24 @@ body {
 	font-family: 'Inter', sans-serif;
 }
 
+a {
+	-webkit-user-drag: none;
+	-khtml-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+	user-drag: none;
+	user-select: none;
+}
+
+img {
+	-webkit-user-drag: none;
+	-khtml-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+	user-drag: none;
+	user-select: none;
+}
+
 header {
 	background-color: #f3a712;
 	color: #fff;
@@ -35,6 +53,7 @@ header {
 .nav-links a {
 	text-decoration: none;
 	color: #433a3f;
+	white-space: nowrap;
 }
 
 .nav-right {
@@ -101,4 +120,16 @@ header {
 	width: 30px;
 	margin-left: 20px;
 	cursor: pointer;
+}
+
+@media ( max-width : 1120px) {
+	.navbar-container {
+		display: none;
+	}
+}
+
+@media ( max-width : 560px) {
+	.search-bar {
+		display: none;
+	}
 }
