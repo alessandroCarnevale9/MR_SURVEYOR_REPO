@@ -11,11 +11,6 @@ body {
 header {
 	background-color: #f3a712;
 	color: #fff;
-	padding: 10px 0;
-	width: 100%;
-}
-
-.navbar-container {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

@@ -92,12 +92,12 @@
     					<img class="slide-img" alt="<%=p.getName() %>" src="images/prod/<%=p.getImagePath() %>">
     					<div class="prod-description">
     					<div class="prod-category">
-    						<a href="#"><%=rootCategory %>
+    						<a href="#"><%=rootCategory%>
     						<%
     						String subcategory = p.getSubcategories().get(0).getName();
     						if(subcategory != null && !subcategory.trim().equals("")) {
     						%>
-    						 ,<%=subcategory %></a>
+    						, <%=subcategory %></a>
     						<%
     						}
     						%>

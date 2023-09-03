@@ -9,20 +9,19 @@
 <body>
 	
 	<header>
+		<div class="logo">
+			<a href="homepage.jsp"><img src="images/logo.png" alt="Logo del sito"></a>
+        </div>
         <nav class="navbar-container">
-            
-            <div class="logo">
-            	<a href="homepage.jsp"><img src="images/logo.png" alt="Logo del sito"></a>
-            </div>
-            
             <ul class="nav-links">
                 <li><a href="homepage.jsp">HOME</a></li>
                 <li><a href="#">CHI SIAMO</a></li>
                 <li><a href="categories_enduser.jsp">PRODOTTI</a></li>
                 <li><a href="#">CONTATTI</a></li>
             </ul>
-            
-            <div class="nav-right">
+        </nav>
+        
+        <div class="nav-right">
                 <div class="search-bar">
                 <form action="#" method="GET">
                 <div class="input-container">
@@ -38,8 +37,7 @@
                 <div class="user-icon">
                 <a href="homepage_enduser.jsp"><img alt="user_img" src="images/user.png"></a>
                 </div>
-            </div>
-        </nav>
+            </div>    
     </header>
     
 </body>
