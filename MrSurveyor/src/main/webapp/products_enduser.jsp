@@ -2,8 +2,8 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="model.bean.Product"%>
 <%@page import="java.util.Collection"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 	<%
 	Collection<?> products = (Collection<?>)request.getAttribute("products");
@@ -52,7 +52,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title><%=title%></title>
 <link rel="stylesheet" href="styles/grid_style.css">
 </head>

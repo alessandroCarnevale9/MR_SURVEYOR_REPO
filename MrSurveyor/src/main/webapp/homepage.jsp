@@ -3,8 +3,8 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="model.bean.Product"%>
 <%@page import="java.util.Collection"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <%
 	Collection<?> productsCollection = (Collection<?>)request.getAttribute("homepage_products");
@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Home Page</title>
 <link rel="stylesheet" href="styles/slider.css">
 <link rel="stylesheet" href="styles/slider_product.css">
@@ -41,7 +41,7 @@
       <div class="hero-slides hero-fade">
         <div class="numbertext">2 / 3</div>
         <img class="hero-slide-img" src="images/slider/2.jpg" alt="image2">
-        <div class="text" id="text2">Misura e mappa il territorio con facilità 
+        <div class="text" id="text2">Misura e mappa il territorio con facilitÃ  
         grazie ai nostri innovativi strumenti topografici,<br>
         progettati per garantire risultati accurati e affidabili.</div>
       </div>

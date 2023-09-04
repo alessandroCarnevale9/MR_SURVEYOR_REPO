@@ -1,8 +1,8 @@
 <%@page import="model.bean.CartProduct"%>
 <%@page import="java.util.Collection"%>
 <%@page import="model.bean.Cart"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <%
 	String errorMessage = (String)request.getAttribute("error");	
@@ -20,7 +20,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Carrello</title>
 <link rel="stylesheet" href="styles/cart.css">
 </head>
@@ -49,7 +49,7 @@
 		</div>
 		<div class="funct">
 			<form action="${pageContext.request.contextPath}/CartServlet" method="GET">
-				<label for="quantity">Quantità:</label>
+				<label for="quantity">QuantitÃ :</label>
 				<input type="hidden" name="quantityID" value="<%=p.getId()%>">
           		<select id="quantity" name="cart_quantity" class="quantity-select">
           		<%

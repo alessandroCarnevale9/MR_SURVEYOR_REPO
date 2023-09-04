@@ -2,8 +2,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.bean.Subcategory"%>
 <%@page import="model.bean.Product"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <%
 	Product product = (Product)request.getAttribute("showProduct");
@@ -30,7 +30,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title><%=product.getName() %></title>
 </head>
 <body>
@@ -63,7 +63,7 @@
 			<div class="controls">
 				<form action="${pageContext.request.contextPath}/CartServlet" method="GET">
 					<input type="hidden" name="productID" value="<%=product.getId()%>">
-					<label for="quantity">Quantità:</label>
+					<label for="quantity">QuantitÃ :</label>
 					<select id="quantity" name="quantity" class="quantity-select">
 					<%
 					for(int i = 1; i <= product.getQuantity(); i++) {
