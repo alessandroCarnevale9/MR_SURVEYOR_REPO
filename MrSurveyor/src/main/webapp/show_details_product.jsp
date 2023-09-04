@@ -1,3 +1,4 @@
+<%@page import="utils.Utlis"%>
 <%@page import="model.bean.Category"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.bean.Subcategory"%>
@@ -25,6 +26,13 @@
 	Subcategory subcategory = null;	
 	if(!subcategories.isEmpty())
 		subcategory = subcategories.get(0);
+	
+	if(category == null)
+		category = subcategory.getRootCategory();
+	
+	String subcategoryName = "";
+	if(subcategory != null)
+		subcategoryName = subcategory.getName();
 %>
 
 <!DOCTYPE html>
@@ -37,26 +45,7 @@
 	<div class="product-container">
 		<img class="product-image" alt="<%=product.getName() %>" src="images/prod/<%=product.getImagePath() %>">
 		<div class="product-details">
-		<%
-		if(subcategory != null) {
-		%>
-			<a href="${pageContext.request.contextPath}/CatalogServlet?category=<%=subcategory.getRootCategory().getName()%>">
-			<small><%=subcategory.getRootCategory().getName() %></small>
-			</a>
-			<small>
-			<a href="${pageContext.request.contextPath}/CatalogServlet?subcategory=<%=subcategory.getName()%>">
-			, <%=subcategory.getName() %>
-			</a>
-			</small>
-		<%
-		} else if(category != null){
-		%>
-			<a href="${pageContext.request.contextPath}/CatalogServlet?category=<%=category.getName()%>">
-			<small><%=category.getName() %></small>
-			</a>
-		<%
-		}
-		%>
+			<small><%=Utlis.categoryLoop(category.getName(), subcategoryName)%></small>
 			<h1><%=product.getName() %></h1>
 			<p><%=product.getDescription() %></p>
 			<p><%=product.getPrice() %></p>

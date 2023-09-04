@@ -1,3 +1,4 @@
+<%@page import="utils.Utlis"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Iterator"%>
@@ -100,15 +101,7 @@
     					<img class="slide-img" alt="<%=p.getName() %>" src="images/prod/<%=p.getImagePath() %>">
     					<div class="prod-description">
     					<div class="prod-category">
-    						<a href="#"><%=rootCategory%>
-    						<%
-    						String subcategory = p.getSubcategories().get(0).getName();
-    						if(subcategory != null && !subcategory.trim().equals("")) {
-    						%>
-    						, <%=subcategory %></a>
-    						<%
-    						}
-    						%>
+    						<small><%=Utlis.categoryLoop(rootCategory, p.getSubcategories().get(0).getName())%></small>
     					</div>
     					<div class="prod-name">
     						<h2><a href="#"><%=p.getName() %></a></h2>
