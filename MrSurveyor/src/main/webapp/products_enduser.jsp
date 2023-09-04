@@ -28,8 +28,14 @@
 <meta charset="UTF-8">
 <title><%=title%></title>
 <link rel="stylesheet" href="styles/grid_style.css">
+<link rel="stylesheet" href="styles/products.css">
 </head>
 <body>
+
+	<div class="flex-container">
+	<jsp:include page="header.jsp"></jsp:include>
+	<main>
+
 	<div class="grid-container">
 	<%
 	if(products != null && !products.isEmpty()) {
@@ -41,37 +47,49 @@
 				session.setAttribute("category", category);
 	%>
 	
-			<div class="product">
+			<div class="item-prod">
 			<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>">
-				<img alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
+				<img class="prod-img detail-img" alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
 			</a>	
 				<div class="prod-description">
-					<small><%=Utlis.categoryLoop(category, productBean.getSubcategories().get(0).getName())%></small>
-					<h2>
-					<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>"><%=productBean.getName()%></a>
-					</h2>
-					<p><%=productBean.getPrice() %></p>
+					<div class="prod-category">
+						<small><%=Utlis.categoryLoop(category, productBean.getSubcategories().get(0).getName())%></small>
+					</div>
+					<div class="prod-name">
+						<h2>
+						<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>"><%=productBean.getName()%></a>
+						</h2>
+					</div>
+					<div class="prod-price">
+						<p><%=productBean.getPrice() %></p>
+					</div>
 				</div>
 			</div>
 	<%
 			} else if(subcategory != null && !subcategory.trim().equals("")) {
 	%>
-			<div class="product">
+			<div class="item-prod">
 			<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>">
-				<img alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
+				<img class="prod-img detail-img" alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
 			</a>
 				<div class="prod-description">
-					<small>
-					<a href="${pageContext.request.contextPath}/CatalogServlet?subcategory=<%=subcategory %>">
-					<%=subcategory %>
-					</a>
-					</small>
-					<h2>
-					<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>">
-					<%=productBean.getName()%>
-					</a>
-					</h2>
-					<p><%=productBean.getPrice() %></p>
+					<div class="prod-category">
+						<small>
+						<a href="${pageContext.request.contextPath}/CatalogServlet?subcategory=<%=subcategory %>">
+						<%=subcategory %>
+						</a>
+						</small>
+					</div>
+					<div class="prod-name">
+						<h2>
+						<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>">
+						<%=productBean.getName()%>
+						</a>
+						</h2>
+					</div>	
+					<div class="prod-price">
+						<p><%=productBean.getPrice() %></p>
+					</div>
 				</div>
 			</div>
 	<%
@@ -80,5 +98,10 @@
 	}
 	%>
 	</div>
+	
+	</main>
+	<jsp:include page="footer.jsp"></jsp:include>
+	</div>
+	
 </body>
 </html>

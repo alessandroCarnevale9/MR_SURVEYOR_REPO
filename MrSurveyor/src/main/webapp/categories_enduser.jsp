@@ -22,6 +22,11 @@
 <link rel="stylesheet" href="styles/grid_style.css">
 </head>
 <body>
+
+	<div class="flex-container">
+	<jsp:include page="header.jsp"></jsp:include>
+	<main class="category-main">
+	
 	<div class="grid-container">
 		<%
 		if(categories != null && !categories.isEmpty()) {
@@ -48,5 +53,10 @@
 		}
 		%>
 	</div>
+	
+	</main>
+	<jsp:include page="footer.jsp"></jsp:include>
+	</div>
+		
 </body>
 </html>

@@ -21,13 +21,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Home Page</title>
+<link rel="stylesheet" href="styles/products.css">
 <link rel="stylesheet" href="styles/slider.css">
 <link rel="stylesheet" href="styles/slider_product.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+	
 	<div class="flex-container">
 	<jsp:include page="header.jsp"></jsp:include>
+	<main class="home-page">
 	
 	<div class="hero-slider-container">
 
@@ -97,8 +100,8 @@
     			while(prodIterator.hasNext()) {
     				Product p = (Product)prodIterator.next();
     		%>
-    				<div class="slide-item">
-    					<img class="slide-img" alt="<%=p.getName() %>" src="images/prod/<%=p.getImagePath() %>">
+    				<div class="slide-item item-prod">
+    					<img class="prod-img" alt="<%=p.getName() %>" src="images/prod/<%=p.getImagePath() %>">
     					<div class="prod-description">
     					<div class="prod-category">
     						<small><%=Utlis.categoryLoop(rootCategory, p.getSubcategories().get(0).getName())%></small>
@@ -120,17 +123,14 @@
     %>
     </div>
 
-	<script type="text/javascript" src="js/global_vars.js"></script>
-    <script type="text/javascript" src="js/slider.js"></script>
-    <script type="text/javascript" src="js/product_slider.js"></script>
-    <script type="text/javascript" src="js/slider-mouse-event.js"></script>
-    
-    
-	<jsp:include page="footer.jsp"></jsp:include>
 	
+    
+    </main>
+	<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 	
-	<script type="text/javascript" src="js/slider.js"></script>
+	<script type="text/javascript" src="js/global_vars.js"></script>
+    <script type="text/javascript" src="js/slider.js"></script>
     <script type="text/javascript" src="js/product_slider.js"></script>
     <script type="text/javascript" src="js/slider-mouse-event.js"></script>
 </body>

@@ -40,32 +40,52 @@
 <head>
 <meta charset="UTF-8">
 <title><%=product.getName() %></title>
+<link rel="stylesheet" href="styles/products.css">
 </head>
 <body>
-	<div class="product-container">
-		<img class="product-image" alt="<%=product.getName() %>" src="images/prod/<%=product.getImagePath() %>">
-		<div class="product-details">
-			<small><%=Utlis.categoryLoop(category.getName(), subcategoryName)%></small>
-			<h1><%=product.getName() %></h1>
-			<p><%=product.getDescription() %></p>
-			<p><%=product.getPrice() %></p>
-			<div class="controls">
-				<form action="${pageContext.request.contextPath}/CartServlet" method="GET">
-					<input type="hidden" name="productID" value="<%=product.getId()%>">
-					<label for="quantity">Quantità:</label>
-					<select id="quantity" name="quantity" class="quantity-select">
-					<%
-					for(int i = 1; i <= product.getQuantity(); i++) {
-					%>
-						<option value="<%=i%>"><%=i %></option>
-					<%
-					}
-					%>
-					</select>
-					<input type="submit" value="Aggiungi al Carrello">
-				</form>
+
+	<div class="flex-container">
+	<jsp:include page="header.jsp"></jsp:include>
+	<main>
+
+	<div class="item-prod detail">
+		<img class="prod-img detail-img" alt="<%=product.getName() %>" src="images/prod/<%=product.getImagePath() %>">
+		<div class="prod-description">
+			<div class="prod-category">
+				<small><%=Utlis.categoryLoop(category.getName(), subcategoryName)%></small>
+			</div>
+			<div class="prod-name">
+				<h2><%=product.getName() %></h2>
+			</div>
+			<div class="prod-price">	
+				<p><%=product.getPrice() %></p>
 			</div>
 		</div>
 	</div>
+	
+	<p><%=product.getDescription() %></p>
+
+
+	<div class="controls">
+		<form action="${pageContext.request.contextPath}/CartServlet"
+			method="GET">
+			<input type="hidden" name="productID" value="<%=product.getId()%>">
+			<label for="quantity">Quantità:</label> <select id="quantity"
+				name="quantity" class="quantity-select">
+				<%
+					for(int i = 1; i <= product.getQuantity(); i++) {
+				%>
+				<option value="<%=i%>"><%=i %></option>
+				<%
+					}
+				%>
+			</select> <input type="submit" value="Aggiungi al Carrello">
+		</form>
+	</div>
+	
+	</main>
+	<jsp:include page="footer.jsp"></jsp:include>
+	</div>
+	
 </body>
 </html>

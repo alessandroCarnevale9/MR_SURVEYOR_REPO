@@ -1,3 +1,5 @@
+let slideIndex = 1;
+
 const sliderContainer = document.querySelector(".slider-container");
 const containerWidth = sliderContainer.offsetWidth;
 const sliderWidth = 250;

@@ -5,8 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Home Page End User</title>
+<link rel="stylesheet" type="text/css" href="styles/enduser_home.css">
 </head>
 <body>
+	
+	<div class="flex-container">
+	<jsp:include page="header.jsp"></jsp:include>
+	<main>
+	
 	<aside class="left-bar">
 		<nav class="links">
 			<ul>
@@ -18,5 +24,10 @@
 			</ul>
 		</nav>
 	</aside>
+	
+	</main>
+	<jsp:include page="footer.jsp"></jsp:include>
+	</div>
+	
 </body>
 </html>
