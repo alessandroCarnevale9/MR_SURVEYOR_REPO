@@ -12,6 +12,7 @@
 
 main {
 	margin-top: 30px;
+	margin-bottom: 30px;
 	flex-grow: 1;
 }
 
@@ -22,6 +23,7 @@ h1 {
 .grid-container {
 	display: flex;
 	flex-direction: column;
+	gap: 30px;
 }
 
 .cart-item {
@@ -32,18 +34,18 @@ h1 {
 
 .cart-img {
 	grid-row: 1/3;
-	border-bottom: 1px solid black;
-	border-right: 1px solid black;
+	border: 1px solid black;
 }
 
 .price {
 	grid-row: 1/3;
 	grid-column: 3/4;
-	border-bottom: 1px solid black;
-	border-left: 1px solid black;
+	border: 1px solid black;
+	min-width: 150px;
 }
 
 .prod-name {
+	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 }
 
@@ -59,5 +61,48 @@ h1 {
 }
 
 .funct input[type="submit"] {
-	margin-left: 20px;
+	margin-right: 20px;
+}
+
+@media (max-width: 960px) {
+	.prod-name {
+		max-width: 300px;
+		min-width: 300px;
+	}
+	
+	.prod-name h2 {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 100%;
+	}
+}
+
+@media (max-width: 700px) {
+	.cart-item {
+		display: block;
+		border: 1px solid black;
+	}
+	
+	.cart-img, .price, .prod-name, .funct {
+		border-color: transparent;
+		justify-content: flex-start;
+		padding-left: 20px;
+	}
+	
+	.cart-img {
+		border-bottom-color: black;
+	}
+	
+	.prod-name {
+		padding-top: 10px;
+	}
+	
+	.price, .prod-name, .funct {
+		padding-bottom: 10px;
+	}
+	
+	.price, .prod-name {
+		font-size: 11px;
+	}
 }

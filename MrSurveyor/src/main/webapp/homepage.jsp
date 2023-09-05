@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="utils.Utlis"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,6 +15,8 @@
 		response.sendRedirect(getServletContext().getContextPath()+"/CatalogServlet?homepage");
 		return;
 	}
+	
+	DecimalFormat df = new DecimalFormat("###,##0.00 €");
 %>
 
 <!DOCTYPE html>
@@ -109,7 +112,7 @@
     					<div class="prod-name">
     						<h2><a href="#"><%=p.getName() %></a></h2>
     					</div>
-    					<div class="prod-price"><%=p.getPrice() %></div>
+    					<div class="prod-price"><%=df.format(p.getPrice()) %></div>
     					</div>
     				</div>
     			<%

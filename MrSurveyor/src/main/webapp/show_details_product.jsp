@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="utils.Utlis"%>
 <%@page import="model.bean.Category"%>
 <%@page import="java.util.ArrayList"%>
@@ -33,6 +34,8 @@
 	String subcategoryName = "";
 	if(subcategory != null)
 		subcategoryName = subcategory.getName();
+	
+	DecimalFormat df = new DecimalFormat("###,##0.00 €");
 %>
 
 <!DOCTYPE html>
@@ -48,6 +51,8 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<main>
 
+	<div><h1>Dettagli prodotto</h1></div>
+
 	<div class="item-prod detail">
 		<img class="prod-img detail-img" alt="<%=product.getName() %>" src="images/prod/<%=product.getImagePath() %>">
 		<div class="prod-description">
@@ -58,7 +63,7 @@
 				<h2><%=product.getName() %></h2>
 			</div>
 			<div class="prod-price">	
-				<p><%=product.getPrice() %></p>
+				<p><%=df.format(product.getPrice()) %></p>
 			</div>
 		</div>
 	</div>

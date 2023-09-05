@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="utils.Utlis"%>
 <%@page import="com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream"%>
 <%@page import="java.util.Iterator"%>
@@ -19,6 +20,8 @@
 	String subcategory = request.getParameter("subcategory");
 	
 	String title = category != null ? category : subcategory;
+	
+	DecimalFormat df = new DecimalFormat("###,##0.00 €");
 	
 	%>
 
@@ -61,7 +64,7 @@
 						</h2>
 					</div>
 					<div class="prod-price">
-						<p><%=productBean.getPrice() %></p>
+						<p><%=df.format(productBean.getPrice()) %></p>
 					</div>
 				</div>
 			</div>
@@ -88,7 +91,7 @@
 						</h2>
 					</div>	
 					<div class="prod-price">
-						<p><%=productBean.getPrice() %></p>
+						<p><%=df.format(productBean.getPrice()) %></p>
 					</div>
 				</div>
 			</div>

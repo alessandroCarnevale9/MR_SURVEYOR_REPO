@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="model.bean.CartProduct"%>
 <%@page import="java.util.Collection"%>
 <%@page import="model.bean.Cart"%>
@@ -15,12 +16,15 @@
 	}
 	
 	Collection<CartProduct> products = userCart.getProducts();
+	
+	DecimalFormat df = new DecimalFormat("###,##0.00 €");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carrello</title>
 <link rel="stylesheet" href="styles/cart.css">
 </head>
@@ -33,9 +37,11 @@
 	%>
 		<div><h1>Carrello vuoto</h1></div>
 	<%
-	}
+	} else {
 	%>
-
+	
+	<div><h1>I tuoi prodotti</h1></div>
+	
 	<div class="grid-container">
 	<%
 	for(CartProduct p : products) {
@@ -67,7 +73,6 @@
           		</select>
           		<input type="submit" value="Imposta">
 			</form>
-			
 			<%
 				if(errorMessage != null) {
 			%>
@@ -82,10 +87,11 @@
     		</form>
 		</div>
 		<div class="price">
-			<h3><%=p.getPrice()%></h3>
+			<h3><%=df.format(p.getPrice())%></h3>
 		</div>
 		</div>
 	<%
+		}
 	}
 	%>
 	</div>
