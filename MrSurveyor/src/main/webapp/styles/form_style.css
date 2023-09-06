@@ -10,6 +10,15 @@ body {
 	box-sizing: border-box;
 }
 
+.flex-container {
+	display: flex;
+    flex-direction: column;
+}
+
+main {
+	flex-grow: 1;
+}
+
 .main-box {
 	background-color: #eff1ed;
 	display: flex;
@@ -17,7 +26,6 @@ body {
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
-	width: 100%;
 }
 
 .registration {
@@ -32,7 +40,24 @@ body {
 	padding: 0 30px;
 	width: 300px;
 	border-radius: 15px;
-	border: 1px solid black; 
+	border: 1px solid black;
+}
+
+.address * {
+	font-size: 13px;
+	padding: 0;
+}
+
+.address h1 {
+	font-size: 26px;
+	margin: 5px 0;
+	margin-bottom: 10px;
+}
+
+.address form input {
+	margin: 10px 0;
+	padding: 8px 12px;
+	margin-bottom: 15px;
 }
 
 #error-message {
@@ -59,6 +84,10 @@ input {
 	padding: 8px 12px;
 	margin-bottom: 50px;
 	transition: border-color 0.5s;
+}
+
+.address input {
+	margin-bottom: 0;
 }
 
 input::placeholder {
@@ -92,6 +121,10 @@ input:focus {
 	color: white;
 	font-weight: bold;
 	transition: background-color 0.5s, color 0.5s, box-shadow 0.3s;
+}
+
+.address input[type="submit"] {
+	margin-bottom: 15px;
 }
 
 @keyframes spin {
@@ -240,4 +273,59 @@ input:focus {
 .form-control.error small {
 	visibility: visible;
 	color: #e74c3c;
+}
+
+@media (max-height: 460px) {
+	
+	.submit.loading {
+		width: auto;
+		height: 35px;
+	}
+	
+	#header {
+		font-size: 30px;
+		margin-bottom: 20px;
+	}
+	
+	.child-box * {
+		font-size: 13px;
+		padding: 0;
+	}
+	
+    .child-box {
+        width: 80%;
+    }
+    
+    .child-box form input {
+		margin: 10px 0;
+		padding: 8px 12px;
+		margin-bottom: 15px;
+	}
+
+}
+
+@media (max-height: 400px) {
+	#header {
+		font-size: 25px;
+		margin-bottom: 20px;
+	}
+	
+	.child-box form input {
+		margin-bottom: 0;
+	}
+	
+	.address input[type="submit"] {
+		margin-bottom: 0;
+	}
+	
+	.submit input[type="submit"] {
+		padding: 5px 10px;
+		margin: 15px 0;
+	}
+}
+
+@media (max-height: 340px) {
+	.child-box {
+		display: none;	
+	}
 }

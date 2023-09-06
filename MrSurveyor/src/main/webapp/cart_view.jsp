@@ -40,6 +40,7 @@
 	} else {
 		
 		double totalPrice = 0;
+		double partialTotalPrice = 0;
 	%>
 	
 	<div><h1>I tuoi prodotti</h1></div>
@@ -47,6 +48,7 @@
 	<div class="grid-container">
 	<%
 	for(CartProduct p : products) {
+		partialTotalPrice = p.getPrice();
 	%>
 		<div class="cart-item">
 		<div class="cart-img">
@@ -62,13 +64,16 @@
           		<select id="quantity" name="cart_quantity" class="quantity-select">
           		<%
           		for(int i = 1; i <= p.getMaxQuantity(); i++) {
-          		%>
-          			<option value="<%=i%>"><%=i%></option>
-          		<%
           			if(i == p.getQuantity()) {
+          				
+          				partialTotalPrice *= i;
           		%>
           				<option value="<%=i%>" selected><%=i%></option>
           		<%
+          			} else {
+                 %>
+              			<option value="<%=i%>"><%=i%></option>
+              	 <%
           			}
           		}
           		%>
@@ -93,9 +98,13 @@
 		</div>
 		</div>
 	<%
-		}
+		totalPrice += partialTotalPrice;	
+	}
 	%>
-		<div class="total-price"></div>
+		<div class="total-price">
+			<h2>Prezzo totale: <%=df.format(totalPrice) %></h2>
+			<a href="#">Acquista</a>
+		</div>
 	<%
 	}
 	%>

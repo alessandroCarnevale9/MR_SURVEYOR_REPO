@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import com.google.gson.Gson;
 
 import model.bean.Cart;
+import model.bean.RegisteredEndUser;
 import model.dao.EndUserDAO;
 import model.dao.EndUserDAOImp;
 
@@ -78,7 +79,9 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 					}
 					else {
 						
-						int userID = endUserDAO.getEndUserID(userEmail);
+						RegisteredEndUser endUser = endUserDAO.getRegisteredEndUser(userEmail);
+
+						long userID = endUser.getId();
 						
 						HttpSession oldSession = request.getSession(false);
 						if(oldSession != null)
@@ -109,6 +112,7 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 						
 						currentSession.setAttribute("userID", userID);
 						currentSession.setAttribute("userEmail", userEmail);
+						currentSession.setAttribute("registeredEndUser", endUser);
 						currentSession.setAttribute("userCart", userCart);
 						
 						currentSession.setMaxInactiveInterval(5*60); // 5 minuti di inattività massima, dopo cancella la sessione

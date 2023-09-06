@@ -64,6 +64,28 @@ public class Address implements Cloneable {
 		this.cap = cap;
 	}
 	
+	public boolean isValidAddress() {
+	    
+	    if (region == null || region.isEmpty() ||
+	        province == null || province.isEmpty() ||
+	        city == null || city.isEmpty() ||
+	        street == null || street.isEmpty() ||
+	        cap == null || cap.isEmpty()) {
+	        return false;
+	    }
+	    
+	    if (houseNumber <= 0) {
+	        return false;
+	    }
+	    
+	    if (cap.length() != 5) {
+	        return false;
+	    }
+
+	    return true;
+	}
+
+	
 	public String toString() {
 		return getClass().getName()+"[region="+region+",province="+province+
 				"city="+city+",street="+street+",houseNumber="+houseNumber+",cap="+cap+"]";

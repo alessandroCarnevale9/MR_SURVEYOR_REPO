@@ -20,6 +20,39 @@ h1 {
 	margin: 20px;
 }
 
+.total-price {
+	display: flex;
+	flex-direction: column;
+	padding: 10px 0;
+	margin-left: 20px;
+}
+
+.total-price * {
+	padding: 10px 0;
+}
+
+.total-price a {
+	display: inline-block;
+	width: 70px;
+	padding: 10px 20px;
+	border-radius: 5px;
+	text-decoration: none;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	transition: background-color 0.5s, color 0.5s, box-shadow 0.3s;
+}
+
+.total-price a:visited {
+	color: black;
+}
+
+.total-price a:hover {
+	box-shadow: 4px 3px 6px rgba(0, 0, 0, 0.3);
+	background-color: #f3a712;
+	color: black;
+}
+
 .grid-container {
 	display: flex;
 	flex-direction: column;

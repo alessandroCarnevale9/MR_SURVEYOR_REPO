@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import model.bean.Address;
 import model.bean.RegisteredEndUser;
 
 public class EndUserDAOImp implements EndUserDAO {
@@ -18,7 +19,7 @@ public class EndUserDAOImp implements EndUserDAO {
 			+ " end_user_region, end_user_province, end_user_city, end_user_street,"
 			+ " end_user_cap, end_user_house_number)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-	private static final String SELECT_USER_BY_EMAIL = "SELECT end_user_id " + "FROM " + ENDUSER_TABLE
+	private static final String SELECT_USER_BY_EMAIL = "SELECT * " + "FROM " + ENDUSER_TABLE
 			+ " WHERE end_user_email = ?;";
 	
 	private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT end_user_id " + "FROM " + ENDUSER_TABLE
@@ -121,20 +122,39 @@ public class EndUserDAOImp implements EndUserDAO {
 	}
 
 	@Override
-	public int getEndUserID(String email) throws SQLException {
+	public RegisteredEndUser getRegisteredEndUser(String email) throws SQLException {
+		
+		RegisteredEndUser endUser = new RegisteredEndUser();
 		
 		if (email != null) {
 			
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
-
+			
 			try {
 				connection = ds.getConnection();
 				preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL);
 				preparedStatement.setString(1, email);
 
 				ResultSet rs = preparedStatement.executeQuery();
-				return rs.next() ? rs.getInt("end_user_id") : 0;
+				Address address = new Address();
+				if(rs.next()) {
+					
+					endUser.setId(rs.getInt("end_user_id"));
+					endUser.setName(rs.getString("end_user_name"));
+					endUser.setSurname(rs.getString("end_user_surname"));
+					endUser.setEmail(rs.getString("end_user_email"));
+					endUser.setPassword(rs.getString("end_user_password"));
+					
+					address.setRegion(rs.getString("end_user_region"));
+					address.setProvince(rs.getString("end_user_province"));
+					address.setCity(rs.getString("end_user_city"));
+					address.setStreet(rs.getString("end_user_street"));
+					address.setCap(rs.getString("end_user_cap"));
+					address.setHouseNumber(rs.getInt("end_user_house_number"));
+					
+					endUser.setAddress(address);
+				}
 			} finally {
 				try {
 					if (preparedStatement != null)
@@ -146,7 +166,7 @@ public class EndUserDAOImp implements EndUserDAO {
 			}
 		}
 		
-		return 0;
+		return endUser;
 	}
 
 	private static DataSource ds;
