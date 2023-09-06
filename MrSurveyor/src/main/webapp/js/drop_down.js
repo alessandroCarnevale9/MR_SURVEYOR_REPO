@@ -1,8 +1,6 @@
-// Ottieni riferimenti agli elementi HTML
 var userDropdownToggle = document.getElementById("user-dropdown-toggle");
 var userDropdown = document.getElementById("user-dropdown");
 
-// Aggiungi un gestore di eventi per il clic sull'icona utente
 userDropdownToggle.addEventListener("click", function(e) {
     e.preventDefault(); // Evita il comportamento predefinito del link
     if (userDropdown.style.display === "block") {
@@ -12,10 +10,8 @@ userDropdownToggle.addEventListener("click", function(e) {
     }
 });
 
-// Chiudi il dropdown se l'utente fa clic altrove nella pagina
 window.addEventListener("click", function(e) {
     if (e.target !== userDropdownToggle && e.target !== userDropdown) {
         userDropdown.style.display = "none";
     }
 });
-

@@ -41,6 +41,9 @@ main {
 	width: 300px;
 	border-radius: 15px;
 	border: 1px solid black;
+	margin: auto;
+	margin-top: 50%;
+	margin-bottom: 50%;
 }
 
 .address * {

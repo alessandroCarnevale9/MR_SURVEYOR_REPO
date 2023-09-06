@@ -12,7 +12,15 @@
 	<header>
 		<div class="logo">
 			<a href="homepage.jsp"><img src="images/logo.png" alt="Logo del sito"></a>
+        	
+        	<div class="humburger-container">
+        		<div class="humburger"></div>
+        		<div class="humburger"></div>
+        		<div class="humburger"></div>
+        	</div>	
+        
         </div>
+        
         <nav class="navbar-container">
             <ul class="nav-links">
                 <li><a href="homepage.jsp">HOME</a></li>
@@ -24,7 +32,7 @@
         
         <div class="nav-right">
                 <div class="search-bar">
-                <form action="#" method="GET">
+                <form id="search-form" action="#" method="GET">
                 <div class="input-container">
                     <input type="text" placeholder="Cerca...">
                     <button type="submit"><img alt="search_img" src="images/search.png"></button>

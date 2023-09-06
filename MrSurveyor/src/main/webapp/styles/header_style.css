@@ -13,7 +13,6 @@ a {
 	-khtml-user-drag: none;
 	-moz-user-drag: none;
 	-o-user-drag: none;
-	user-drag: none;
 	user-select: none;
 }
 
@@ -22,7 +21,6 @@ img {
 	-khtml-user-drag: none;
 	-moz-user-drag: none;
 	-o-user-drag: none;
-	user-drag: none;
 	user-select: none;
 }
 
@@ -34,8 +32,28 @@ header {
 	justify-content: space-between;
 }
 
+.logo {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 .logo img {
 	height: 50px;
+}
+
+.humburger-container {
+	cursor: pointer;
+	height: 54px;
+	margin-left: 15px;
+	display: none;
+	transform: translateY(3px);
+}
+
+.humburger {
+	padding: 3px 0;
+	width: 30px;
+	border-top: 2px solid black;
 }
 
 .nav-links {
@@ -65,11 +83,17 @@ header {
 .search-bar {
 	display: flex;
 	align-items: center;
+	justify-content: flex-end;
 	background-color: #fff;
 	border-radius: 20px;
 	padding: 5px;
 	margin-right: 10px;
+	width: 400px;
 }
+
+/*.nav-links.active {
+	display: none;
+}*/
 
 .search-bar form {
 	display: flex;
@@ -98,7 +122,7 @@ header {
 .search-bar input {
 	border: none;
 	padding: 5px;
-	width: 200px;
+	width: 390px;
 	background-color: transparent;
 	margin: 0;
 	font-size: 15px;
@@ -150,13 +174,35 @@ header {
 	font-size: 13px;
 }
 
-@media ( max-width : 1120px) {
+@media ( max-width : 1290px) {
 	.navbar-container {
 		display: none;
 	}
+	
+	.humburger-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
 }
 
-@media ( max-width : 560px) {
+/*@media ( max-width : 1120px) {
+	.navbar-container {
+		display: none;
+	}
+	
+	.humburger-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	
+}
+*/
+
+@media ( max-width : 800px) {
 	.search-bar {
 		display: none;
 	}
