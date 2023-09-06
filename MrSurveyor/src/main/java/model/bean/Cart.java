@@ -12,7 +12,7 @@ public class Cart implements Serializable {
 		cartProducts = new ArrayList<CartProduct>();
 		cartHolder = new EndUser();
 	}
-	
+		
 	public EndUser getCartHolder() {
 		return this.cartHolder;
 	}

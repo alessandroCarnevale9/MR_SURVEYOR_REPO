@@ -120,5 +120,34 @@ public class EndUserDAOImp implements EndUserDAO {
 		}
 	}
 
+	@Override
+	public int getEndUserID(String email) throws SQLException {
+		
+		if (email != null) {
+			
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+
+			try {
+				connection = ds.getConnection();
+				preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL);
+				preparedStatement.setString(1, email);
+
+				ResultSet rs = preparedStatement.executeQuery();
+				return rs.next() ? rs.getInt("end_user_id") : 0;
+			} finally {
+				try {
+					if (preparedStatement != null)
+						preparedStatement.close();
+				} finally {
+					if (connection != null)
+						connection.close();
+				}
+			}
+		}
+		
+		return 0;
+	}
+
 	private static DataSource ds;
 }

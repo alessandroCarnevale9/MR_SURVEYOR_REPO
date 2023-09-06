@@ -36,10 +36,35 @@
                 <a href="cart_view.jsp"><img alt="cart_img" src="images/shopping_cart.png"></a>
                 </div>
                 <div class="user-icon">
-                <a href="homepage_enduser.jsp"><img alt="user_img" src="images/user.png"></a>
+                <img alt="user_img" src="images/user.png" id="user-dropdown-toggle">
+                <%
+                if(session.getAttribute("userEmail") == null) {
+                %>
+                <div id="user-dropdown" class="user-dropdown-content">
+        			<a href="homepage_enduser.jsp">Accedi</a>
+        			<a href="registration_enduser.jsp">Registrati</a>
+    			</div>
+    			<%
+                } else {
+    			%>	
+    			<div id="user-dropdown" class="user-dropdown-content">
+        			<ul class="header-menu">
+						<li><a href="${pageContext.request.contextPath}/homepage_enduser.jsp">BACHECA</a></li>
+						<li><a href="#">ORDINI</a></li>
+						<li><a href="#">INDIRIZZO</a></li>
+						<li><a href="#">DETTAGLI ACCOUNT</a></li>
+						<li><a href="${pageContext.request.contextPath}/AuthenticationEndUserServlet?invalidate">LOGOUT</a></li>
+					</ul>
+    			</div>
+    			<%
+                }
+    			%>
+    			
                 </div>
             </div>    
     </header>
+    
+    <script type="text/javascript" src="js/drop_down.js"></script>
     
 </body>
 </html>

@@ -5,11 +5,14 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+
+import com.google.gson.Gson;
 
 import model.bean.Cart;
 import model.bean.CartProduct;
@@ -133,7 +136,28 @@ public class CartServlet extends HttpServlet {
 		endUserSession.removeAttribute("userCart");
 		endUserSession.setAttribute("userCart", userCart);
 		
-		response.sendRedirect(getServletContext().getContextPath()+"/cart_view.jsp");
+		Gson gson = new Gson();
+		Cookie[] cookies = request.getCookies();
+		
+		String userID = String.valueOf(endUserSession.getAttribute("userID"));
+		
+		if(userID != null) {
+			
+			if(cookies != null) {
+				for(Cookie cookie : cookies) {
+					if(cookie.getName().equals(endUserSession.getAttribute("userID"))) {
+						cookie.setMaxAge(0);
+						break;
+					}
+				}
+			}
+			
+			Cookie cartCookie = new Cookie(String.valueOf(endUserSession.getAttribute("userID")), gson.toJson(endUserSession.getAttribute("userCart")));
+			cartCookie.setMaxAge(7*24*60*60);
+			response.addCookie(cartCookie);
+		}
+		
+		response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/cart_view.jsp"));
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

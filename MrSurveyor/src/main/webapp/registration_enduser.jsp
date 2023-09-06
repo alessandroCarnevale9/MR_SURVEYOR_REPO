@@ -5,14 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registrazione</title>
 <link rel="stylesheet" href="styles/form_style.css">
 </head>
 <body>
 
+	<div class="flex-container">
 	<jsp:include page="header.jsp"></jsp:include>
+	<main>
 	
-	<div class="main-box">
+	<div class="main-box registration">
 		<div class="child-box">
 		
 		<%
@@ -122,7 +125,9 @@
 		</div>
 	</div>
 
+	</main>
 	<jsp:include page="footer.jsp"></jsp:include>
+	</div>
 	
 	<script type="text/javascript" src="js/validation_form.js"></script>
 	

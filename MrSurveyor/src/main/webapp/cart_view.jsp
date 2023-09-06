@@ -38,6 +38,8 @@
 		<div><h1>Carrello vuoto</h1></div>
 	<%
 	} else {
+		
+		double totalPrice = 0;
 	%>
 	
 	<div><h1>I tuoi prodotti</h1></div>
@@ -92,6 +94,9 @@
 		</div>
 	<%
 		}
+	%>
+		<div class="total-price"></div>
+	<%
 	}
 	%>
 	</div>

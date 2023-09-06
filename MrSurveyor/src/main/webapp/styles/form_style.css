@@ -4,10 +4,6 @@
 @import "icons/material_outlined.css";
 
 body {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	font-family: 'Inter', sans-serif;
 	margin: 0;
 	padding: 0;
@@ -17,10 +13,15 @@ body {
 .main-box {
 	background-color: #eff1ed;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
 	width: 100%;
+}
+
+.registration {
+	height: 140vh;
 }
 
 .child-box {
@@ -31,7 +32,7 @@ body {
 	padding: 0 30px;
 	width: 300px;
 	border-radius: 15px;
-	border: 1px solid black;
+	border: 1px solid black; 
 }
 
 #error-message {

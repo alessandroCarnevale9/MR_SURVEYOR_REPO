@@ -359,9 +359,6 @@ VALUES
     (82, 37);
 
 
-/*
-
-TRUNCATE end_user;
 INSERT INTO end_user (end_user_name, end_user_surname, end_user_email, end_user_password, end_user_region, end_user_province, end_user_city, end_user_street, end_user_cap, end_user_house_number)
 VALUES
     ('Alice', 'Johnson', 'alice@example.com', 'Pa$$w0rd', 'California', 'Los Angeles', 'Los Angeles', 'Main Street', '90001', 123),
@@ -375,7 +372,7 @@ VALUES
     ('Isabella', 'Martinez', 'isabella@example.com', 'M0n3y$hot', 'Texas', 'Houston', 'Houston', 'Westheimer Road', '77001', 404),
     ('Jack', 'Harris', 'jack@example.com', 'L3tmein@1', 'California', 'San Francisco', 'San Francisco', 'Mission Street', '94101', 505);
 
-
+/*
 INSERT INTO credit_card (credit_card_number, credit_card_expiration_date, credit_card_cvc, credit_card_holder, costumer_id)
 VALUES
     ('1234567812345678', '2025-12-31', '123', 'Alice Johnson', 1),

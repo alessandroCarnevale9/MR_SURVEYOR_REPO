@@ -7,7 +7,75 @@
 }
 
 main {
+	display: flex;
+	justify-content: flex-start;
 	margin-top: 30px;
 	margin-left: 30px;
 	flex-grow: 1;
+}
+
+.side-menu-item {
+	list-style: none;
+	border: 1px solid black;
+	border-radius: 8px;
+	max-width: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 0;
+	background-color: black;
+}
+
+.side-menu-item a {
+	text-decoration: none;
+	color: white; 
+}
+
+.side-menu-item li {
+	border: 1px solid black;
+	height: 100%;
+	padding: 20px 10px;
+	border-radius: 8px;
+	background-color: black;
+	transition: background-color 0.5s, color 0.5s, box-shadow 0.3s;
+}
+
+.side-menu-item li:hover {
+	background-color: #f3a712;
+}
+
+.side-menu-item a:hover {
+	color: black;
+}
+
+.welcome-message {
+	margin: 0 auto;
+	margin-left: 10%;
+}
+
+.welcome-message p {
+	font-size: 15px;
+}
+
+@media ( max-width: 560px) {
+	
+	.welcome-message h2 {
+		font-size: 18px;
+	}
+	
+	.welcome-message p {
+		font-size: 13px;
+	}
+		
+	.side-menu-item a {
+		padding: 5px 0;
+	}
+	
+	.flex-container {
+		min-height: 120vh;
+	}
+	
+	.side-menu-item li {
+		font-size: 12px;
+	}
 }
