@@ -41,17 +41,18 @@ header {
 
 .logo img {
 	height: 50px;
+	margin-left: 10%;
 }
 
-.humburger-container {
+.hamburger-container {
 	cursor: pointer;
 	height: 54px;
-	margin-left: 15px;
-	display: none;
-	transform: translateY(3px);
+	margin-left: 20px;
+	display: block;
+	transform: translateY(18px);
 }
 
-.humburger {
+.hamburger {
 	padding: 3px 0;
 	width: 30px;
 	border-top: 2px solid black;
@@ -78,7 +79,7 @@ header {
 .nav-right {
 	display: flex;
 	align-items: center;
-	margin-right: 10px;
+	margin-right: 2%;
 }
 
 .search-bar {
@@ -92,9 +93,10 @@ header {
 	width: 400px;
 }
 
-/*.nav-links.active {
+.mobile-search {
 	display: none;
-}*/
+	width: 100%;
+}
 
 .search-bar form {
 	display: flex;
@@ -123,15 +125,23 @@ header {
 .search-bar input {
 	border: none;
 	padding: 5px;
-	width: 390px;
+	width: 340px;
 	background-color: transparent;
 	margin: 0;
 	font-size: 15px;
 	line-height: 15px;
+	overflow: hidden;
+}
+
+.mobile-search #search-form, .mobile-search .input-container,
+.mobile-search input {
+	width: 100%;
 }
 
 .search-bar input:focus {
 	outline: none;
+	border: 1px solid #433a3f;
+	border-radius: 20px;
 }
 
 .search-bar button {
@@ -175,36 +185,56 @@ header {
 	font-size: 13px;
 }
 
+.mobile-navbar {
+    display: none;
+    background-color: #eee7e7;
+    padding: 20px 2px;
+	min-width: 240px;
+	position: absolute;
+	top: 55px;
+	left: 5px;
+	z-index: 1;
+}
+
+.mobile-navbar.active {
+	display: block;
+}
+
+
+.mobile-navbar .nav-links {
+    list-style: none;
+    padding: 0;
+	display: block
+}
+
+.mobile-navbar .nav-links li {
+    margin: 20px 0;
+	padding-left: 20px;
+}
+
+.mobile-navbar .nav-links a {
+    text-decoration: none;
+    color: #000;
+}
+
+@media (min-width: 1291px) {
+    .hamburger-container {
+        display: none;
+    }
+}
+
 @media ( max-width : 1290px) {
 	.navbar-container {
 		display: none;
 	}
-	
-	.humburger-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
 }
-
-/*@media ( max-width : 1120px) {
-	.navbar-container {
-		display: none;
-	}
-	
-	.humburger-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-	
-}
-*/
 
 @media ( max-width : 800px) {
 	.search-bar {
 		display: none;
+	}
+	
+	.mobile-search {
+		display: flex;
 	}
 }

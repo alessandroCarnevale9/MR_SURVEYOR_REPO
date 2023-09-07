@@ -11,14 +11,7 @@
 	
 	<header>
 		<div class="logo">
-			<a href="homepage.jsp"><img src="images/logo.png" alt="Logo del sito"></a>
-        	
-        	<div class="humburger-container">
-        		<div class="humburger"></div>
-        		<div class="humburger"></div>
-        		<div class="humburger"></div>
-        	</div>	
-        
+			<a id="add_after_me" href="homepage.jsp"><img src="images/logo.png" alt="Logo del sito"></a>
         </div>
         
         <nav class="navbar-container">
@@ -35,8 +28,8 @@
                 <form id="search-form" action="#" method="GET">
                 <div class="input-container">
                     <input type="text" placeholder="Cerca...">
-                    <button type="submit"><img alt="search_img" src="images/search.png"></button>
                 </div>
+                <button type="submit"><img alt="search_img" src="images/search.png"></button>
                 </form>
                 </div>
                 
@@ -71,6 +64,24 @@
                 </div>
             </div>    
     </header>
+    
+    <nav id="mobile-navbar" class="mobile-navbar">
+        <ul class="nav-links">
+            <li><a href="homepage.jsp">HOME</a></li>
+            <li><a href="#">CHI SIAMO</a></li>
+            <li><a href="categories_enduser.jsp">PRODOTTI</a></li>
+            <li><a href="#">CONTATTI</a></li>
+        </ul>
+    </nav>
+    
+    <div class="search-bar mobile-search">
+    	<form id="search-form" action="#" method="GET">
+    	<div class="input-container">
+    		<input type="text" placeholder="Cerca...">
+    	</div>
+    	<button type="submit"><img alt="search_img" src="images/search.png"></button>
+    	</form>
+    </div>
     
     <script type="text/javascript" src="js/drop_down.js"></script>
     

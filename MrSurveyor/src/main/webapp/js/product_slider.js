@@ -4,9 +4,6 @@ allSlides.forEach((slider, i) => {
 });
 
 
-// let currentPosition = 0;
-// const maxPosition = -((sliderWidth * numSlides) - containerWidth);
-
 function next(slideID) {
   for(let i = 0; i < values.length; i++) {
     const val = values[i];
