@@ -10,11 +10,14 @@
 </head>
 <body>
 	
-	<div class="flex-container">
-	<jsp:include page="header.jsp"></jsp:include>
-	<main>
+	
 
 	<div class="main-box registration">
+	
+	<!--  <div class="flex-container"> -->
+	<jsp:include page="header.jsp"></jsp:include>
+	<!-- <main>  -->
+	
 		<div class="child-box address">
 			<h1>Aggiungi il tuo Indirizzo</h1>
     		<form action="#" method="POST">
@@ -41,11 +44,14 @@
         		</div>
     		</form>
     	</div>
+    	
+    <!-- </main> -->
+	<jsp:include page="footer.jsp"></jsp:include>
+	<!-- </div> -->
+    	
 	</div>
 	
-	</main>
-	<jsp:include page="footer.jsp"></jsp:include>
-	</div>
+	
 	
 </body>
 </html>

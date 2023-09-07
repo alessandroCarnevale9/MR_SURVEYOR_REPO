@@ -10,12 +10,9 @@
 <link rel="stylesheet" href="styles/form_style.css">
 </head>
 <body>
-
-	<div class="flex-container">
-	<jsp:include page="header.jsp"></jsp:include>
-	<main>
 	
 	<div class="main-box registration">
+		<jsp:include page="header.jsp"></jsp:include>
 		<div class="child-box">
 		
 		<%
@@ -123,10 +120,7 @@
 				</div>
 			</form>
 		</div>
-	</div>
-
-	</main>
-	<jsp:include page="footer.jsp"></jsp:include>
+		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 	
 	<script type="text/javascript" src="js/validation_form.js"></script>

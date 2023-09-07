@@ -9,9 +9,10 @@
 </head>
 <body>
 	
-	<jsp:include page="header.jsp"></jsp:include>
 	
 	<div class="main-box">
+	
+	<jsp:include page="header.jsp"></jsp:include>
 	
 		<div class="child-box">
 			<h1 id="header">Accedi</h1>
@@ -42,7 +43,7 @@
 			
 			</form>
 		</div>
-		
+		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 	
 	<%
@@ -56,8 +57,6 @@
 	<%
 	}
 	%>
-		
-	<jsp:include page="footer.jsp"></jsp:include>
 	
 	<script type="text/javascript" src="js/utils.js"></script>
 
