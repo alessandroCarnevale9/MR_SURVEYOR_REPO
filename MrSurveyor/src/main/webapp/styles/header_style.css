@@ -290,4 +290,9 @@ header {
 	.mobile-search {
 		display: block;
 	}
+	
+	#search-results {
+		width: 98%;
+		top: 18%;
+	}
 }
