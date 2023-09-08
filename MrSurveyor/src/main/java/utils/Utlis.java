@@ -1,7 +1,11 @@
 package utils;
 
+import java.text.DecimalFormat;
+import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import model.bean.Product;
 
 public final class Utlis {
 	
@@ -72,4 +76,23 @@ public final class Utlis {
 
 		return result;
 	}
+	
+	public static String generateResultHtml(Collection<Product> products) {
+		
+	    StringBuilder html = new StringBuilder();
+	    
+	    DecimalFormat df = new DecimalFormat("###,##0.00 ");
+	    
+	    for (Product product : products) {
+	        html.append("<div class='product'>");
+	        html.append("<img src='").append("images/prod/"+product.getImagePath()).append("' alt='").append(product.getName()).append("'>");
+	        html.append("<h3>").append(product.getName()).append("</h3>");
+	        html.append("<p>").append(df.format(product.getPrice())).append("&euro;</p>");
+	        html.append("</div>");
+	    }
+
+	    return html.toString();
+	}
+
+	
 }

@@ -72,7 +72,7 @@ public class CatalogServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+				
 		if(category != null) {
 			
 			page = "/products_enduser.jsp";
@@ -162,7 +162,8 @@ public class CatalogServlet extends HttpServlet {
 		else
 			request.setAttribute("error", "Nessuna categoria da mostrare");
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		
+			request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

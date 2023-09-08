@@ -15,4 +15,5 @@ public interface CatalogDAO {
 	Collection<Product> retrieveProductsBySubcategory(String subcategory, String rootCategory) throws SQLException;
 	Product retrieveProductById(int productId) throws SQLException;
 	Subcategory retrieveFirstSubcategory(int productId) throws SQLException;
+	Collection<Product> searchProducts(String param) throws SQLException;
 }

@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="js/jquery-3.7.1.js"></script>
+
 <link rel="stylesheet" type="text/css" href="styles/header_style.css">
 </head>
 <body>
@@ -25,11 +28,11 @@
         
         <div class="nav-right">
                 <div class="search-bar">
-                <form id="search-form" action="#" method="GET">
+                <form id="search-form" action="${pageContext.request.contextPath}/SearchServlet" method="GET">
                 <div class="input-container">
-                    <input type="text" placeholder="Cerca...">
+                    <input class="live-search" type="text" name="search" placeholder="Cerca...">
                 </div>
-                <button type="submit"><img alt="search_img" src="images/search.png"></button>
+                <a href="#"><img alt="search_img" src="images/search.png"></a>
                 </form>
                 </div>
                 
@@ -75,15 +78,18 @@
     </nav>
     
     <div class="search-bar mobile-search">
-    	<form id="search-form" action="#" method="GET">
+    	<form id="search-form" action="${pageContext.request.contextPath}/SearchServlet" method="GET">
     	<div class="input-container">
-    		<input type="text" placeholder="Cerca...">
+    		<input class="live-search" type="text" name="search" placeholder="Cerca...">
     	</div>
-    	<button type="submit"><img alt="search_img" src="images/search.png"></button>
+    	<a href="#"><img alt="search_img" src="images/search.png"></a>
     	</form>
     </div>
     
     <script type="text/javascript" src="js/drop_down.js"></script>
+    <script type="text/javascript" src="js/search.js"></script>
+    
+    <div id="search-results"></div>
     
 </body>
 </html>
