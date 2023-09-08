@@ -18,12 +18,11 @@ window.addEventListener("click", function(e) {
 
 
 
-
-let isHamburgerMenuCreato = false; // Variabile di stato per tenere traccia della creazione dell'hamburger menu
+let isHamburgerMenuCreated = false; // Variabile di stato per tenere traccia della creazione dell'hamburger menu
 const mobileNavbar = document.querySelector('.mobile-navbar');
 
-function creaHamburgerMenu() {
-    const hamburgerHTML = `
+function createHamburgerMenu() {
+	const hamburgerHTML = `
         <div class="hamburger-container">
             <div class="hamburger"></div>
             <div class="hamburger"></div>
@@ -31,34 +30,69 @@ function creaHamburgerMenu() {
         </div>
     `;
 
-    document.getElementById('add_after_me').insertAdjacentHTML('afterend', hamburgerHTML);
+	document.getElementById('add_after_me').insertAdjacentHTML('afterend', hamburgerHTML);
 
-    const hamburgerContainer = document.querySelector('.hamburger-container');
+	const hamburgerContainer = document.querySelector('.hamburger-container');
 
-    hamburgerContainer.addEventListener('click', () => {
-        mobileNavbar.classList.toggle('active');
-    });
+	hamburgerContainer.addEventListener('click', () => {
+		mobileNavbar.classList.toggle('active');
+	});
 
-    isHamburgerMenuCreato = true; // Imposta la variabile di stato a true dopo la creazione
+	isHamburgerMenuCreated = true; // Imposta la variabile di stato a true dopo la creazione
 }
 
-function gestisciHamburgerMenu() {
-    const larghezzaFinestra = window.innerWidth;
-    const larghezzaMinimaPerHamburger = 1290; // Imposta la larghezza a cui l'hamburger menu dovrebbe apparire
+function manageHamburgerMenu() {
+	const windowWidth = window.innerWidth;
+	const minWidthForHamburger = 1290; // Imposta la larghezza a cui l'hamburger menu dovrebbe apparire
 
-    // Se l'hamburger menu non è stato creato e la finestra è abbastanza stretta, crea l'hamburger menu
-    if (!isHamburgerMenuCreato && larghezzaFinestra <= larghezzaMinimaPerHamburger) {
-        creaHamburgerMenu();
-    }
+	// Se l'hamburger menu non è stato creato e la finestra è abbastanza stretta, crea l'hamburger menu
+	if (!isHamburgerMenuCreated && windowWidth <= minWidthForHamburger) {
+		createHamburgerMenu();
+	}
 
-    // Controlla se mobileNavbar è aperto e chiudilo se la finestra è abbastanza larga
-    if (larghezzaFinestra > larghezzaMinimaPerHamburger && mobileNavbar.classList.contains('active')) {
-        mobileNavbar.classList.remove('active');
-    }
+	// Controlla se mobileNavbar è aperto e chiudilo se la finestra è abbastanza larga
+	if (windowWidth > minWidthForHamburger && mobileNavbar.classList.contains('active')) {
+		mobileNavbar.classList.remove('active');
+	}
 }
+
+// Funzione per chiudere il side menu
+function closeSideMenu() {
+	if (mobileNavbar.classList.contains('active')) {
+		mobileNavbar.classList.remove('active');
+	}
+}
+
+// Aggiungi un listener all'oggetto window per gestire il clic al di fuori del side menu
+window.addEventListener('click', function(event) {
+	const target = event.target;
+
+	// Verifica se il clic è avvenuto al di fuori del mobileNavbar e del pulsante hamburger
+	if (!mobileNavbar.contains(target) && !document.querySelector('.hamburger-container').contains(target)) {
+		closeSideMenu();
+	}
+});
 
 // Chiama la funzione per inizializzare la gestione dell'hamburger menu
-gestisciHamburgerMenu();
+manageHamburgerMenu();
 
 // Aggiungi un listener per l'evento di ridimensionamento della finestra
-window.addEventListener('resize', gestisciHamburgerMenu);
+window.addEventListener('resize', manageHamburgerMenu);
+
+
+// Funzione per mantenere i risultati coerenti tra i campi di ricerca
+// Seleziona gli elementi <input> con classe 'live-search' nella barra di ricerca desktop e mobile
+const desktopLiveSearchInput = document.querySelector('.search-bar .live-search');
+const mobileLiveSearchInput = document.querySelector('.mobile-search .live-search');
+
+// Aggiungi un evento di ascolto all'input della barra di ricerca desktop
+desktopLiveSearchInput.addEventListener('input', function() {
+	// Aggiorna il valore dell'input della barra di ricerca mobile
+	mobileLiveSearchInput.value = this.value;
+});
+
+// Aggiungi un evento di ascolto all'input della barra di ricerca mobile
+mobileLiveSearchInput.addEventListener('input', function() {
+	// Aggiorna il valore dell'input della barra di ricerca desktop
+	desktopLiveSearchInput.value = this.value;
+});

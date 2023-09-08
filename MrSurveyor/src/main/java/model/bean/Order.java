@@ -95,10 +95,6 @@ public class Order implements Cloneable {
 		return card;
 	}
 
-	public void setCard(CreditCard card) {
-		this.card = card;
-	}
-
 	public Manager getOrderManager() {
 		return orderManager;
 	}

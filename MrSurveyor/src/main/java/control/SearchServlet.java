@@ -23,6 +23,7 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String searchParam = request.getParameter("search");
+		String isManualSubmit = request.getParameter("isManualSubmit");
 		
 		if(searchParam != null && !searchParam.trim().equals("")) {
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
@@ -38,10 +39,16 @@ public class SearchServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			resultHtml = Utlis.generateResultHtml(products);
-			
-			response.setContentType("text/html");
-		    response.getWriter().write(resultHtml);
+			if(isManualSubmit != null) {
+				request.setAttribute("searchedProducts", products);
+				request.getRequestDispatcher("/search_results.jsp").forward(request, response);
+			}
+			else {
+				resultHtml = Utlis.generateResultHtml(products);
+				
+				response.setContentType("text/html");
+			    response.getWriter().write(resultHtml);
+			}
 		}
 	}
 

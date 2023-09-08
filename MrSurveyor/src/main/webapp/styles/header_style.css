@@ -124,8 +124,9 @@ header {
 
 .search-bar input {
 	border: none;
+	border-radius: 20px;
 	padding: 5px;
-	width: 355px;
+	width: 343px;
 	background-color: transparent;
 	margin: 0;
 	font-size: 15px;
@@ -217,6 +218,58 @@ header {
     color: #000;
 }
 
+#search-results {
+	position: absolute;
+	border-bottom-left-radius: 20px;
+	z-index: 1;
+	background-color: white;
+	top: 56px;
+	right: 10px;
+	width: 530px;
+	max-height: 50%;
+    overflow-y: scroll;
+}
+
+#search-results::-webkit-scrollbar {
+    width: 12px;
+}
+
+#search-results::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+}
+
+#search-results::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+#search-results .product {
+	display:flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+#search-results .product:hover {
+	cursor: pointer;
+	background-color: whitesmoke;
+}
+
+#search-results .product:focus {
+	outline: none;
+	background-color: whitesmoke;
+}
+
+#search-results .product img {
+	width: 25%;
+}
+
+#search-results .product h3 {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	max-width: 220px;
+}
+
 @media (min-width: 1291px) {
     .hamburger-container {
         display: none;
@@ -235,6 +288,6 @@ header {
 	}
 	
 	.mobile-search {
-		display: flex;
+		display: block;
 	}
 }

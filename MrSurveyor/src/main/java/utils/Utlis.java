@@ -62,12 +62,6 @@ public final class Utlis {
 
 		String subcategoryCpy = subcategory;
 
-		/*
-		 * if(((category+subcategory).length() > 20)) { subcategoryCpy =
-		 * subcategory.substring(0, subcategory.length()-subcategory.length()+4);
-		 * subcategoryCpy += "."; }
-		 */
-
 		result += (subcategory != null && !subcategory.trim().equals(""))
 				? "<a href=\"" + CONTEXT_PATH + "/CatalogServlet?category=" + category + "\">" + category + "</a>" + ", "
 						+ "<a href=\"" + CONTEXT_PATH + "/CatalogServlet?subcategory=" + subcategory + "\">"
@@ -84,7 +78,7 @@ public final class Utlis {
 	    DecimalFormat df = new DecimalFormat("###,##0.00 ");
 	    
 	    for (Product product : products) {
-	        html.append("<div class='product'>");
+	        html.append("<div class='product' tabindex='0'>");
 	        html.append("<img src='").append("images/prod/"+product.getImagePath()).append("' alt='").append(product.getName()).append("'>");
 	        html.append("<h3>").append(product.getName()).append("</h3>");
 	        html.append("<p>").append(df.format(product.getPrice())).append("&euro;</p>");

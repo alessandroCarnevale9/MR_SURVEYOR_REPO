@@ -28,11 +28,11 @@
         
         <div class="nav-right">
                 <div class="search-bar">
-                <form id="search-form" action="${pageContext.request.contextPath}/SearchServlet" method="GET">
+                <form class="search-form" action="${pageContext.request.contextPath}/SearchServlet" method="GET">
                 <div class="input-container">
-                    <input class="live-search" type="text" name="search" placeholder="Cerca...">
+                    <input class="live-search" type="text" name="search" placeholder="Cerca..." autocomplete="off">
                 </div>
-                <a href="#"><img alt="search_img" src="images/search.png"></a>
+                <button type="submit"><img alt="search_img" src="images/search.png"></button>
                 </form>
                 </div>
                 
@@ -78,11 +78,11 @@
     </nav>
     
     <div class="search-bar mobile-search">
-    	<form id="search-form" action="${pageContext.request.contextPath}/SearchServlet" method="GET">
+    	<form class="search-form" action="${pageContext.request.contextPath}/SearchServlet" method="GET">
     	<div class="input-container">
-    		<input class="live-search" type="text" name="search" placeholder="Cerca...">
+    		<input class="live-search" type="text" name="search" placeholder="Cerca..." autocomplete="off">
     	</div>
-    	<a href="#"><img alt="search_img" src="images/search.png"></a>
+    	<button type="submit"><img alt="search_img" src="images/search.png"></button>
     	</form>
     </div>
     
