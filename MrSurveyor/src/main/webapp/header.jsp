@@ -32,7 +32,7 @@
                 <div class="input-container">
                     <input class="live-search" type="text" name="search" placeholder="Cerca..." autocomplete="off">
                 </div>
-                <button type="submit"><img alt="search_img" src="images/search.png"></button>
+                <button type="submit"><span id="search-icon" class="material-symbols-outlined">search</span></button>
                 </form>
                 </div>
                 
@@ -82,7 +82,7 @@
     	<div class="input-container">
     		<input class="live-search" type="text" name="search" placeholder="Cerca..." autocomplete="off">
     	</div>
-    	<button type="submit"><img alt="search_img" src="images/search.png"></button>
+    	<button type="submit"><span id="search-icon" class="material-symbols-outlined">search</span></button>
     	</form>
     </div>
     

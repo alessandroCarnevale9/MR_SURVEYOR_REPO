@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 @import "fonts/inter_font.css";
-@import "icons/material_outlined.css";
 
 body {
 	font-family: 'Inter', sans-serif;

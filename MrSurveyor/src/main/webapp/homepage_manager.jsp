@@ -10,6 +10,9 @@
     	response.sendRedirect(getServletContext().getContextPath()+"/authentication_manager.jsp");
     	return;
     }
+    else {
+    	System.out.println(manager.getRole());
+    }
     %>
     
 <!DOCTYPE html>

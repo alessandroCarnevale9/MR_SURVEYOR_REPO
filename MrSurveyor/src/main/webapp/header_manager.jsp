@@ -1,3 +1,4 @@
+<%@page import="model.bean.Manager.Role"%>
 <%@page import="java.util.Collection"%>
 <%@page import="model.bean.Manager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -54,12 +55,12 @@
     					<%
     						if(assignedRoles.contains("catalog_manager")) {
     					%>
-    						<li><a href="#">Gestore Catalogo</a></li>
+    						<li><a href="${pageContext.request.contextPath}/SwitchRoleServlet?catalog_manager">GESTORE CATALOGO</a></li>
     					<%
     						}
     						if(assignedRoles.contains("order_manager")) {
     					%>	
-    						<li><a href="#">Gestore Ordini</a></li>
+    						<li><a href="${pageContext.request.contextPath}/SwitchRoleServlet?order_manager">GESTORE ORDINI</a></li>
     					<%
     						}
     					%>	

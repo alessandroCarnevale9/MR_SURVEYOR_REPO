@@ -24,14 +24,16 @@ function showRoles() {
 	var roleSwitch = document.getElementById('switch');
 	var roleDropdown = document.getElementById("manager_roles");
 
-	roleSwitch.addEventListener("click", function(e) {
-		e.preventDefault();
-		if(roleDropdown.style.display === "block") {
-			roleDropdown.style.display = "none";
-		} else {
-			roleDropdown.style.display = "block";
-		}
-	});
+	if(roleSwitch != null) {
+		roleSwitch.addEventListener("click", function(e) {
+			e.preventDefault();
+			if(roleDropdown.style.display === "block") {
+				roleDropdown.style.display = "none";
+			} else {
+				roleDropdown.style.display = "block";
+			}
+		});
+	}
 	
 	window.addEventListener("click", function(e) {
 		if (e.target !== roleSwitch && e.target !== roleDropdown) {
