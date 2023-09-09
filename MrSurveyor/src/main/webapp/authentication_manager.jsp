@@ -12,7 +12,7 @@
 	
 	<div class="main-box">
 	
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="header_manager.jsp"></jsp:include>
 	
 		<div class="child-box">
 			<h1 id="header">Accedi</h1>

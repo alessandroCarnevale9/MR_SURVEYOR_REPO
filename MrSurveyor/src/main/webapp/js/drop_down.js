@@ -1,22 +1,46 @@
-var userDropdownToggle = document.getElementById("user-dropdown-toggle");
-var userDropdown = document.getElementById("user-dropdown");
+function showUsermsenu() {
+	var userDropdownToggle = document.getElementById("user-dropdown-toggle");
+	var userDropdown = document.getElementById("user-dropdown");
 
-userDropdownToggle.addEventListener("click", function(e) {
-	e.preventDefault();
-	if (userDropdown.style.display === "block") {
-		userDropdown.style.display = "none";
-	} else {
-		userDropdown.style.display = "block";
-	}
-});
+	userDropdownToggle.addEventListener("click", function(e) {
+		e.preventDefault();
+		if (userDropdown.style.display === "block") {
+			userDropdown.style.display = "none";
+		} else {
+			userDropdown.style.display = "block";
+		}
+	});
 
-window.addEventListener("click", function(e) {
-	if (e.target !== userDropdownToggle && e.target !== userDropdown) {
-		userDropdown.style.display = "none";
-	}
-});
+	window.addEventListener("click", function(e) {
+		if (e.target !== userDropdownToggle && e.target !== userDropdown) {
+			userDropdown.style.display = "none";
+		}
+	});	
+}
 
+showUsermsenu();
 
+function showRoles() {
+	var roleSwitch = document.getElementById('switch');
+	var roleDropdown = document.getElementById("manager_roles");
+
+	roleSwitch.addEventListener("click", function(e) {
+		e.preventDefault();
+		if(roleDropdown.style.display === "block") {
+			roleDropdown.style.display = "none";
+		} else {
+			roleDropdown.style.display = "block";
+		}
+	});
+	
+	window.addEventListener("click", function(e) {
+		if (e.target !== roleSwitch && e.target !== roleDropdown) {
+			roleDropdown.style.display = "none";
+		}
+	});
+}
+
+showRoles();
 
 let isHamburgerMenuCreated = false; // Variabile di stato per tenere traccia della creazione dell'hamburger menu
 const mobileNavbar = document.querySelector('.mobile-navbar');
@@ -51,7 +75,7 @@ function manageHamburgerMenu() {
 	}
 
 	// Controlla se mobileNavbar è aperto e chiudilo se la finestra è abbastanza larga
-	if (windowWidth > minWidthForHamburger && mobileNavbar.classList.contains('active')) {
+	if (windowWidth > minWidthForHamburger && mobileNavbar != null && mobileNavbar.classList.contains('active')) {
 		mobileNavbar.classList.remove('active');
 	}
 }
@@ -68,7 +92,7 @@ window.addEventListener('click', function(event) {
 	const target = event.target;
 
 	// Verifica se il clic è avvenuto al di fuori del mobileNavbar e del pulsante hamburger
-	if (!mobileNavbar.contains(target) && !document.querySelector('.hamburger-container').contains(target)) {
+	if (mobileNavbar != null && !mobileNavbar.contains(target)  && !document.querySelector('.hamburger-container').contains(target)) {
 		closeSideMenu();
 	}
 });
@@ -86,13 +110,17 @@ const desktopLiveSearchInput = document.querySelector('.search-bar .live-search'
 const mobileLiveSearchInput = document.querySelector('.mobile-search .live-search');
 
 // Aggiungi un evento di ascolto all'input della barra di ricerca desktop
-desktopLiveSearchInput.addEventListener('input', function() {
-	// Aggiorna il valore dell'input della barra di ricerca mobile
-	mobileLiveSearchInput.value = this.value;
-});
+if(desktopLiveSearchInput != null) {
+	desktopLiveSearchInput.addEventListener('input', function() {
+		// Aggiorna il valore dell'input della barra di ricerca mobile
+		mobileLiveSearchInput.value = this.value;
+	});
+}
 
 // Aggiungi un evento di ascolto all'input della barra di ricerca mobile
-mobileLiveSearchInput.addEventListener('input', function() {
-	// Aggiorna il valore dell'input della barra di ricerca desktop
-	desktopLiveSearchInput.value = this.value;
-});
+if(mobileLiveSearchInput != null) {
+	mobileLiveSearchInput.addEventListener('input', function() {
+		// Aggiorna il valore dell'input della barra di ricerca desktop
+		desktopLiveSearchInput.value = this.value;
+	});
+}

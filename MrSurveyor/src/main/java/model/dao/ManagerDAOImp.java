@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.sql.DataSource;
 
@@ -16,7 +18,10 @@ public class ManagerDAOImp implements ManagerDAO {
 	
 	private static final String SELECT_MANAGER = "SELECT manager_username"
 			+ " FROM "+MANAGER_TABLE+
-			" WHERE manager_username = ? AND manager_password = ? AND manager_role = ?;";
+			" WHERE manager_username = ? AND manager_password = ? AND manager_role = ?";
+	
+	private static final String GET_ROLES = "SELECT manager_role FROM "+MANAGER_TABLE
+			+ " WHERE manager_username=?";
 	
 	public ManagerDAOImp(DataSource ds) {
 		ManagerDAOImp.ds = ds;
@@ -69,6 +74,35 @@ public class ManagerDAOImp implements ManagerDAO {
 					connection.close();
 			}
 		}
+	}
+
+	@Override
+	public Collection<String> getAssignedRoles(Manager manager) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		Collection<String> roles = new LinkedList<String>();
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(GET_ROLES);
+			preparedStatement.setString(1, manager.getUsername());
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next())
+				roles.add(rs.getString("manager_role"));
+		} finally {
+			try {
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if(connection != null)
+					connection.close();
+			}
+		}
+		
+		return roles;
 	}
 
 	private static DataSource ds;

@@ -26,60 +26,61 @@ public class AuthenticationManagerServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
-		ManagerDAO managerDAO = new ManagerDAOImp(ds);
-		
-		String managerUsername = (String)request.getParameter("username");
-		String managerPassword = (String)request.getParameter("password");
-		String managerRole = (String)request.getParameter("role");
-		
-		
-		if(managerUsername == null || managerPassword == null || managerRole == null) {
-			response.sendRedirect(getServletContext().getContextPath()+"/authentication_manager.jsp");
-			return;
-		}
-		else {
+		if(request.getParameter("invalidate") != null) {
 			
-			String homepage = null;
-			
-			Manager manager = new Manager();
-			
-			manager.setUsername(managerUsername);
-			manager.setPassword(managerPassword);
-			
-			if(managerRole.equalsIgnoreCase("catalog_manager")) {
-				manager.setRole(Role.CATALOG_MANAGER);
-				homepage = "/homepage_catalog_manager.jsp";
+			HttpSession oldSession = request.getSession(false);
+			if(oldSession != null) {
+				oldSession.invalidate();
+				response.sendRedirect(getServletContext().getContextPath()+"/authentication_manager.jsp");
 			}
+		} else {
+			DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
+			ManagerDAO managerDAO = new ManagerDAOImp(ds);
 			
-			else if(managerRole.equalsIgnoreCase("order_manager")) {
-				manager.setRole(Role.ORDER_MANAGER);
-				homepage = "/homepage_order_manager.jsp";
+			String managerUsername = request.getParameter("username");
+			String managerPassword = request.getParameter("password");
+			String managerRole = request.getParameter("role");
+			
+			
+			if(managerUsername == null || managerPassword == null || managerRole == null) {
+				response.sendRedirect(getServletContext().getContextPath()+"/authentication_manager.jsp");
 			}
-			
-			try {
-				if(!managerDAO.checkManager(manager)) {
-					request.setAttribute("error", "Utente non autorizzato");
-					request.getRequestDispatcher("/authentication_manager.jsp").forward(request, response);
-				}
-				else {
-					HttpSession oldSession = request.getSession(false);
-                    if(oldSession != null)
-                        oldSession.invalidate(); // invalida la sessione se esiste
+			else {
+				
+				Manager manager = new Manager();
+				
+				manager.setUsername(managerUsername);
+				manager.setPassword(managerPassword);
+				
+				if(managerRole.equalsIgnoreCase("catalog_manager"))
+					manager.setRole(Role.CATALOG_MANAGER);
+				
+				else if(managerRole.equalsIgnoreCase("order_manager"))
+					manager.setRole(Role.ORDER_MANAGER);
+				
+				try {
+					if(!managerDAO.checkManager(manager)) {
+						request.setAttribute("error", "Utente non autorizzato");
+						request.getRequestDispatcher("/authentication_manager.jsp").forward(request, response);
+					}
+					else {
+						HttpSession oldSession = request.getSession(false);
+	                    if(oldSession != null)
+	                        oldSession.invalidate(); // invalida la sessione se esiste
 
-                    HttpSession currentSession = request.getSession(); // crea una nuova sessione
-
-                    currentSession.setAttribute("managerName", manager.getUsername());
-                    currentSession.setAttribute("password", manager.getPassword());
-                    currentSession.setAttribute("roleSelected", manager.getRole());
-                    
-                    currentSession.setMaxInactiveInterval(5*60);
-                    
-                    response.sendRedirect(getServletContext().getContextPath()+homepage);
+	                    HttpSession currentSession = request.getSession(); // crea una nuova sessione
+	                    
+	                    currentSession.setAttribute("manager", manager);
+	                    currentSession.setAttribute("assignedRoles", managerDAO.getAssignedRoles(manager));
+	                    
+	                    currentSession.setMaxInactiveInterval(5*60);
+	                    
+	                    response.sendRedirect(getServletContext().getContextPath()+"/homepage_manager.jsp");
+					}
 				}
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

@@ -12,7 +12,7 @@
 <body>
 	
 	<div class="main-box registration">
-		<jsp:include page="header.jsp"></jsp:include>
+		<jsp:include page="header_forms.jsp"></jsp:include>
 		<div class="child-box">
 		
 		<%

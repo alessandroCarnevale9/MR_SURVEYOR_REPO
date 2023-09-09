@@ -39,7 +39,7 @@ public class Manager implements Cloneable, Serializable {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
+	
 	public String toString() {
 		return getClass().getName()+"[username="+username+",password="+password+
 				",role="+role+"]";

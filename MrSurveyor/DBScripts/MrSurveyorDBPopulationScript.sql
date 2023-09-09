@@ -85,6 +85,7 @@ VALUES
     ('jane_smith', 'MyP@ssw0rd', 'catalog_manager'),
     ('spike', 'Passion4Profession!', 'catalog_manager'),
     ('leo_boy', 'SWEngPOGGERS@09', 'catalog_manager'),
+	('leo_boy', 'SWEngPOGGERS@09', 'order_manager'),
     ('mike_jones', '1234Xy!Z', 'order_manager');
 
 

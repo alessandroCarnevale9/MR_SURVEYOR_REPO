@@ -37,10 +37,10 @@
                 </div>
                 
                 <div class="cart-icon">
-                <a href="cart_view.jsp"><img alt="cart_img" src="images/shopping_cart.png"></a>
+                <a href="cart_view.jsp"><span id="shopping-cart" class="material-symbols-outlined">shopping_cart</span></a>
                 </div>
                 <div class="user-icon">
-                <img alt="user_img" src="images/user.png" id="user-dropdown-toggle">
+                <span id="user-dropdown-toggle" class="material-symbols-outlined">person</span>
                 <%
                 if(session.getAttribute("userEmail") == null) {
                 %>

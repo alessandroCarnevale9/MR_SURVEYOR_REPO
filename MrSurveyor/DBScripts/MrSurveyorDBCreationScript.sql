@@ -28,7 +28,7 @@ CREATE TABLE manager (
     manager_username VARCHAR(50) NOT NULL,
     manager_password VARCHAR(125) NOT NULL,
     manager_role ENUM('order_manager','catalog_manager') NOT NULL,
-    PRIMARY KEY(manager_username)
+    PRIMARY KEY(manager_username, manager_role)
 );
 SHOW WARNINGS;
 
