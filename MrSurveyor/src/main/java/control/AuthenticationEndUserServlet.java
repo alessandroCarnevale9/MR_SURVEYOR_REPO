@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 
 import model.bean.Cart;
 import model.bean.RegisteredEndUser;
+import model.dao.CartDAO;
+import model.dao.CartDAOImp;
 import model.dao.EndUserDAO;
 import model.dao.EndUserDAOImp;
 
@@ -30,6 +32,9 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+		CartDAO cartDAO = new CartDAOImp(ds);
+		
 		Gson gson = new Gson();
 		Cookie[] cookies = request.getCookies();
 		String productsJson = null;
@@ -38,6 +43,14 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 			
 			HttpSession oldSession = request.getSession(false);
 			if(oldSession != null) {
+				
+				long userID = (long)oldSession.getAttribute("userID");
+				try {
+					cartDAO.deleteProducts((int)userID); // SVUOTO IL CARRELLO
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
 				
 				if(cookies != null) {
 					for(Cookie cookie : cookies) {
@@ -48,16 +61,25 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 					}
 				}
 				
+				// AGGIORNO IL COOKIE PER LO USER CON IL NUOVO CONTENUTO DEL CARRELLO
+				
 				Cookie cartCookie = new Cookie(String.valueOf(oldSession.getAttribute("userID")), gson.toJson(oldSession.getAttribute("userCart")));
 				cartCookie.setMaxAge(7*24*60*60);
 				response.addCookie(cartCookie);
+				
+				// persistenza carrello...				
+				try {
+					cartDAO.addProducts((Cart)oldSession.getAttribute("userCart"), (int)userID);
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}
 				
 				oldSession.invalidate();
 				response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/authentication_enduser.jsp"));
 			}
 		}
 		else {
-			DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
+			
 			EndUserDAO endUserDAO = new EndUserDAOImp(ds);
 			
 			String userEmail = (String)request.getParameter("email");
@@ -89,6 +111,7 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 						
 						Cart userCart = null;
 						
+						// PROVA A PRENDERE IL CARRELLO DAL COOKIE SUL CLIENT...
 						if(cookies != null) {
 							for(Cookie cookie : cookies) {
 								if(cookie.getName().equals(String.valueOf(userID))) {
@@ -100,8 +123,20 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 						
 						userCart = gson.fromJson(productsJson, Cart.class);
 						
+						// SE È NULL VUOL DIRE CHE SUL CLIENT NON VI ERANO COOKIE CONTENENTI IL CARRELLO...
 						if(userCart == null) {
+							
+							// PROVA A VEDERE SE NEL DB CI SONO CART PRODUCTS SALVATI
+							// SE VE NE SONO LI SCRIVO NEL COOKIE PER LO USER
+							// ALTRIMENTI COSTRUISCO UN CARRELLO VUOTO E SCRIVO QUELLO
+							
 							userCart = new Cart();
+							
+							Cart retrievedCart = cartDAO.retrieveCartProducts((int)userID);
+							
+							if(retrievedCart != null)
+								userCart = retrievedCart;
+							
 							productsJson = gson.toJson(userCart);
 							Cookie cartCookie = new Cookie(String.valueOf(userID), productsJson);
 							cartCookie.setMaxAge(7*24*60*60);

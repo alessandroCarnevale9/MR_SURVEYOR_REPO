@@ -12,6 +12,10 @@ public class Cart implements Serializable {
 		cartProducts = new ArrayList<CartProduct>();
 		cartHolder = new EndUser();
 	}
+	
+	public Cart(ArrayList<CartProduct> cartProducts) {
+		this.cartProducts = cartProducts;
+	}
 		
 	public EndUser getCartHolder() {
 		return this.cartHolder;

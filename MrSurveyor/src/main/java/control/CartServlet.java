@@ -17,6 +17,8 @@ import com.google.gson.Gson;
 import model.bean.Cart;
 import model.bean.CartProduct;
 import model.bean.Product;
+import model.dao.CartDAO;
+import model.dao.CartDAOImp;
 import model.dao.CatalogDAO;
 import model.dao.CatalogDAOImp;
 
@@ -28,6 +30,7 @@ public class CartServlet extends HttpServlet {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		CatalogDAO catalogDAO = new CatalogDAOImp(ds);
+		CartDAO cartDAO = new CartDAOImp(ds);
 		
 		HttpSession endUserSession = request.getSession();
 
@@ -150,14 +153,28 @@ public class CartServlet extends HttpServlet {
 						break;
 					}
 				}
-			}
 			
 			Cookie cartCookie = new Cookie(String.valueOf(endUserSession.getAttribute("userID")), gson.toJson(endUserSession.getAttribute("userCart")));
 			cartCookie.setMaxAge(7*24*60*60);
 			response.addCookie(cartCookie);
+			
+			// rendi il carrello persistente...
+			
+			long valueEnduserId = 0;
+			if(endUserSession.getAttribute("userID") != null)
+				valueEnduserId = (long)endUserSession.getAttribute("userID");
+			
+			try {	
+				cartDAO.deleteProducts((int)valueEnduserId);
+				cartDAO.addProducts((Cart)endUserSession.getAttribute("userCart"), (int)valueEnduserId);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
-		response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/cart_view.jsp"));
+			response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/cart_view.jsp"));
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

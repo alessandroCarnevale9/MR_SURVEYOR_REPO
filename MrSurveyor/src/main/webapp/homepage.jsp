@@ -85,8 +85,9 @@
     		slideID++;
     		
     		LinkedList<?> products = (LinkedList<?>)it.next();
-    		Product first = (Product)products.get(0);
-    		String rootCategory = first.getCategories().get(0).getName();
+    		if(products != null && products.size() != 0) {
+    			Product first = (Product)products.get(0);
+    			String rootCategory = first.getCategories().get(0).getName();
     %>
     		<div class="head-slider">
     		<h2><%=rootCategory %></h2>
@@ -122,6 +123,7 @@
     			</div>
     <%
     		}
+    	}
     }
     %>
     </div>

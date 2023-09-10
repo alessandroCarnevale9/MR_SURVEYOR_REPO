@@ -97,11 +97,13 @@ SHOW WARNINGS;
 
 DROP TABLE IF EXISTS cart_product;
 CREATE TABLE cart_product (
+    cart_product_id INT NOT NULL,
     cart_product_name VARCHAR(255) NOT NULL,
     end_user_id INT NOT NULL,
     cart_product_image_path VARCHAR(255) NOT NULL,
     cart_product_price DOUBLE(7,2) NOT NULL,
     cart_product_quantity INT NOT NULL,
+    cart_product_max_quantity INT NOT NULL,
     PRIMARY KEY(cart_product_name, end_user_id),
     FOREIGN KEY(end_user_id) REFERENCES end_user(end_user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
