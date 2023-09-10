@@ -88,3 +88,15 @@ small {
 	font-size: 20px;
 	color: #333e48;
 }
+
+.product-grid {
+	display: grid; 
+	grid-template-rows: repeat(auto-fit, minmax(200px, 1fr)); 
+	gap: 20px;
+}
+
+.product-grid-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}

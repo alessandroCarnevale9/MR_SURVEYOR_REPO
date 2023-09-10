@@ -1,7 +1,13 @@
 package model.bean;
 
-public class Address implements Cloneable {
+import java.io.Serializable;
 
+public class Address implements Cloneable, Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private static final String ADDRESS_REGEX = "[a-zA-Z ]+";
+	
 	public Address() {
 		
 	}
@@ -65,23 +71,31 @@ public class Address implements Cloneable {
 	}
 	
 	public boolean isValidAddress() {
-	    
-	    if (region == null || region.isEmpty() ||
+
+		if (region == null || region.isEmpty() ||
 	        province == null || province.isEmpty() ||
 	        city == null || city.isEmpty() ||
 	        street == null || street.isEmpty() ||
 	        cap == null || cap.isEmpty()) {
 	        return false;
 	    }
-	    
+
 	    if (houseNumber <= 0) {
 	        return false;
 	    }
-	    
-	    if (cap.length() != 5) {
+
+	    if (cap.length() != 5 || !cap.matches("\\d{5}")) {
 	        return false;
 	    }
 
+	    if (!region.matches(ADDRESS_REGEX) ||
+	        !province.matches(ADDRESS_REGEX) ||
+	        !city.matches(ADDRESS_REGEX) ||
+	        !street.matches(ADDRESS_REGEX)) {
+	    	
+	        return false;
+	    }
+	    
 	    return true;
 	}
 

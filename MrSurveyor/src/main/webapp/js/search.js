@@ -111,3 +111,7 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function redirectToDetatils(url) {
+	window.location.href = url;
+}

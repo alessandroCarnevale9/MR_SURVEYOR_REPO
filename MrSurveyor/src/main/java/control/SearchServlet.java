@@ -41,7 +41,7 @@ public class SearchServlet extends HttpServlet {
 			
 			if(isManualSubmit != null) {
 				request.setAttribute("searchedProducts", products);
-				request.getRequestDispatcher("/search_results.jsp").forward(request, response);
+				request.getRequestDispatcher("/show_products_list.jsp").forward(request, response);
 			}
 			else {
 				resultHtml = Utlis.generateResultHtml(products);

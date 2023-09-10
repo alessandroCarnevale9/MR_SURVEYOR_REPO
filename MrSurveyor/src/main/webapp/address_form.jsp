@@ -1,26 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<%
+	if(session == null || session.getAttribute("registeredEndUser") == null) {
+		response.sendRedirect(getServletContext().getContextPath()+"/authentication_enduser.jsp");
+		return;
+	}
+%>
+
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indirizzo</title>
+<title>Il tuo Indirizzo</title>
 <link rel="stylesheet" href="styles/form_style.css">
 </head>
 <body>
 	
-	
 
 	<div class="main-box registration">
 	
-	<!--  <div class="flex-container"> -->
 	<jsp:include page="header_forms.jsp"></jsp:include>
-	<!-- <main>  -->
 	
 		<div class="child-box address">
-			<h1>Aggiungi il tuo Indirizzo</h1>
-    		<form action="#" method="POST">
+		
+		<%
+		String errorMessage = (String) request.getAttribute("error");
+
+		if (errorMessage != null && !errorMessage.trim().equals("")) {
+		%>
+			<div id="error-message">
+				<%=errorMessage%>
+			</div>
+		<%
+		}
+		%>
+		
+			<h1>Nuovo Indirizzo</h1>
+    		<form action="${pageContext.request.contextPath}/ManageAddressServlet" method="POST">
         		<label for="region">Regione:</label>
         		<input class="address" type="text" id="region" name="region" required>
         
@@ -45,13 +63,9 @@
     		</form>
     	</div>
     	
-    <!-- </main> -->
 	<jsp:include page="footer.jsp"></jsp:include>
-	<!-- </div> -->
     	
 	</div>
-	
-	
 	
 </body>
 </html>

@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Autenticazione</title>
 <link rel="stylesheet" href="styles/form_style.css">
 </head>
@@ -15,6 +16,18 @@
 	<jsp:include page="header_manager.jsp"></jsp:include>
 	
 		<div class="child-box">
+		
+		<%
+		String errorMessage = (String) request.getAttribute("error");
+
+		if (errorMessage != null && !errorMessage.trim().equals("")) {
+		%>
+		<div id="error-message">
+			<%=errorMessage%>
+		</div>
+		<%
+		}
+		%>		
 			<h1 id="header">Accedi</h1>
 			<form id="registration-form" action="${pageContext.request.contextPath}/AuthenticationManagerServlet" method="POST">
 			
@@ -45,19 +58,7 @@
 		</div>
 		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
-	
-	<%
-	String errorMessage = (String) request.getAttribute("error");
-
-	if (errorMessage != null && !errorMessage.trim().equals("")) {
-	%>
-	<div id="error_message">
-		<%=errorMessage%>
-	</div>
-	<%
-	}
-	%>
-	
+		
 	<script type="text/javascript" src="js/utils.js"></script>
 
 </body>

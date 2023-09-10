@@ -1,11 +1,12 @@
+<%@page import="model.bean.RegisteredEndUser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
 	<%
 	
-	String userEmail = (String)session.getAttribute("userEmail");
+	RegisteredEndUser registeredEndUser = (RegisteredEndUser)session.getAttribute("registeredEndUser");
 	
-	if(userEmail == null) {
+	if(registeredEndUser == null) {
 		response.sendRedirect(getServletContext().getContextPath()+"/authentication_enduser.jsp");
 		return;
 	}
@@ -25,20 +26,10 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<main>
 	
-	<aside class="left-bar">
-		<nav class="side-menu">
-			<ul class="side-menu-item">
-				<li><a href="${pageContext.request.contextPath}/homepage_enduser.jsp">BACHECA</a></li>
-				<li><a href="#">ORDINI</a></li>
-				<li><a href="#">INDIRIZZO</a></li>
-				<li><a href="#">DETTAGLI ACCOUNT</a></li>
-				<li><a href="${pageContext.request.contextPath}/AuthenticationEndUserServlet?invalidate">LOGOUT</a></li>
-			</ul>
-		</nav>
-	</aside>
+	<jsp:include page="enduser_sidemenu.jsp"></jsp:include>
 	
 	<section class="welcome-message">
-		<h2>Benvenuto <%=userEmail %></h2>
+		<h2>Benvenuto <%=registeredEndUser.getName()+" "+registeredEndUser.getSurname() %></h2>
 		<p>Qui puoi visualizzare e modificare le informazioni relative al tuo account.</p>
 	</section>
 	

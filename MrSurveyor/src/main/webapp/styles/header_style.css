@@ -161,7 +161,7 @@ header {
 	border-radius: 20px;
 	padding: 5px;
 	margin-right: 10px;
-	width: 400px;
+	width: 425px;
 }
 
 .mobile-search {
@@ -197,7 +197,7 @@ header {
 	border: none;
 	border-radius: 20px;
 	padding: 5px;
-	width: 350px;
+	width: 375px;
 	background-color: transparent;
 	margin: 0;
 	font-size: 15px;
@@ -364,6 +364,6 @@ header {
 	
 	#search-results {
 		width: 98%;
-		top: 18%;
+		top: 105px;
 	}
 }

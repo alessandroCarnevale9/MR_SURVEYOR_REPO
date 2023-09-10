@@ -50,18 +50,14 @@
 				session.setAttribute("category", category);
 	%>
 	
-			<div class="item-prod">
-			<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>">
+			<div class="item-prod" onclick="redirectToDetatils('${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>')">
 				<img class="prod-img detail-img" alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
-			</a>	
 				<div class="prod-description">
 					<div class="prod-category">
 						<small><%=Utlis.categoryLoop(category, productBean.getSubcategories().get(0).getName())%></small>
 					</div>
 					<div class="prod-name">
-						<h2>
-						<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>"><%=productBean.getName()%></a>
-						</h2>
+						<h2><%=productBean.getName()%></h2>
 					</div>
 					<div class="prod-price">
 						<p><%=df.format(productBean.getPrice()) %></p>
@@ -71,10 +67,8 @@
 	<%
 			} else if(subcategory != null && !subcategory.trim().equals("")) {
 	%>
-			<div class="item-prod">
-			<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>">
+			<div class="item-prod" onclick="redirectToDetatils('${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>')">
 				<img class="prod-img detail-img" alt="<%=productBean.getName()%>" src="images/prod/<%=productBean.getImagePath()%>">
-			</a>
 				<div class="prod-description">
 					<div class="prod-category">
 						<small>
@@ -84,11 +78,7 @@
 						</small>
 					</div>
 					<div class="prod-name">
-						<h2>
-						<a href="${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>">
-						<%=productBean.getName()%>
-						</a>
-						</h2>
+						<h2><%=productBean.getName()%></h2>
 					</div>	
 					<div class="prod-price">
 						<p><%=df.format(productBean.getPrice()) %></p>

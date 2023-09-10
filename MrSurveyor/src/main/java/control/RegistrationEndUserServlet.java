@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import model.bean.Address;
@@ -76,10 +77,21 @@ public class RegistrationEndUserServlet extends HttpServlet {
 			registeredEndUser.setAddress(new Address()); // empty address
 
 			try {
-				if (!endUserDAO.exists(registeredEndUser)) { // se lo user non esiste 
-
+				if (!endUserDAO.exists(registeredEndUser)) { // se lo user non esiste
+					
 					endUserDAO.addEndUser(registeredEndUser);
-
+					
+					long enduserID = endUserDAO.getRegisteredEndUser(endUserEmail).getId();
+					
+					
+					HttpSession oldSession = request.getSession(false);
+					if(oldSession != null)
+						oldSession.invalidate();
+					
+					HttpSession newSession = request.getSession();
+					newSession.setMaxInactiveInterval(5 * 60);
+					newSession.setAttribute("userID", enduserID);
+					newSession.setAttribute("registeredEndUser", registeredEndUser);
 					response.sendRedirect(getServletContext().getContextPath()+"/homepage_enduser.jsp");
 					return;
 

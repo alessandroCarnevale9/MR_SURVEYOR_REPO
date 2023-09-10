@@ -24,7 +24,16 @@ public class EndUserDAOImp implements EndUserDAO {
 	
 	private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT end_user_id " + "FROM " + ENDUSER_TABLE
 			+ " WHERE end_user_email = ? AND end_user_password = ?;";
-
+	
+	private static final String UPDATE_ADDRESS = "UPDATE "+ENDUSER_TABLE+" SET "
+			+ "end_user_region = ?,"
+			+ "end_user_province = ?,"
+			+ "end_user_city = ?,"
+			+ "end_user_street = ?,"
+			+ "end_user_cap = ?,"
+			+ "end_user_house_number = ?"
+			+ " WHERE end_user_id = ?";
+	
 	public EndUserDAOImp(DataSource ds) {
 		EndUserDAOImp.ds = ds;
 	}
@@ -168,6 +177,39 @@ public class EndUserDAOImp implements EndUserDAO {
 		
 		return endUser;
 	}
-
+	
+	@Override
+	public void setAddress(int enduserID, Address address) throws SQLException {
+		
+		if(address.isValidAddress()) {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				connection = ds.getConnection();
+				preparedStatement = connection.prepareStatement(UPDATE_ADDRESS);
+				
+				preparedStatement.setString(1, address.getRegion());
+				preparedStatement.setString(2, address.getProvince());
+				preparedStatement.setString(3, address.getCity());
+				preparedStatement.setString(4, address.getStreet());
+				preparedStatement.setString(5, address.getCap());
+				preparedStatement.setInt(6, address.getHouseNumber());
+				
+				preparedStatement.setInt(7, enduserID);
+				
+				preparedStatement.executeUpdate();
+			} finally {
+				try {
+					if(preparedStatement != null)
+						preparedStatement.close();
+				} finally {
+					if(connection != null)
+						connection.close();
+				}
+			}
+		}
+	}
+	
 	private static DataSource ds;
 }

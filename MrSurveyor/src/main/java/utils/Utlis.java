@@ -77,8 +77,12 @@ public final class Utlis {
 	    
 	    DecimalFormat df = new DecimalFormat("###,##0.00 ");
 	    
+	    
 	    for (Product product : products) {
-	        html.append("<div class='product' tabindex='0'>");
+	        
+	    	String toRedirect = CONTEXT_PATH+"/CatalogServlet?detailProductID="+product.getId();
+	    	
+	    	html.append("<div class='product' tabindex='0' onclick=\"redirectToDetatils('"+toRedirect+"')\" >");
 	        html.append("<img src='").append("images/prod/"+product.getImagePath()).append("' alt='").append(product.getName()).append("'>");
 	        html.append("<h3>").append(product.getName()).append("</h3>");
 	        html.append("<p>").append(df.format(product.getPrice())).append("&euro;</p>");

@@ -103,7 +103,7 @@
     			while(prodIterator.hasNext()) {
     				Product p = (Product)prodIterator.next();
     		%>
-    				<div class="slide-item item-prod">
+    				<div class="slide-item item-prod" onclick="redirectToDetatils('${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=p.getId()%>')">
     					<img class="prod-img" alt="<%=p.getName() %>" src="images/prod/<%=p.getImagePath() %>">
     					<div class="prod-description">
     					<div class="prod-category">

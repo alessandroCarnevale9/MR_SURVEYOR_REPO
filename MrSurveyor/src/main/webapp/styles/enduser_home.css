@@ -57,6 +57,40 @@ main {
 	font-size: 15px;
 }
 
+.body-info, .address-info {
+	display: flex;
+	flex-direction: column;
+}
+
+.address-info {
+	width: 100%;
+	padding-top: 20px;
+	align-items: flex-end;
+}
+
+.address-info * {
+	padding: 5px 0;
+	margin-right: 25px;
+}
+
+a.funct {
+	text-decoration: none;
+	color: white;
+	border: 1px solid transparent;
+	height: 100%;
+	padding: 10px 10px;
+	border-radius: 8px;
+	margin-top: 10px;
+	background-color: black;
+	transition: background-color 0.5s, color 0.5s, box-shadow 0.3s;
+}
+
+a.funct:hover {
+	background-color: #f3a712;
+	color: black;
+	box-shadow: 4px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
 @media ( max-width: 560px) {
 	
 	.welcome-message h2 {
