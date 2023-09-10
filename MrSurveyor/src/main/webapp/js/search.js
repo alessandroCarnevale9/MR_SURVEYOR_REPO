@@ -4,26 +4,37 @@ searchForms.forEach(function(form) {
 	form.addEventListener("submit", function(event) {
 		event.preventDefault();
 
-		// Crea il campo nascosto "isManualSubmit" e imposta gli attributi
-		var isManualSubmitInput = document.createElement("input");
-		isManualSubmitInput.type = "hidden";
-		isManualSubmitInput.name = "isManualSubmit";
-		isManualSubmitInput.value = "true";
+		// Trova l'input di ricerca all'interno del form
+		var searchInput = form.querySelector(".live-search");
 
-		// Trova il div con classe "input-container" all'interno del form
-		var inputContainer = form.querySelector(".input-container");
+		// Ottieni il valore dell'input di ricerca
+		var inputValue = searchInput.value.trim();
 
-		// Aggiungi il campo nascosto al div "input-container"
-		inputContainer.appendChild(isManualSubmitInput);
+		// Verifica se il campo di ricerca è vuoto
+		if (inputValue != null && inputValue !== "") {
+			// Se il campo di ricerca non è vuoto, procedi con il submit del modulo
+			// (rimuovi il codice seguente se non è necessario)
+			
+			// Crea il campo nascosto "isManualSubmit" e imposta gli attributi
+			var isManualSubmitInput = document.createElement("input");
+			isManualSubmitInput.type = "hidden";
+			isManualSubmitInput.name = "isManualSubmit";
+			isManualSubmitInput.value = "true";
 
-		// Esegui il submit del form
-		form.submit();
+			// Trova il div con classe "input-container" all'interno del form
+			var inputContainer = form.querySelector(".input-container");
 
-		setTimeout(function() {
-			// Rimuovi l'elemento nascosto
-			inputContainer.removeChild(isManualSubmitInput);
-		}, 1000);
+			// Aggiungi il campo nascosto al div "input-container"
+			inputContainer.appendChild(isManualSubmitInput);
 
+			// Esegui il submit del form
+			form.submit();
+
+			setTimeout(function() {
+				// Rimuovi l'elemento nascosto
+				inputContainer.removeChild(isManualSubmitInput);
+			}, 1000);
+		}
 	});
 });
 

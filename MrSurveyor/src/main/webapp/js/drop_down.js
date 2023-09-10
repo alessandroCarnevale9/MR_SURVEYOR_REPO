@@ -36,7 +36,7 @@ function showRoles() {
 	}
 	
 	window.addEventListener("click", function(e) {
-		if (e.target !== roleSwitch && e.target !== roleDropdown) {
+		if (e.target !== roleSwitch && e.target !== roleDropdown && roleDropdown != null) {
 			roleDropdown.style.display = "none";
 		}
 	});
@@ -94,7 +94,7 @@ window.addEventListener('click', function(event) {
 	const target = event.target;
 
 	// Verifica se il clic è avvenuto al di fuori del mobileNavbar e del pulsante hamburger
-	if (mobileNavbar != null && !mobileNavbar.contains(target)  && !document.querySelector('.hamburger-container').contains(target)) {
+	if (mobileNavbar != null && !mobileNavbar.contains(target)  && document.querySelector('.hamburger-container') != null && !document.querySelector('.hamburger-container').contains(target)) {
 		closeSideMenu();
 	}
 });
