@@ -20,6 +20,7 @@
 <meta charset="UTF-8">
 <title>Il tuo indirizzo</title>
 <link rel="stylesheet" type="text/css" href="styles/enduser_home.css">
+<link rel="stylesheet" href="styles/form_style.css">
 </head>
 <body>
 	
@@ -54,13 +55,56 @@
 	}
 	%>
 	
-		<a href="address_form.jsp" class="funct"><%=buttonText %></a>
+		<a href="#aggiungi_indirizzo" id="addr-funct" class="funct" onclick="showAddressForm(this)"><%=buttonText %></a>
 	
 	</section>
 	</div>
+	
+	<div class="child-box address user-home" id="address-form">
+		
+		<%
+		String errorMessage = (String) request.getAttribute("error");
+
+		if (errorMessage != null && !errorMessage.trim().equals("")) {
+		%>
+			<div id="error-message">
+				<%=errorMessage%>
+			</div>
+		<%
+		}
+		%>
+		
+			<h1>Nuovo Indirizzo</h1>
+    		<form action="${pageContext.request.contextPath}/ManageAddressServlet" method="POST">
+        		<label for="region">Regione:</label>
+        		<input class="address" type="text" id="region" name="region" required>
+        
+        		<label for="province">Provincia:</label>
+        		<input class="address" type="text" id="province" name="province" required>
+        
+        		<label for="city">Città:</label>
+        		<input class="address" type="text" id="city" name="city" required>
+        
+        		<label for="street">Strada:</label>
+        		<input class="address" type="text" id="street" name="street" required>
+        
+        		<label for="houseNumber">Numero Civico:</label>
+        		<input class="address" type="number" min="1" id="houseNumber" name="houseNumber" required>
+        
+        		<label for="cap">CAP:</label>
+        		<input class="address" type="text" id="cap" name="cap" pattern="[0-9]{5}" maxlength="5" placeholder="12345" required>
+        
+        		<div class="submit address">
+        			<input id="submit-btn" type="submit" value="Aggiungi Indirizzo" onclick="hideAddressForm(this)">
+        		</div>
+    		</form>
+    	</div>
+	
 	</main>
 	<jsp:include page="footer.jsp"></jsp:include>
 	</div>
+	
+	 <script type="text/javascript" src="js/utils.js"></script>
 	
 </body>
 </html>

@@ -32,11 +32,6 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		CartDAO cartDAO = new CartDAOImp(ds);
 		
-		/*
-		 * Gson gson = new Gson(); Cookie[] cookies = request.getCookies(); String
-		 * productsJson = null;
-		 */
-		
 		if(request.getParameter("invalidate") != null) {
 			
 			HttpSession oldSession = request.getSession(false);
@@ -49,23 +44,6 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}				 
-				
-				
-			/*
-			 * if(cookies != null) { for(Cookie cookie : cookies) {
-			 * if(cookie.getName().equals(oldSession.getAttribute("userID"))) {
-			 * cookie.setMaxAge(0); break; } } }
-			 * 
-			 * // AGGIORNO IL COOKIE PER LO USER CON IL NUOVO CONTENUTO DEL CARRELLO
-			 * 
-			 * Cookie cartCookie = new
-			 * Cookie(String.valueOf(oldSession.getAttribute("userID")),
-			 * gson.toJson(oldSession.getAttribute("userCart")));
-			 * cartCookie.setMaxAge(7*24*60*60); response.addCookie(cartCookie);
-			 */
-				
-				// SALVO IL NUOVO CARRELLO...				
-				
 				try {
 					cartDAO.addProducts((Cart) oldSession.getAttribute("userCart"), (int)userID);
 				} catch (SQLException e) {
@@ -109,33 +87,11 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 							oldSession.invalidate(); // invalida la sessione se esiste
 						
 						Cart userCart = new Cart();
-						
-						/*
-						 * // PROVA A PRENDERE IL CARRELLO DAL COOKIE SUL CLIENT... if(cookies != null)
-						 * { for(Cookie cookie : cookies) {
-						 * if(cookie.getName().equals(String.valueOf(userID))) { productsJson =
-						 * cookie.getValue(); break; } } }
-						 * 
-						 * userCart = gson.fromJson(productsJson, Cart.class);
-						 */
-						
-						// SE È NULL VUOL DIRE CHE SUL CLIENT NON VI ERANO COOKIE CONTENENTI IL CARRELLO...
 							
-							// PROVA A VEDERE SE NEL DB CI SONO CART PRODUCTS SALVATI
-							// SE VE NE SONO LI SCRIVO NEL COOKIE PER LO USER
-							// ALTRIMENTI COSTRUISCO UN CARRELLO VUOTO E SCRIVO QUELLO
+						Cart retrievedCart = cartDAO.retrieveCartProducts((int)userID);
 							
-							
-							Cart retrievedCart = cartDAO.retrieveCartProducts((int)userID);
-							
-							if(retrievedCart != null)
+						if(retrievedCart != null)
 								userCart = retrievedCart;
-							
-							/*
-							 * productsJson = gson.toJson(userCart); Cookie cartCookie = new
-							 * Cookie(String.valueOf(userID), productsJson);
-							 * cartCookie.setMaxAge(7*24*60*60); response.addCookie(cartCookie);
-							 */
 						
 						HttpSession currentSession = request.getSession(); // crea una nuova sessione
 						

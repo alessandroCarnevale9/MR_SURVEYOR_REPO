@@ -25,6 +25,12 @@ public class EndUserDAOImp implements EndUserDAO {
 	private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT end_user_id " + "FROM " + ENDUSER_TABLE
 			+ " WHERE end_user_email = ? AND end_user_password = ?;";
 	
+	private static final String UPDATE_ENDUSER = "UPDATE "+ENDUSER_TABLE+" SET "+
+	"end_user_name = ?,"
+	+ "end_user_surname = ?,"
+	+ "end_user_password = ? "
+	+ "WHERE end_user_id = ?";
+	
 	private static final String UPDATE_ADDRESS = "UPDATE "+ENDUSER_TABLE+" SET "
 			+ "end_user_region = ?,"
 			+ "end_user_province = ?,"
@@ -41,6 +47,9 @@ public class EndUserDAOImp implements EndUserDAO {
 	@Override
 	public void addEndUser(RegisteredEndUser endUser) throws SQLException {
 
+		if(endUser == null)
+			return;
+		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -68,6 +77,35 @@ public class EndUserDAOImp implements EndUserDAO {
 			} finally {
 				if (connection != null)
 					connection.close();
+			}
+		}
+	}
+	
+	@Override
+	public void setEndUser(RegisteredEndUser endUser) throws SQLException {
+		
+		if(endUser != null) {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				connection = ds.getConnection();
+				preparedStatement = connection.prepareStatement(UPDATE_ENDUSER);
+				
+				preparedStatement.setString(1, endUser.getName());
+				preparedStatement.setString(2, endUser.getSurname());
+				preparedStatement.setString(3, endUser.getPassword());
+				preparedStatement.setInt(4, (int)endUser.getId());
+				
+				preparedStatement.executeUpdate();
+			} finally {
+				try {
+					if(preparedStatement != null)
+						preparedStatement.close();
+				} finally {
+					if(connection != null)
+						connection.close();
+				}
 			}
 		}
 	}

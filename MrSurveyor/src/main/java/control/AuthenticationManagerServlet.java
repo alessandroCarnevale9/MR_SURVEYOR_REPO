@@ -71,6 +71,7 @@ public class AuthenticationManagerServlet extends HttpServlet {
 	                    HttpSession currentSession = request.getSession(); // crea una nuova sessione
 	                    
 	                    currentSession.setAttribute("manager", manager);
+	                    
 	                    currentSession.setAttribute("assignedRoles", managerDAO.getAssignedRoles(manager));
 	                    
 	                    currentSession.setMaxInactiveInterval(5*60);

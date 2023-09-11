@@ -30,6 +30,20 @@ body {
 	border: 1px solid black;
 }
 
+.user-home {
+	margin: 0 15%;
+	border: none;
+}
+
+#address-form {
+	display: none;
+}
+
+.address {
+	margin: 0;
+	margin-left: 50px;
+}
+
 .address * {
 	font-size: 13px;
 	padding: 0;
@@ -54,6 +68,20 @@ body {
 	color: #e74c3c;
 	top: -40px;
 	left: 0;
+}
+
+.user-home #error-message {
+	left: 30px;
+	top: -10px;
+}
+
+.user-home #success-message {
+	position: absolute;
+	font-size: 14px;
+	font-weight: bold;
+	color: #2ecc71;
+	left: 30px;
+	top: -10px;
 }
 
 #header {
