@@ -17,6 +17,8 @@ import com.google.gson.Gson;
 import model.bean.Cart;
 import model.bean.CartProduct;
 import model.bean.Product;
+import model.dao.CartDAO;
+import model.dao.CartDAOImp;
 import model.dao.CatalogDAO;
 import model.dao.CatalogDAOImp;
 
@@ -28,19 +30,13 @@ public class CartServlet extends HttpServlet {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		CatalogDAO catalogDAO = new CatalogDAOImp(ds);
-		//CartDAO cartDAO = new CartDAOImp(ds);
+		CartDAO cartDAO = new CartDAOImp(ds);
 		
 		HttpSession endUserSession = request.getSession();
-
-		
-		int productID = 0;
-		int quantity = 0;
 
 		Cart userCart = (Cart)endUserSession.getAttribute("userCart");
 		
 		if(userCart == null) {
-			
-			//userCart = new Cart();
 			
 			Cookie[] cookies = request.getCookies();
 			Gson gson = new Gson();
@@ -68,94 +64,36 @@ public class CartServlet extends HttpServlet {
 		}
 		
 		
-		String removeID = request.getParameter("removeID");
-		String setQuantityID = request.getParameter("quantityID");
-		String cartQuantity = request.getParameter("cart_quantity");
-		
-		if(cartQuantity != null && setQuantityID != null) {
-			try {
-				productID = Integer.parseInt(setQuantityID);
-				quantity = Integer.parseInt(cartQuantity);
-				
-				if(productID > 0 && quantity > 0) {
-					Product product = catalogDAO.retrieveProductById(productID);
-					
-					CartProduct cartProduct = new CartProduct(product.getQuantity());
-					
-					cartProduct.setId(product.getId());
-					cartProduct.setImagePath(product.getImagePath());
-					cartProduct.setName(product.getName());
-					cartProduct.setPrice(product.getPrice());
-					
-					userCart.setQuantity(cartProduct, quantity);
-				}
-			}
-			catch(NumberFormatException e) {
-				e.printStackTrace();
-			}
-			catch(SQLException e) {
-				e.printStackTrace();
-			}
-			catch (IllegalArgumentException e) {
-				request.setAttribute("error", e.getMessage());
-				request.getRequestDispatcher("/cart_view.jsp").forward(request, response);
-				return;
-			}
-		}
-		else if(removeID != null) {
-			try {
-				productID = Integer.parseInt(removeID);
-				
-				if(productID > 0) {
-					Product product = catalogDAO.retrieveProductById(productID);
-					
-					CartProduct cartProduct = new CartProduct(product.getQuantity());
-					
-					cartProduct.setId(product.getId());
-					cartProduct.setImagePath(product.getImagePath());
-					cartProduct.setName(product.getName());
-					cartProduct.setPrice(product.getPrice());
-					
-					
-					userCart.removeProduct(cartProduct);
-				}
-			}
-			catch (NumberFormatException e) {
-				e.printStackTrace();
-			}
-			catch(SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		else {
-			String paramID = request.getParameter("productID");
-			String paramQuantity = request.getParameter("quantity");
+		if(userCart != null) {
+			int productID = 0;
+			int quantity = 0;
 			
-			try {
-				if(paramID != null)
-					productID = Integer.parseInt(paramID);
-				
-				if(paramQuantity != null)
-					quantity = Integer.parseInt(paramQuantity);
-			}
-			catch(NumberFormatException e) {
-				e.printStackTrace();
-			}
+			String removeID = request.getParameter("removeID");
+			String setQuantityID = request.getParameter("quantityID");
+			String cartQuantity = request.getParameter("cart_quantity");
 			
-			if(productID > 0 && quantity > 0) {
+			if(cartQuantity != null && setQuantityID != null) {
 				try {
-					Product product = catalogDAO.retrieveProductById(productID);
+					productID = Integer.parseInt(setQuantityID);
+					quantity = Integer.parseInt(cartQuantity);
 					
-					CartProduct cartProduct = new CartProduct(product.getQuantity());
-					
-					cartProduct.setId(product.getId());
-					cartProduct.setImagePath(product.getImagePath());
-					cartProduct.setName(product.getName());
-					cartProduct.setPrice(product.getPrice());
-					
-					userCart.addProduct(cartProduct, quantity);
+					if(productID > 0 && quantity > 0) {
+						Product product = catalogDAO.retrieveProductById(productID);
+						
+						CartProduct cartProduct = new CartProduct(product.getQuantity());
+						
+						cartProduct.setId(product.getId());
+						cartProduct.setImagePath(product.getImagePath());
+						cartProduct.setName(product.getName());
+						cartProduct.setPrice(product.getPrice());
+						
+						userCart.setQuantity(cartProduct, quantity);
+					}
 				}
-				catch (SQLException e) {
+				catch(NumberFormatException e) {
+					e.printStackTrace();
+				}
+				catch(SQLException e) {
 					e.printStackTrace();
 				}
 				catch (IllegalArgumentException e) {
@@ -164,54 +102,95 @@ public class CartServlet extends HttpServlet {
 					return;
 				}
 			}
-		}
-		
-		endUserSession.removeAttribute("userCart");
-		endUserSession.setAttribute("userCart", userCart);
-		
-		Gson gson = new Gson();
-		Cookie[] cookies = request.getCookies();
-		
-		String userID = null;
-		
-		if(endUserSession.getAttribute("userID") != null)
-			userID = String.valueOf(endUserSession.getAttribute("userID"));
-		
-		
-		if(userID != null) {
-			if(cookies != null) {
-				for(Cookie cookie : cookies) {
-					if(cookie.getName().equals(endUserSession.getAttribute("userID"))) {
-						cookie.setMaxAge(0);
-						response.addCookie(cookie);
-						break;
+			else if(removeID != null) {
+				try {
+					productID = Integer.parseInt(removeID);
+					
+					if(productID > 0) {
+						Product product = catalogDAO.retrieveProductById(productID);
+						
+						CartProduct cartProduct = new CartProduct(product.getQuantity());
+						
+						cartProduct.setId(product.getId());
+						cartProduct.setImagePath(product.getImagePath());
+						cartProduct.setName(product.getName());
+						cartProduct.setPrice(product.getPrice());
+						
+						
+						userCart.removeProduct(cartProduct);
+					}
+				}
+				catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			else {
+				String paramID = request.getParameter("productID");
+				String paramQuantity = request.getParameter("quantity");
+				
+				try {
+					if(paramID != null)
+						productID = Integer.parseInt(paramID);
+					
+					if(paramQuantity != null)
+						quantity = Integer.parseInt(paramQuantity);
+				}
+				catch(NumberFormatException e) {
+					e.printStackTrace();
+				}
+				
+				if(productID > 0 && quantity > 0) {
+					try {
+						Product product = catalogDAO.retrieveProductById(productID);
+						
+						CartProduct cartProduct = new CartProduct(product.getQuantity());
+						
+						cartProduct.setId(product.getId());
+						cartProduct.setImagePath(product.getImagePath());
+						cartProduct.setName(product.getName());
+						cartProduct.setPrice(product.getPrice());
+						
+						userCart.addProduct(cartProduct, quantity);
+					}
+					catch (SQLException e) {
+						e.printStackTrace();
+					}
+					catch (IllegalArgumentException e) {
+						request.setAttribute("error", e.getMessage());
+						request.getRequestDispatcher("/cart_view.jsp").forward(request, response);
+						return;
 					}
 				}
 			}
 			
-			Cookie cartCookie = new Cookie(String.valueOf(endUserSession.getAttribute("userID")), gson.toJson(endUserSession.getAttribute("userCart")));
-			cartCookie.setMaxAge(7*24*60*60);
-			response.addCookie(cartCookie);
-		} else {
+			endUserSession.removeAttribute("userCart");
+			endUserSession.setAttribute("userCart", userCart);
 			
-			Cookie cookie = new Cookie("0", gson.toJson(endUserSession.getAttribute("userCart")));
-			cookie.setMaxAge(7*24*60*60);
-			response.addCookie(cookie);
-		}
-			// rendi il carrello persistente...
 			
-			/*long valueEnduserId = 0;
-			if(endUserSession.getAttribute("userID") != null)
+			long valueEnduserId = 0;
+			if(endUserSession.getAttribute("userID") != null) {
 				valueEnduserId = (long)endUserSession.getAttribute("userID");
-			
-			try {	
-				cartDAO.deleteProducts((int)valueEnduserId);
-				cartDAO.addProducts((Cart)endUserSession.getAttribute("userCart"), (int)valueEnduserId);
 				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}*/
-		
+				try {	
+					cartDAO.deleteProducts((int)valueEnduserId);
+					cartDAO.addProducts((Cart)endUserSession.getAttribute("userCart"), (int)valueEnduserId);
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else {
+				
+				Gson gson = new Gson();
+				Cookie cookie = new Cookie("0", gson.toJson(endUserSession.getAttribute("userCart")));
+				cookie.setMaxAge(7*24*60*60);
+				response.addCookie(cookie);
+			}
+
+		}
+				
 		response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/cart_view.jsp"));
 	}
 
