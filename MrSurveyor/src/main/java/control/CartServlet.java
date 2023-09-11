@@ -32,15 +32,41 @@ public class CartServlet extends HttpServlet {
 		
 		HttpSession endUserSession = request.getSession();
 
-		Cart userCart = (Cart)endUserSession.getAttribute("userCart");
 		
 		int productID = 0;
 		int quantity = 0;
+
+		Cart userCart = (Cart)endUserSession.getAttribute("userCart");
 		
 		if(userCart == null) {
-			userCart = new Cart();
+			
+			//userCart = new Cart();
+			
+			Cookie[] cookies = request.getCookies();
+			Gson gson = new Gson();
+			
+			boolean exists = false;
+			if(cookies != null) {
+				for(Cookie c : cookies) {
+					if(c.getName().equals("0")) {
+						userCart = gson.fromJson(c.getValue(), Cart.class);
+						if(userCart != null)
+							exists = true;
+					}
+				}
+			}
+			
+			if(!exists)
+				userCart = new Cart();
+				
+			Cookie cookie = new Cookie("0", gson.toJson(userCart));
+			cookie.setMaxAge(7*24*60*60);
+			response.addCookie(cookie);
+				
+			
 			endUserSession.setAttribute("userCart", userCart);
 		}
+		
 		
 		String removeID = request.getParameter("removeID");
 		String setQuantityID = request.getParameter("quantityID");
@@ -51,16 +77,18 @@ public class CartServlet extends HttpServlet {
 				productID = Integer.parseInt(setQuantityID);
 				quantity = Integer.parseInt(cartQuantity);
 				
-				Product product = catalogDAO.retrieveProductById(productID);
-				
-				CartProduct cartProduct = new CartProduct(product.getQuantity());
-				
-				cartProduct.setId(product.getId());
-				cartProduct.setImagePath(product.getImagePath());
-				cartProduct.setName(product.getName());
-				cartProduct.setPrice(product.getPrice());
-				
-				userCart.setQuantity(cartProduct, quantity);
+				if(productID > 0 && quantity > 0) {
+					Product product = catalogDAO.retrieveProductById(productID);
+					
+					CartProduct cartProduct = new CartProduct(product.getQuantity());
+					
+					cartProduct.setId(product.getId());
+					cartProduct.setImagePath(product.getImagePath());
+					cartProduct.setName(product.getName());
+					cartProduct.setPrice(product.getPrice());
+					
+					userCart.setQuantity(cartProduct, quantity);
+				}
 			}
 			catch(NumberFormatException e) {
 				e.printStackTrace();
@@ -78,17 +106,19 @@ public class CartServlet extends HttpServlet {
 			try {
 				productID = Integer.parseInt(removeID);
 				
-				Product product = catalogDAO.retrieveProductById(productID);
-				
-				CartProduct cartProduct = new CartProduct(product.getQuantity());
-				
-				cartProduct.setId(product.getId());
-				cartProduct.setImagePath(product.getImagePath());
-				cartProduct.setName(product.getName());
-				cartProduct.setPrice(product.getPrice());
-				
-				
-				userCart.removeProduct(cartProduct);
+				if(productID > 0) {
+					Product product = catalogDAO.retrieveProductById(productID);
+					
+					CartProduct cartProduct = new CartProduct(product.getQuantity());
+					
+					cartProduct.setId(product.getId());
+					cartProduct.setImagePath(product.getImagePath());
+					cartProduct.setName(product.getName());
+					cartProduct.setPrice(product.getPrice());
+					
+					
+					userCart.removeProduct(cartProduct);
+				}
 			}
 			catch (NumberFormatException e) {
 				e.printStackTrace();
@@ -112,25 +142,27 @@ public class CartServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			try {
-				Product product = catalogDAO.retrieveProductById(productID);
-				
-				CartProduct cartProduct = new CartProduct(product.getQuantity());
-				
-				cartProduct.setId(product.getId());
-				cartProduct.setImagePath(product.getImagePath());
-				cartProduct.setName(product.getName());
-				cartProduct.setPrice(product.getPrice());
-				
-				userCart.addProduct(cartProduct, quantity);
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
-			catch (IllegalArgumentException e) {
-				request.setAttribute("error", e.getMessage());
-				request.getRequestDispatcher("/cart_view.jsp").forward(request, response);
-				return;
+			if(productID > 0 && quantity > 0) {
+				try {
+					Product product = catalogDAO.retrieveProductById(productID);
+					
+					CartProduct cartProduct = new CartProduct(product.getQuantity());
+					
+					cartProduct.setId(product.getId());
+					cartProduct.setImagePath(product.getImagePath());
+					cartProduct.setName(product.getName());
+					cartProduct.setPrice(product.getPrice());
+					
+					userCart.addProduct(cartProduct, quantity);
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+				catch (IllegalArgumentException e) {
+					request.setAttribute("error", e.getMessage());
+					request.getRequestDispatcher("/cart_view.jsp").forward(request, response);
+					return;
+				}
 			}
 		}
 		
@@ -140,22 +172,32 @@ public class CartServlet extends HttpServlet {
 		Gson gson = new Gson();
 		Cookie[] cookies = request.getCookies();
 		
-		String userID = String.valueOf(endUserSession.getAttribute("userID"));
+		String userID = null;
+		
+		if(endUserSession.getAttribute("userID") != null)
+			userID = String.valueOf(endUserSession.getAttribute("userID"));
+		
 		
 		if(userID != null) {
-			
 			if(cookies != null) {
 				for(Cookie cookie : cookies) {
 					if(cookie.getName().equals(endUserSession.getAttribute("userID"))) {
 						cookie.setMaxAge(0);
+						response.addCookie(cookie);
 						break;
 					}
 				}
+			}
 			
 			Cookie cartCookie = new Cookie(String.valueOf(endUserSession.getAttribute("userID")), gson.toJson(endUserSession.getAttribute("userCart")));
 			cartCookie.setMaxAge(7*24*60*60);
 			response.addCookie(cartCookie);
+		} else {
 			
+			Cookie cookie = new Cookie("0", gson.toJson(endUserSession.getAttribute("userCart")));
+			cookie.setMaxAge(7*24*60*60);
+			response.addCookie(cookie);
+		}
 			// rendi il carrello persistente...
 			
 			/*long valueEnduserId = 0;
@@ -169,10 +211,8 @@ public class CartServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}*/
-		}
 		
 		response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/cart_view.jsp"));
-		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
