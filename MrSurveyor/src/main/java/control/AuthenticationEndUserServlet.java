@@ -16,8 +16,6 @@ import com.google.gson.Gson;
 
 import model.bean.Cart;
 import model.bean.RegisteredEndUser;
-import model.dao.CartDAO;
-import model.dao.CartDAOImp;
 import model.dao.EndUserDAO;
 import model.dao.EndUserDAOImp;
 
@@ -33,7 +31,7 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		CartDAO cartDAO = new CartDAOImp(ds);
+		//CartDAO cartDAO = new CartDAOImp(ds);
 		
 		Gson gson = new Gson();
 		Cookie[] cookies = request.getCookies();
@@ -44,12 +42,11 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 			HttpSession oldSession = request.getSession(false);
 			if(oldSession != null) {
 				
-				long userID = (long)oldSession.getAttribute("userID");
-				try {
-					cartDAO.deleteProducts((int)userID); // SVUOTO IL CARRELLO
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+				/*
+				 * long userID = (long)oldSession.getAttribute("userID"); try {
+				 * cartDAO.deleteProducts((int)userID); // SVUOTO IL CARRELLO } catch
+				 * (SQLException e) { e.printStackTrace(); }
+				 */
 				
 				
 				if(cookies != null) {
@@ -68,11 +65,10 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 				response.addCookie(cartCookie);
 				
 				// persistenza carrello...				
-				try {
-					cartDAO.addProducts((Cart)oldSession.getAttribute("userCart"), (int)userID);
-				}catch (SQLException e) {
-					e.printStackTrace();
-				}
+				/*
+				 * try { cartDAO.addProducts((Cart)oldSession.getAttribute("userCart"),
+				 * (int)userID); }catch (SQLException e) { e.printStackTrace(); }
+				 */
 				
 				oldSession.invalidate();
 				response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/authentication_enduser.jsp"));
@@ -132,10 +128,10 @@ public class AuthenticationEndUserServlet extends HttpServlet {
 							
 							userCart = new Cart();
 							
-							Cart retrievedCart = cartDAO.retrieveCartProducts((int)userID);
-							
-							if(retrievedCart != null)
-								userCart = retrievedCart;
+//							Cart retrievedCart = cartDAO.retrieveCartProducts((int)userID);
+//							
+//							if(retrievedCart != null)
+//								userCart = retrievedCart;
 							
 							productsJson = gson.toJson(userCart);
 							Cookie cartCookie = new Cookie(String.valueOf(userID), productsJson);

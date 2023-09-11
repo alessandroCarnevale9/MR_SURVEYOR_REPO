@@ -95,6 +95,7 @@ CREATE TABLE credit_card (
 );
 SHOW WARNINGS;
 
+/*
 DROP TABLE IF EXISTS cart_product;
 CREATE TABLE cart_product (
     cart_product_id INT NOT NULL,
@@ -108,6 +109,7 @@ CREATE TABLE cart_product (
     FOREIGN KEY(end_user_id) REFERENCES end_user(end_user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 SHOW WARNINGS;
+*/
 
 DROP TABLE IF EXISTS user_order;
 CREATE TABLE user_order (

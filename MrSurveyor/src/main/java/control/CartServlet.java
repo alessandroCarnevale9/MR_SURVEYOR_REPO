@@ -17,8 +17,6 @@ import com.google.gson.Gson;
 import model.bean.Cart;
 import model.bean.CartProduct;
 import model.bean.Product;
-import model.dao.CartDAO;
-import model.dao.CartDAOImp;
 import model.dao.CatalogDAO;
 import model.dao.CatalogDAOImp;
 
@@ -30,7 +28,7 @@ public class CartServlet extends HttpServlet {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		CatalogDAO catalogDAO = new CatalogDAOImp(ds);
-		CartDAO cartDAO = new CartDAOImp(ds);
+		//CartDAO cartDAO = new CartDAOImp(ds);
 		
 		HttpSession endUserSession = request.getSession();
 
@@ -160,7 +158,7 @@ public class CartServlet extends HttpServlet {
 			
 			// rendi il carrello persistente...
 			
-			long valueEnduserId = 0;
+			/*long valueEnduserId = 0;
 			if(endUserSession.getAttribute("userID") != null)
 				valueEnduserId = (long)endUserSession.getAttribute("userID");
 			
@@ -170,10 +168,10 @@ public class CartServlet extends HttpServlet {
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
 		
-			response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/cart_view.jsp"));
+		response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/cart_view.jsp"));
 		}
 	}
 
