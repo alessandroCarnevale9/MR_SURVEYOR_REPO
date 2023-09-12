@@ -83,18 +83,6 @@ CREATE TABLE end_user (
 );
 SHOW WARNINGS;
 
-DROP TABLE IF EXISTS credit_card;
-CREATE TABLE credit_card (
-    credit_card_number CHAR(16) NOT NULL,
-    credit_card_expiration_date DATE NOT NULL,
-    credit_card_cvc CHAR(3) NOT NULL,
-    credit_card_holder VARCHAR(255) NOT NULL,
-    costumer_id INT NOT NULL,
-    PRIMARY KEY(credit_card_number),
-    FOREIGN KEY(costumer_id) REFERENCES end_user(end_user_id) ON UPDATE CASCADE ON DELETE CASCADE
-);
-SHOW WARNINGS;
-
 DROP TABLE IF EXISTS cart_product;
 CREATE TABLE cart_product (
     cart_product_id INT NOT NULL,
@@ -120,11 +108,9 @@ CREATE TABLE user_order (
     order_state ENUM('to_send','sent') NOT NULL,
     manager_username VARCHAR(50),
     end_user_id INT NOT NULL,
-    credit_card_number CHAR(16) NOT NULL,
     PRIMARY KEY(order_id),
     FOREIGN KEY(manager_username) REFERENCES manager(manager_username) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY(end_user_id) REFERENCES end_user(end_user_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY(credit_card_number) REFERENCES credit_card(credit_card_number) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(end_user_id) REFERENCES end_user(end_user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 SHOW WARNINGS;
 
