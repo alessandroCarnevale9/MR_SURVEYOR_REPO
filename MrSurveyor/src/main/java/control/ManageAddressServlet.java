@@ -43,20 +43,30 @@ public class ManageAddressServlet extends HttpServlet {
 		String houseNumber = request.getParameter("houseNumber");
 		String cap = request.getParameter("cap");
 		
+		String checkoutFlag = request.getParameter("checkout");
+		
 		int houseNumberValue = 0;
-		try {
-			houseNumberValue = Integer.parseInt(houseNumber);
-		} catch(NumberFormatException e) {
-			e.printStackTrace();
+		if(houseNumber != null) {
+			try {
+				houseNumberValue = Integer.parseInt(houseNumber);
+			} catch(NumberFormatException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		String page = "";
 		
 		Address address = new Address(region, province, city, street, houseNumberValue, cap);
-		
+				
 		if(!address.isValidAddress()) {
 			request.setAttribute("error", "Indirizzo non valido");
-			page = "/address_form.jsp";
+			
+			if(request.getParameter("checkout") != null) {
+				request.removeAttribute("error");
+				request.setAttribute("checkout", "checkout");
+			}
+			
+			page = "/address_view.jsp";
 		}
 		else {
 			
@@ -74,12 +84,16 @@ public class ManageAddressServlet extends HttpServlet {
 				endUser.setAddress(address);
 				session.removeAttribute("registeredEndUser");
 				session.setAttribute("registeredEndUser", endUser);
+				
+				if(checkoutFlag != null) {
+					request.setAttribute("checkout", "checkout");
+				}
+				
 				page = "/address_view.jsp";
 			}
 			catch(SQLException e) {
 				e.printStackTrace();
 			}
-			
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);

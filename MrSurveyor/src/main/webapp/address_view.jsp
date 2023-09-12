@@ -18,6 +18,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Il tuo indirizzo</title>
 <link rel="stylesheet" type="text/css" href="styles/enduser_home.css">
 <link rel="stylesheet" href="styles/form_style.css">
@@ -55,8 +56,24 @@
 	}
 	%>
 	
+		<%
+		if(request.getAttribute("checkout") != null) {
+		%>
+			<br><small>Aggiungi o modifica l'indirizzo</small>
+		<%
+		}
+		%>
 		<a href="#aggiungi_indirizzo" id="addr-funct" class="funct" onclick="showAddressForm(this)"><%=buttonText %></a>
 	
+		<%
+		if(request.getAttribute("checkout") != null) {
+		%>
+			<small>poi:</small>
+			<a href="#" class="funct">Procedi all'acqusisto</a>
+		<%
+		}
+		%>
+		
 	</section>
 	</div>
 	
@@ -76,6 +93,15 @@
 		
 			<h1>Nuovo Indirizzo</h1>
     		<form action="${pageContext.request.contextPath}/ManageAddressServlet" method="POST">
+        		
+        		<%
+				if(request.getAttribute("checkout") != null) {
+				%>
+				<input type="hidden" name="checkout" value="checkout">
+				<%
+				}
+				%>
+        		
         		<label for="region">Regione:</label>
         		<input class="address" type="text" id="region" name="region" required>
         
@@ -99,7 +125,7 @@
         		</div>
     		</form>
     	</div>
-	
+    	
 	</main>
 	<jsp:include page="footer.jsp"></jsp:include>
 	</div>

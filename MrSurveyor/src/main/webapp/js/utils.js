@@ -59,6 +59,7 @@ function hideAddressForm() {
 	
 	const addressMenu = document.getElementById('address-form');
 	const addrButton = document.getElementById('addr-funct');
+	
 	addrButton.style.display = 'block';
 	addressMenu.style.display = 'none';
 }

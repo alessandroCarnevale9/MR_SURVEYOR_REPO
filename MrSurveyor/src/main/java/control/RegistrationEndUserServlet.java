@@ -5,13 +5,17 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import com.google.gson.Gson;
+
 import model.bean.Address;
+import model.bean.Cart;
 import model.bean.RegisteredEndUser;
 import model.dao.EndUserDAO;
 import model.dao.EndUserDAOImp;
@@ -88,10 +92,29 @@ public class RegistrationEndUserServlet extends HttpServlet {
 					if(oldSession != null)
 						oldSession.invalidate();
 					
+					
+					Cart cartCookie = new Cart();
+					
+					Cookie[] cookies = request.getCookies();
+					Gson gson = new Gson();
+					
+					if(cookies != null) {
+						for(Cookie c : cookies) {
+							if(c.getName().equals("0")) {
+								cartCookie = gson.fromJson(c.getValue(), Cart.class);
+							}
+						}
+					}
+					
+					
 					HttpSession newSession = request.getSession();
 					newSession.setMaxInactiveInterval(5 * 60);
+					newSession.setAttribute("userEmail", endUserEmail);
 					newSession.setAttribute("userID", enduserID);
 					newSession.setAttribute("registeredEndUser", registeredEndUser);
+					
+					newSession.setAttribute("userCart", cartCookie);
+					
 					response.sendRedirect(getServletContext().getContextPath()+"/homepage_enduser.jsp");
 					return;
 
