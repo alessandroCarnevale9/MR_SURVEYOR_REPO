@@ -100,3 +100,20 @@ function handleSubmitCreditCard() {
         submitBtn.value = "Modifica Carta";
     }
 }
+
+function hideTheProcdBtn() {
+	
+	const prcdForm = document.querySelector('.final-check');
+	
+	var computedStyle = window.getComputedStyle(prcdForm);
+	
+	if(computedStyle.display !== 'none') {
+		const elem = document.getElementById('prcd');
+	
+		if(elem != null) {
+			elem.style.display = 'none';
+		}
+	}
+}
+
+hideTheProcdBtn();

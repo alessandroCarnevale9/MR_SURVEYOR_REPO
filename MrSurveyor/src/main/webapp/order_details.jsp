@@ -1,3 +1,6 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.util.Date"%>
+<%@page import="model.bean.Order"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="model.bean.CartProduct"%>
 <%@page import="java.util.Collection"%>
@@ -53,7 +56,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dettaglio prdine</title>
+<title>Dettaglio ordine</title>
 <link rel="stylesheet" href="styles/order_details_style.css">
 </head>
 <body>
@@ -72,6 +75,7 @@
             <ul>
             
             <%
+            Order order = new Order();
             for(CartProduct p : cartProducts) {
             %>
             
@@ -84,10 +88,20 @@
                     </div>
                 </li>
             <%
+            
+            order.addOrderProduct(p);
+            
             }
             %>
             </ul>
-            <h3>Totale dell'Ordine: <%=session.getAttribute("totalPrice") %></h3>
+            <h3>Totale dell'Ordine: <%= df.format((double)session.getAttribute("totalPrice"))  %></h3>
+            
+            <%
+            order.setOrderDate(new Date());
+            order.setTotalPrice((double)session.getAttribute("totalPrice"));
+            session.setAttribute("order", order);
+            %>
+            
         </section>
     </div>
 	
@@ -97,7 +111,7 @@
 	
     <div class="footer">
         <a id="back-to-cart" href="cart_view.jsp">Torna al Carrello</a>
-        <a href="#checkout" onclick="display(this, '.final-check')">Procedi</a>
+        <a href="#checkout" id="prcd" onclick="display(this, '.final-check')">Procedi</a>
     </div>
     
     <%
@@ -173,7 +187,13 @@
         
         			<div class="btns-container">
         				<input id="submit-btn" class="check-btn" type="submit" value="<%=value %>" onclick="hideAddressForm(this)">
-        				<a href="#" id="order-btn" class="<%=cls%>" type="submit">Ordina</a>
+        				<%
+        				if(value.equals("Modifica Carta")) {
+        				%>
+        				<a href="${pageContext.request.contextPath}/OrderServlet?cmd=addOrder" id="order-btn" class="<%=cls%>" type="submit">Ordina</a>
+        				<%
+        				}
+        				%>
         			</div>
         			</section>
     			</form>
@@ -187,7 +207,7 @@
     
     <div class="footer">
         <a id="back-to-cart" href="cart_view.jsp">Torna al Carrello</a>
-        <a class="hide" href="#checkout" onclick="display(this, '.final-check')">Procedi</a>
+        <a class="hide" id="prcd" href="#checkout" onclick="display(this, '.final-check')">Procedi</a>
     </div>
     
     <div class="final-check display">

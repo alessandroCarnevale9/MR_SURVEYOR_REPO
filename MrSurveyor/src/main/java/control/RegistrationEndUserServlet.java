@@ -83,6 +83,7 @@ public class RegistrationEndUserServlet extends HttpServlet {
 			try {
 				if (!endUserDAO.exists(registeredEndUser)) { // se lo user non esiste
 					
+					
 					endUserDAO.addEndUser(registeredEndUser);
 					
 					long enduserID = endUserDAO.getRegisteredEndUser(endUserEmail).getId();
@@ -111,6 +112,9 @@ public class RegistrationEndUserServlet extends HttpServlet {
 					newSession.setMaxInactiveInterval(5 * 60);
 					newSession.setAttribute("userEmail", endUserEmail);
 					newSession.setAttribute("userID", enduserID);
+					
+					registeredEndUser.setId(enduserID);
+					
 					newSession.setAttribute("registeredEndUser", registeredEndUser);
 					
 					newSession.setAttribute("userCart", cartCookie);
