@@ -69,7 +69,7 @@
 		if(request.getAttribute("checkout") != null) {
 		%>
 			<small>poi:</small>
-			<a href="#" class="funct">Procedi all'acqusisto</a>
+			<a href="order_details.jsp" class="funct">Procedi all'acqusisto</a>
 		<%
 		}
 		%>

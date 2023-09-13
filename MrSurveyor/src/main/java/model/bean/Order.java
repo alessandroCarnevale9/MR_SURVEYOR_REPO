@@ -4,27 +4,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class Order implements Cloneable {
+public class Order {
 	
 	public Order() {
 		this.card = new CreditCard(); // carta con la quale è stato pagato l'ordine
 		this.orderProducts = new LinkedList<>(); // prodotti dell'ordine
 		this.orderManager = new Manager(); // Manager che gestisce l'ordine
 		this.endUser = new RegisteredEndUser(); // Utente che effettua l'ordine
-	}
-	
-	public Order(long id, Date orderDate, double totalPrice, Date shipmentDate, String trackingNumber, String courierName, State state, CreditCard card, Collection<Product> orderProducts, Manager orderManager, RegisteredEndUser endUser) {
-		this.id = id;
-		this.orderDate = orderDate;
-		this.totalPrice = totalPrice;
-		this.shipmentDate = shipmentDate;
-		this.trackingNumber = trackingNumber;
-		this.courierName = courierName;
-		this.state = state;
-		this.card = card.clone();
-		this.orderProducts = orderProducts;
-		this.orderManager = orderManager;
-		this.endUser = endUser;
 	}
 	
 	public long getId() {
@@ -167,30 +153,6 @@ public class Order implements Cloneable {
 				orderProducts.equals(other.orderProducts) && orderManager.equals(other.orderManager);
 	}
 	
-	public Order clone() {
-		
-		try {
-			
-			Order cloned = (Order)super.clone();
-			
-			cloned.card = card.clone();
-			cloned.orderManager = orderManager.clone();
-			cloned.endUser = endUser.clone();
-			
-			Collection<Product> orderProductsCloned = new LinkedList<>();
-			for(Product p : orderProducts)
-				orderProductsCloned.add(p.clone());
-			
-			cloned.orderProducts = orderProductsCloned;
-			
-			return cloned;
-		}
-		catch(CloneNotSupportedException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
 	private long id;
 	private Date orderDate, shipmentDate;
 	private double totalPrice;

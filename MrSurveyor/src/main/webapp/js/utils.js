@@ -63,3 +63,40 @@ function hideAddressForm() {
 	addrButton.style.display = 'block';
 	addressMenu.style.display = 'none';
 }
+
+function display(btn, el) {
+	const element = document.querySelector(el);
+	
+	btn.style.display = 'none';
+	element.style.display = 'flex';
+}
+
+function isValidCreditCard() {
+    var today = new Date();
+
+    var expireInput = document.getElementById("expire").value;
+    var expireDate = new Date("20" + expireInput.substring(3), expireInput.substring(0, 2) - 1, 1);
+
+    if (expireDate <= today) {
+        return false;
+    }
+
+    var cardNumber = document.getElementById("card_number").value.replace(/\s/g, '');
+    if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+        return false;
+    }
+
+    var cvc = document.getElementById("cvc").value.trim();
+    if (cvc.length !== 3 || isNaN(cvc)) {
+        return false;
+    }
+
+    return true;
+}
+
+function handleSubmitCreditCard() {
+    if (isValidCreditCard()) {
+        var submitBtn = document.getElementById("submit-btn");
+        submitBtn.value = "Modifica Carta";
+    }
+}

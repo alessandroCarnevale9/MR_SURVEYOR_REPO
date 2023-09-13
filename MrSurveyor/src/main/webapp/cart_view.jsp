@@ -103,7 +103,8 @@
 	%>
 		<div class="total-price">
 			<h2>Prezzo totale: <%=df.format(totalPrice) %></h2>
-			<a href="#">Acquista</a>
+			<%session.setAttribute("totalPrice", df.format(totalPrice)); %>
+			<a href="order_details.jsp">Ordina</a>
 		</div>
 	<%
 	}

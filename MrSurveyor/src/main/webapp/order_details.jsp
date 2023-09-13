@@ -1,3 +1,6 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="model.bean.CartProduct"%>
+<%@page import="java.util.Collection"%>
 <%@page import="model.bean.Address"%>
 <%@page import="model.bean.Cart"%>
 <%@page import="model.bean.RegisteredEndUser"%>
@@ -17,6 +20,31 @@
 	if(cart == null || cart.isEmpty()) {
 		request.getRequestDispatcher("cart_view.jsp").forward(request, response);
 		return;
+	}
+	
+	Collection<CartProduct> cartProducts = cart.getProducts();
+	
+	DecimalFormat df = new DecimalFormat("###,##0.00 €");
+	
+	
+	String value = "Aggiungi Carta";
+	if(request.getAttribute("successCard") != null) {
+		value = "Modifica Carta";
+	}
+	
+	String prevNumber = null;
+	if(request.getAttribute("prevNumber") != null) {
+		prevNumber = (String)request.getAttribute("prevNumber");
+	}
+	
+	String prevCVC = null;
+	if(request.getAttribute("prevCVC") != null) {
+		prevCVC = (String)request.getAttribute("prevCVC");
+	}
+	
+	String prevExp = null;
+	if(request.getAttribute("prevExp") != null) {
+		prevExp = (String)request.getAttribute("prevExp");
 	}
 %>
 
@@ -42,40 +70,181 @@
         <section class="order-details">
             <h2>Riepilogo dell'Ordine</h2>
             <ul>
+            
+            <%
+            for(CartProduct p : cartProducts) {
+            %>
+            
                 <li>
-                    <img src="product-image.jpg" alt="Nome Prodotto">
+                    <img src="images/prod/<%=p.getImagePath() %>" alt="<%=p.getName() %>">
                     <div class="product-info">
-                        <h3>Nome Prodotto</h3>
-                        <p>Descrizione del prodotto.</p>
-                        <p>Prezzo: $XX.XX</p>
-                        <p>Quantità: 1</p>
+                        <h4><%=p.getName() %></h4>
+                        <p><%=p.getPrice() %></p>
+                        <p><%=p.getQuantity() %></p>
                     </div>
                 </li>
-                <!-- Ripeti questa struttura per ogni prodotto nell'ordine -->
+            <%
+            }
+            %>
             </ul>
-            <p>Totale dell'Ordine: $XX.XX</p>
+            <h3>Totale dell'Ordine: <%=session.getAttribute("totalPrice") %></h3>
         </section>
     </div>
-
+	
+	<%
+	if(request.getAttribute("errorCard") == null) {
+	%>
+	
     <div class="footer">
         <a id="back-to-cart" href="cart_view.jsp">Torna al Carrello</a>
-        <%
-        if(!registeredEndUser.getAddress().isValidAddress()) {
+        <a href="#checkout" onclick="display(this, '.final-check')">Procedi</a>
+    </div>
+    
+    <%
+    String cls = "final-check";
+    if(value.equals("Modifica Carta")) {
+    	cls = "final-check display";
+    }
+    %>
+    
+    <div class="<%=cls %>">
+    	<section class="address-info">
+    	<%
+        Address address = registeredEndUser.getAddress();
+        if(!address.isValidAddress()) {
         %>
-        	<a href="${pageContext.request.contextPath}/ManageAddressServlet?checkout">Procedi</a>
+        	<h2 id="addr-header">Nessun indirizzo associato</h2>
+        	<a class="check-btn" href="${pageContext.request.contextPath}/ManageAddressServlet?checkout">Aggiungi Indirizzo</a>
         <%
         } else {
         %>
-        	<a href="#">Procedi</a>
-        <%
+    	<h2 id="addr-header">Il tuo Indirizzo</h2>
+    		<div><%=registeredEndUser.getName()+" "+registeredEndUser.getSurname() %></div>
+			<div><%=address.getStreet()+" "+address.getHouseNumber() %></div>
+			<div><%=address.getCap() %></div>
+			<div><%=address.getRegion()+" "+address.getProvince() %></div>
+			<div><%=address.getCity() %></div>
+			
+			<a class="check-btn liks" href="${pageContext.request.contextPath}/ManageAddressServlet?checkout">Modifica</a>
+		<%
         }
-        %>
-    </div>
+		%>	
+		</section>
+    			<form id="card-form" action="${pageContext.request.contextPath}/CreditCardServlet" method="POST">
+        		<section class="credit-card-form">
+        			<h2>Inserisci Carta di Credito</h2>
+        			
+        			<label for="card_number">Numero carta:</label>
+        			<%
+        			if(prevNumber != null) {
+        			%>
+        			<input id="card_number" type="text" name="card_number" placeholder="AAAA BBBB CCCC DDD" required value="<%=prevNumber %>">
+        			<%
+        			} else {
+        			%>
+        			<input id="card_number" type="text" name="card_number" placeholder="AAAA BBBB CCCC DDD" required>
+        			<%
+        			}
+        			%>
+        			<label for="cvc">CVC:</label>
+        			<%
+        			if(prevCVC != null) {
+        			%>
+        			<input id="cvc" type="number" name="cvc" placeholder="AAA" required value="<%=prevCVC %>">
+        			<%
+        			} else {
+        			%>
+        			<input id="cvc" type="number" name="cvc" placeholder="AAA" required>
+        			<%
+        			}
+        			%>
+        			<label for="expire">Scadenza:</label>
+        			<%
+        			if(prevExp != null) {
+        			%>
+        			<input id="expire" type="text" name="expire" placeholder="MM/AA" required value="<%=prevExp %>">
+        			<%
+        			} else {
+        			%>
+        			<input id="expire" type="text" name="expire" placeholder="MM/AA" required>
+        			<%
+        			}
+        			%>
         
+        			<div class="btns-container">
+        				<input id="submit-btn" class="check-btn" type="submit" value="<%=value %>" onclick="hideAddressForm(this)">
+        				<a href="#" id="order-btn" class="<%=cls%>" type="submit">Ordina</a>
+        			</div>
+        			</section>
+    			</form>
+    </div>
+    
+    <%
+	} else {
+		
+		String errorMessage = (String)request.getAttribute("errorCard");
+    %>
+    
+    <div class="footer">
+        <a id="back-to-cart" href="cart_view.jsp">Torna al Carrello</a>
+        <a class="hide" href="#checkout" onclick="display(this, '.final-check')">Procedi</a>
+    </div>
+    
+    <div class="final-check display">
+    	<section class="address-info">
+    	<%
+        Address address = registeredEndUser.getAddress();
+        if(!address.isValidAddress()) {
+        %>
+        	<h2 id="addr-header">Nessun indirizzo associato</h2>
+        	<a class="check-btn" href="${pageContext.request.contextPath}/ManageAddressServlet?checkout">Aggiungi Indirizzo</a>
+        <%
+        } else {
+        %>
+    	<h2 id="addr-header">Il tuo Indirizzo</h2>
+    		<div><%=registeredEndUser.getName()+" "+registeredEndUser.getSurname() %></div>
+			<div><%=address.getStreet()+" "+address.getHouseNumber() %></div>
+			<div><%=address.getCap() %></div>
+			<div><%=address.getRegion()+" "+address.getProvince() %></div>
+			<div><%=address.getCity() %></div>
+			
+			<a class="check-btn liks" href="${pageContext.request.contextPath}/ManageAddressServlet?checkout">Modifica</a>
+		<%
+        }
+		%>	
+		</section>
+    			<form id="card-form" action="${pageContext.request.contextPath}/CreditCardServlet" method="POST">
+        		<section class="credit-card-form">
+        		
+        			<small id=error-message><%=errorMessage %></small>
+        		
+        			<h2>Inserisci Carta di Credito</h2>
+        			
+        			<label for="card_number">Numero carta:</label>
+        			<input id="card_number" type="text" name="card_number" placeholder="AAAA BBBB CCCC DDD" required>
+        
+        			<label for="cvc">CVC:</label>
+        			<input id="cvc" type="number" name="cvc" placeholder="AAA" required>
+        
+        			<label for="expire">Scadenza:</label>
+        			<input id="expire" type="text" name="expire" placeholder="MM/AA" required>
+        
+        			<div class="submit cart">
+        				<input id="submit-btn" class="check-btn" type="submit" value="Aggiungi Carta" onclick="hideAddressForm(this)">
+        			</div>
+        			</section>
+    			</form>
+    </div>
+    
+    <%
+	}
+    %>
     </main>
     
 	<jsp:include page="footer.jsp"></jsp:include>
 	</div>
+    
+    <script type="text/javascript" src="js/utils.js"></script>
     
 </body>
 </html>

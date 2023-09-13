@@ -7,27 +7,20 @@ public class CreditCard implements Cloneable {
 	public CreditCard() {
 		
 	}
-	
-	public CreditCard(int cardNumber, Date expirationDate, int cvc, String holderName) {
-		this.cardNumber = cardNumber;
-		this.expirationDate = expirationDate;
-		this.cvc = cvc;
-		this.holderName = holderName;
-	}
-	
-	public int getCardNumber() {
+		
+	public String getCardNumber() {
 		return cardNumber;
 	}
 
-	public void setCardNumber(int cardNumber) {
+	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 
-	public int getCvc() {
+	public String getCvc() {
 		return cvc;
 	}
 
-	public void setCvc(int cvc) {
+	public void setCvc(String cvc) {
 		this.cvc = cvc;
 	}
 
@@ -46,38 +39,50 @@ public class CreditCard implements Cloneable {
 	public void setHolderName(String holderName) {
 		this.holderName = holderName;
 	}
+
+	public boolean isValidCreditCard() throws IllegalArgumentException {
+	    Date today = new Date();
+
+	    if (expirationDate.before(today)) {
+	        throw new IllegalArgumentException("La carta di credito è scaduta.");
+	    }
+
+	    String trimmedCardNumber = cardNumber.trim();
+	    if (trimmedCardNumber.length() != 16) {
+	        throw new IllegalArgumentException("Il numero della carta di credito deve contenere esattamente 16 cifre.");
+	    }
+
+	    String trimmedCvc = cvc.trim();
+	    if (trimmedCvc.length() != 3) {
+	        throw new IllegalArgumentException("Il CVC deve contenere esattamente 3 cifre.");
+	    }
+
+	    return true;
+	}
+
 	
 	public String toString() {
 		return getClass().getName()+"[cardNumber="+cardNumber+",cvc="+cvc+
 				",exipirationDate="+expirationDate+",holderName="+holderName+"]";
 	}
 	
-	public boolean equals(Object otherObject) {
-		if(otherObject == null)
-			return false;
-		
-		if(getClass() != otherObject.getClass())
-			return false;
-		
-		CreditCard other = (CreditCard)otherObject;
-		
-		return Integer.compare(cardNumber,other.cardNumber) == 0 && 
-				Integer.compare(cvc,other.cvc) == 0 &&
-				expirationDate.equals(other.expirationDate) && holderName.equals(other.holderName);
-	}
-	
-	public CreditCard clone() {
-		
-		try {
-			return (CreditCard)super.clone();
-		}
-		catch(CloneNotSupportedException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    public CreditCard clone() {
+        try {
+            CreditCard clonedCard = (CreditCard) super.clone();
 
-	private int cardNumber, cvc;
+            if (this.expirationDate != null) {
+                clonedCard.expirationDate = (Date) this.expirationDate.clone();
+            }
+
+            return clonedCard;
+        } catch (CloneNotSupportedException e) {
+     
+            e.printStackTrace();
+            return null;
+        }
+    }
+	
+	private String cardNumber, cvc;
 	private Date expirationDate;
 	private String holderName;
 }

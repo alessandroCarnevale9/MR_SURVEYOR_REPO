@@ -34,10 +34,6 @@
 	transition: background-color 0.5s, color 0.5s, box-shadow 0.3s;
 }
 
-.footer a:visited {
-	color: white;
-}
-
 .footer a:hover {
 	box-shadow: 4px 3px 6px rgba(0, 0, 0, 0.3);
 	background-color: #f3a712;
@@ -78,4 +74,122 @@
 .order-details h3 {
     font-size: 18px;
     margin: 0;
+}
+
+.final-check {
+	width: 900px;
+	display: none;
+	justify-content: space-between;
+	align-items: center;
+	margin: auto;
+	margin-bottom: 30px;
+}
+
+.address-info {
+	border-right: 1px solid black;
+	height: 350px;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.address-info * {
+	width: 50%;
+	padding: 10px 0;
+}
+
+#addr-header {
+	position: relative;
+	bottom: 28px;
+	white-space: nowrap;
+}
+
+.credit-card-form {
+	display: flex;
+	flex-direction: column;
+	width: 150%;
+}
+
+.credit-card-form * {
+	padding: 10px;
+	width: 80%;
+}
+
+.credit-card-form input[type="text"], .credit-card-form input[type="number"] {
+	border: 2px solid silver;
+	border-radius: 20px;
+}
+
+.credit-card-form input[type="text"]:focus, .credit-card-form input[type="number"]:focus {
+	outline-color: darkgray;
+}
+
+.check-btn {
+	width: 150px;
+	padding: 10px 20px;
+	border-radius: 5px;
+	box-shadow: none;
+	border: none;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	transition: background-color 0.5s, color 0.5s, box-shadow 0.3s;
+	text-align: center;
+	text-decoration: none;
+}
+
+.check-btn:hover {
+	box-shadow: 4px 3px 6px rgba(0, 0, 0, 0.3);
+	background-color: #f3a712;
+	color: black;
+	cursor: pointer;
+}
+
+.liks {
+	padding: 5px;
+}
+
+.cart {
+	padding: 20px 0;
+}
+
+a.hide {
+	display: none;
+}
+
+.display {
+	display: flex;
+}
+
+#error-message {
+	color: red;
+	font-size: 12px;
+}
+
+#order-btn {
+	display: block;
+	margin: 0;
+	width: 50px;
+	padding: 8px 15px;
+	border-radius: 5px;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	transition: background-color 0.5s, color 0.5s, box-shadow 0.3s;
+	text-align: center;
+	text-decoration: none;
+}
+
+#order-btn:hover {
+	box-shadow: 4px 3px 6px rgba(0, 0, 0, 0.3);
+	background-color: #f3a712;
+	color: black;
+	cursor: pointer;
+}
+
+.btns-container{
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
 }
