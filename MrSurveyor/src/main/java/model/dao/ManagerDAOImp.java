@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -22,6 +24,9 @@ public class ManagerDAOImp implements ManagerDAO {
 	
 	private static final String GET_ROLES = "SELECT manager_role FROM "+MANAGER_TABLE
 			+ " WHERE manager_username=?";
+	
+	private static String RETRIEVE_ORDER_MANAGERS = "SELECT * FROM "+MANAGER_TABLE+
+			" WHERE manager_role=?";
 	
 	public ManagerDAOImp(DataSource ds) {
 		ManagerDAOImp.ds = ds;
@@ -103,6 +108,36 @@ public class ManagerDAOImp implements ManagerDAO {
 		}
 		
 		return roles;
+	}
+
+	@Override
+	public List<String> getOrderManagerNames() throws SQLException {
+		
+		List<String> names = new ArrayList<String>();
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(RETRIEVE_ORDER_MANAGERS);
+			preparedStatement.setString(1, "order_manager");
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next())
+				names.add(rs.getString("manager_username"));
+		} finally {
+			try {
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if(connection != null)
+					connection.close();
+			}
+		}
+		
+		return names;
 	}
 
 	private static DataSource ds;

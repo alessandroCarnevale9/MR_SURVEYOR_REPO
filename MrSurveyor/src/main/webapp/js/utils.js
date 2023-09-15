@@ -105,15 +105,27 @@ function hideTheProcdBtn() {
 	
 	const prcdForm = document.querySelector('.final-check');
 	
-	var computedStyle = window.getComputedStyle(prcdForm);
+	if(prcdForm != null) {
+		var computedStyle = window.getComputedStyle(prcdForm);
 	
-	if(computedStyle.display !== 'none') {
-		const elem = document.getElementById('prcd');
+		if(computedStyle.display !== 'none') {
+			const elem = document.getElementById('prcd');
 	
-		if(elem != null) {
-			elem.style.display = 'none';
+			if(elem != null) {
+				elem.style.display = 'none';
+			}
 		}
 	}
 }
 
 hideTheProcdBtn();
+
+function displayOrderProducts(orderIndex) {
+	 var productsContainer = document.getElementById("products" + orderIndex);
+
+        if (productsContainer.style.display === "none" || productsContainer.style.display === "") {
+            productsContainer.style.display = "block";
+        } else {
+            productsContainer.style.display = "none";
+        }
+}

@@ -108,6 +108,7 @@ CREATE TABLE user_order (
     order_state ENUM('to_send','sent') NOT NULL,
     manager_username VARCHAR(50),
     end_user_id INT NOT NULL,
+    order_address VARCHAR(255) NOT NULL,
     PRIMARY KEY(order_id),
     FOREIGN KEY(manager_username) REFERENCES manager(manager_username) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(end_user_id) REFERENCES end_user(end_user_id) ON UPDATE CASCADE ON DELETE CASCADE

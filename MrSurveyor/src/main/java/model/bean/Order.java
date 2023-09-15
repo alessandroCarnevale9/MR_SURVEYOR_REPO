@@ -97,18 +97,20 @@ public class Order {
 		this.endUser = endUser;
 	}
 	
+	public String getOrderAddress() {
+		return orderAddress;
+	}
+
+	public void setOrderAddress(String orderAddress) {
+		this.orderAddress = orderAddress;
+	}
+
 	public Collection<Product> getOrderProducts() {
 		return orderProducts;
 	}
 
 	public void addOrderProduct(Product orderProduct) {
-		if(orderProducts.contains(orderProduct)) {
-			int tmp = orderProduct.getQuantity();
-			tmp += 1;
-			orderProduct.setQuantity(tmp);
-		}
-		else
-			orderProducts.add(orderProduct);
+		orderProducts.add(orderProduct);
 	}
 	
 	public void removeOrderProduct(Product orderProduct) {
@@ -156,7 +158,7 @@ public class Order {
 	private long id;
 	private Date orderDate, shipmentDate;
 	private double totalPrice;
-	private String trackingNumber, courierName;
+	private String trackingNumber, courierName, orderAddress;
 	private State state;
 	private CreditCard card;
 	private Collection<Product> orderProducts;

@@ -11,7 +11,7 @@
 		<nav class="side-menu">
 			<ul class="side-menu-item">
 				<li><a href="${pageContext.request.contextPath}/homepage_enduser.jsp">BACHECA</a></li>
-				<li><a href="#">ORDINI</a></li>
+				<li><a href="${pageContext.request.contextPath}/OrderServlet?cmd=showProducts">ORDINI</a></li>
 				<li><a href="${pageContext.request.contextPath}/address_view.jsp">INDIRIZZO</a></li>
 				<li><a href="${pageContext.request.contextPath}/end_user_account_details.jsp">DETTAGLI ACCOUNT</a></li>
 				<li><a href="${pageContext.request.contextPath}/AuthenticationEndUserServlet?invalidate">LOGOUT</a></li>
