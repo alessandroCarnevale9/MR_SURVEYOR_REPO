@@ -43,12 +43,18 @@ if(manager.getRole().equals(Role.CATALOG_MANAGER)) {
 <link rel="stylesheet" href="styles/orders_manager_view.css">
 </head>
 <body>
+	
+	<div class="flex-container">
 	<jsp:include page="header_manager.jsp"></jsp:include>
+	<main>
 	
 	<div class="container">
         <h1>Lista degli Ordini</h1>
         
         <%
+        
+        if(ordersToManage != null && !ordersToManage.isEmpty()) {
+        
         Iterator<?> it = ordersToManage.iterator();
         while(it.hasNext()) {
         	Order o = (Order)it.next();
@@ -62,30 +68,47 @@ if(manager.getRole().equals(Role.CATALOG_MANAGER)) {
                 <!-- Form per la gestione dell'ordine -->
                 <form>
                     <div class="form-group">
-                        <label for="corriere">Seleziona un corriere:</label>
-                        <select id="corriere" name="corriere">
+                        <label for="courier">Seleziona un corriere:</label>
+                        <select id="courier" name="courier">
                             <option value="BRT">BRT</option>
-                            <!-- Altre opzioni del corriere possono essere aggiunte qui -->
+                            <option value="DHL">DHL</option>
+                            <option value="GLS">GLS</option>
+                            <option value="UPS">UPS</option>
+                            <option value="TNT">TNT</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="tracking-number">Tracking number:</label>
-                        <input type="text" id="tracking-number" name="tracking-number" placeholder="Inserisci il tracking number" required>
+                        <label for="trackingNumber">Tracking number:</label>
+                        <input type="text" id="trackingNumber" name="trackingNumber" maxlength="7" placeholder="Inserisci il tracking number" required>
+                        <small class="error-message" id="tracking-number-error"></small>
                     </div>
                     <div class="form-group">
-                        <label for="data-spedizione">Data di spedizione:</label>
-                        <input type="date" id="data-spedizione" name="data-spedizione" required>
+                    	<input type="hidden" id="orderDate" name="orderDate" value="<%=o.getOrderDate() %>">
+                        <label for="shipmentDate">Data di spedizione:</label>
+                        <input type="date" id="shipmentDate" name="shipmentDate" required>
+                        <small class="error-message" id="shipment-date-error"></small>
                     </div>
-                    <button type="button" onclick="validaECompletaOrdine('order-<%=o.getId() %>')">Completa</button>
+                    <button type="button" onclick="validaECompletaOrdine('<%=o.getId() %>')">Completa</button>
                 </form>
             </div>
         </div>
         <%
+        	}
+        } else {
+        %>
+        	<h3>Nessun ordine da gestire</h3>
+        <%
         }
         %>
+        
     </div>
 	
+	</main>
 	<jsp:include page="footer.jsp"></jsp:include>
+	</div>
+	
+	<script type="text/javascript" src="js/manage_order.js"></script>
+	
 </body>
 <%
 }

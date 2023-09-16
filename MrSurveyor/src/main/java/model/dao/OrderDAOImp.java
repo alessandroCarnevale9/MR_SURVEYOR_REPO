@@ -34,6 +34,8 @@ public class OrderDAOImp implements OrderDAO {
 	
 	private static final String RETRIEVE_ORDERS_ORDER_MANAGER = "SELECT * FROM "+USER_ORDER_TABLE+" WHERE manager_username = ?";
 	
+	private static final String UPDATE_MANAGED_ORDER = "UPDATE "+USER_ORDER_TABLE+" SET shipment_date = ?,courier_name = ?,tracking_number = ?,order_state = 'sent',manager_username = NULL WHERE order_id = ?";
+	
 	public OrderDAOImp(DataSource ds) {
 		OrderDAOImp.ds = ds;
 	}
@@ -307,8 +309,38 @@ public class OrderDAOImp implements OrderDAO {
 		
 		return orders;
 	}
-
-
+	
+	@Override
+	public void updateManagedOrder(Order order) throws SQLException {
+		
+		if(order != null) {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				connection = ds.getConnection();
+				preparedStatement = connection.prepareStatement(UPDATE_MANAGED_ORDER);
+				
+				preparedStatement.setDate(1, new java.sql.Date(order.getShipmentDate().getTime()));
+				preparedStatement.setString(2, order.getCourierName());
+				preparedStatement.setString(3, order.getTrackingNumber());
+				preparedStatement.setInt(4, (int)order.getId());
+				
+				preparedStatement.executeUpdate();
+				
+			} finally {
+				try {
+					if(preparedStatement != null)
+						preparedStatement.close();
+				} finally {
+					if(connection != null)
+						connection.close();
+				}
+			}
+		} else {
+			System.out.println("EHHH");
+		}
+	}
 
 	private static DataSource ds;
 }

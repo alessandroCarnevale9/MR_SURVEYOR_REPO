@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +21,7 @@ import model.bean.Address;
 import model.bean.Cart;
 import model.bean.Manager;
 import model.bean.Order;
+import model.bean.Order.State;
 import model.bean.RegisteredEndUser;
 import model.dao.CartDAO;
 import model.dao.CartDAOImp;
@@ -43,28 +46,6 @@ public class OrderServlet extends HttpServlet {
 		Order order = (Order)session.getAttribute("order");
 		Manager manager = (Manager)session.getAttribute("manager");
 		String cmd = request.getParameter("cmd");
-		
-		
-		/*
-		 * if(!cmd.equals("showAssigned") && enduser == null) {
-		 * response.sendRedirect(getServletContext().getContextPath()+
-		 * "/order_details.jsp"); return; }
-		 * 
-		 * if(cmd.equals("showAssigned") && manager == null) {
-		 * response.sendRedirect(getServletContext().getContextPath()+
-		 * "/authentication_manager.jsp"); return; }
-		 */
-		/*
-		 * if(!cmd.equals("showProducts") && enduser != null &&
-		 * !enduser.getAddress().isValidAddress()) {
-		 * response.sendRedirect(getServletContext().getContextPath()+
-		 * "/ManageAddressServlet?checkout"); return; }
-		 * 
-		 * if(cmd.equals("showAssigned") && (manager == null ||
-		 * !manager.getRole().equals(Role.ORDER_MANAGER))) {
-		 * response.sendRedirect(getServletContext().getContextPath()+
-		 * "/authentication_manager.jsp"); return; }
-		 */
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		OrderDAO orderDAO = new OrderDAOImp(ds);
@@ -149,6 +130,45 @@ public class OrderServlet extends HttpServlet {
 				
 				request.setAttribute("toManage", ordersToManage);
 				request.getRequestDispatcher("homepage_manager.jsp").forward(request, response);
+			}
+			break;
+			
+			case "manageOrder": {
+				if(manager == null) {
+					response.sendRedirect(getServletContext().getContextPath()+"/authentication_manager.jsp");
+					return;
+				}
+				
+				String orderID = request.getParameter("orderId");
+				String courier = request.getParameter("courier");
+				String trackingNumber = request.getParameter("trackingNumber");
+				String shipmentDate = request.getParameter("shipmentDate");
+				
+				Order managed = new Order();
+				
+				try {
+					managed.setId(Long.parseLong(orderID));
+				} catch(NumberFormatException e) {
+					e.printStackTrace();
+				}
+				
+				managed.setState(State.SENT);
+				managed.setCourierName(courier);
+				managed.setTrackingNumber(trackingNumber);
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				
+				try {
+					managed.setShipmentDate(dateFormat.parse(shipmentDate));
+				} catch(ParseException e) {
+					e.printStackTrace();
+				}
+				
+				try {
+					orderDAO.updateManagedOrder(managed);
+				} catch(SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			break;
 			

@@ -77,7 +77,7 @@
 }
 
 .final-check {
-	width: 900px;
+	width: 80%;
 	display: none;
 	justify-content: space-between;
 	align-items: center;
@@ -123,6 +123,10 @@
 
 .credit-card-form input[type="text"]:focus, .credit-card-form input[type="number"]:focus {
 	outline-color: darkgray;
+}
+
+.credit-card-form {
+	width: 90%;
 }
 
 .check-btn {

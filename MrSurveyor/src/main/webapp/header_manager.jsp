@@ -14,6 +14,9 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="styles/header_style.css">
+
+<script src="js/jquery-3.7.1.js"></script>
+
 </head>
 <body>
 	<header>

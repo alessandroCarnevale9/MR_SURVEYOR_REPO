@@ -12,4 +12,5 @@ public interface OrderDAO {
 	void assingOrder(String orderManagerName, int toManageID) throws SQLException;
 	Collection<Order> getOrders(int endUserID) throws SQLException;
 	Collection<Order> getOrdersToManage(String orderManagerName) throws SQLException;
+	void updateManagedOrder(Order order) throws SQLException;
 }
