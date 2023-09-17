@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="model.bean.Order"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Collection"%>
@@ -8,6 +9,8 @@
     
     <%
     Manager manager = (Manager)session.getAttribute("manager");
+    
+    DecimalFormat df = new DecimalFormat("###,##0.00 €");
     
     if(manager == null) {
     	response.sendRedirect(getServletContext().getContextPath()+"/authentication_manager.jsp");
@@ -59,12 +62,12 @@ if(manager.getRole().equals(Role.CATALOG_MANAGER)) {
         while(it.hasNext()) {
         	Order o = (Order)it.next();
         %>
-        <div class="order" onclick="toggleOrderForm('order-<%=o.getId() %>')"> <!-- Aggiungi un ID unico per ogni ordine, ad esempio "order-1" -->
-            <p><span class="label">ID ordine:</span> <%=o.getId() %></p>
-            <p><span class="label">ID cliente:</span> <%=o.getEndUser().getId() %></p>
-            <p><span class="label">Data dell'ordine:</span> <%=o.getOrderDate() %></p>
-            <p><span class="label">Prezzo totale:</span> <%=o.getTotalPrice() %></p>
-            <div class="order-form" id="order-<%=o.getId() %>-form"> <!-- Aggiungi un ID unico per ogni form, ad esempio "order-1-form" -->
+        <div class="order" onclick="toggleOrderForm('order-<%=o.getId() %>')">
+            <p><span class="label"><b>ID ordine:</b></span> <%=o.getId() %></p>
+            <p><span class="label"><b>ID cliente:</b></span> <%=o.getEndUser().getId() %></p>
+            <p><span class="label"><b>Data dell'ordine:</b></span> <%=o.getOrderDate() %></p>
+            <p><span class="label"><b>Prezzo totale:</b></span> <%=df.format(o.getTotalPrice()) %></p>
+            <div class="order-form" id="order-<%=o.getId() %>-form">
                 <!-- Form per la gestione dell'ordine -->
                 <form>
                     <div class="form-group">

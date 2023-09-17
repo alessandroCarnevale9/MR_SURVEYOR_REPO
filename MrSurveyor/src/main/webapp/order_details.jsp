@@ -64,7 +64,7 @@
 	<div class="flex-container">
 	<jsp:include page="header.jsp"></jsp:include>
 	<main>
-
+	
 	<div class="header">
         <h1>Dettaglio dell'Ordine</h1>
     </div>
@@ -83,7 +83,7 @@
                     <img src="images/prod/<%=p.getImagePath() %>" alt="<%=p.getName() %>">
                     <div class="product-info">
                         <h4><%=p.getName() %></h4>
-                        <p><%=p.getPrice() %></p>
+                        <p><%=df.format(p.getPrice()) %></p>
                         <p><%=p.getQuantity() %></p>
                     </div>
                 </li>

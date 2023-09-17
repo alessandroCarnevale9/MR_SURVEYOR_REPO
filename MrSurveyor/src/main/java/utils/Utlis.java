@@ -82,7 +82,7 @@ public final class Utlis {
 	        
 	    	String toRedirect = CONTEXT_PATH+"/CatalogServlet?detailProductID="+product.getId();
 	    	
-	    	html.append("<div class='product' tabindex='0' onclick=\"redirectToDetatils('"+toRedirect+"')\" >");
+	    	html.append("<div class='product' tabindex='0' onclick=\"redirectToDetatils('"+toRedirect+"')\" onkeydown=\"handleSubmit(event,'"+toRedirect+"')\">");
 	        html.append("<img src='").append("images/prod/"+product.getImagePath()).append("' alt='").append(product.getName()).append("'>");
 	        html.append("<h3>").append(product.getName()).append("</h3>");
 	        html.append("<p>").append(df.format(product.getPrice())).append("&euro;</p>");

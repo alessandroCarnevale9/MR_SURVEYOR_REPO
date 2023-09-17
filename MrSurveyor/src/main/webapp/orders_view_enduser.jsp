@@ -20,12 +20,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oridini effettuati</title>
+<link rel="stylesheet" type="text/css" href="styles/enduser_home.css">
 <link rel="stylesheet" href="styles/orders_enduser_view.css">
 </head>
 <body>
 	<div class="flex-container">
 	<jsp:include page="header.jsp"></jsp:include>
 	<main>
+	
+	<jsp:include page="enduser_sidemenu.jsp"></jsp:include>
 	
 	<% 
 	if(enduserOrders == null || enduserOrders.isEmpty()) {

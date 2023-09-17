@@ -126,3 +126,9 @@ $(document).ready(function() {
 function redirectToDetatils(url) {
 	window.location.href = url;
 }
+
+function handleSubmit(event, url) {
+	if(event.key === 'Enter') {
+		window.location.href = url;
+	}
+}

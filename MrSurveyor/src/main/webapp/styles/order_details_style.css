@@ -113,7 +113,6 @@
 
 .credit-card-form * {
 	padding: 10px;
-	width: 80%;
 }
 
 .credit-card-form input[type="text"], .credit-card-form input[type="number"] {
