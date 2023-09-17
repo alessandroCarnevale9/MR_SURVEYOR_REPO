@@ -100,6 +100,13 @@ public class CatalogServlet extends HttpServlet {
 			
 			category = (String)session.getAttribute("category");
 			
+			if(category == null || category.trim().equals(""))
+				try {
+					category = catalogDAO.getRootCategory(subcategory).getName();
+				} catch(SQLException e) {
+					e.printStackTrace();
+				}
+			
 			page = "/products_enduser.jsp";
 			
 			Collection<Product> products = null;
@@ -132,6 +139,14 @@ public class CatalogServlet extends HttpServlet {
 				}
 				else if(subcategoryProduct.getName() == null) {
 					category = (String)session.getAttribute("category");
+					
+					if(category == null || category.trim().equals(""))
+						try {
+							category = catalogDAO.getCategoryById(productID).getName();
+						} catch(SQLException e) {
+							e.printStackTrace();
+						}
+					
 					product.addCategory(new Category(category));
 					request.setAttribute("showProduct", product);
 				}

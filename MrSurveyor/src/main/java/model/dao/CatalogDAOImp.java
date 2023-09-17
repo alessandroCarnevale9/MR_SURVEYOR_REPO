@@ -48,6 +48,10 @@ public class CatalogDAOImp implements CatalogDAO {
 	
 	private static final String SEARCH_PRODUCT = "SELECT * FROM product WHERE product_name LIKE ?";
 	
+	private static final String RETRIEVE_ROOT_CATEGORY = "SELECT category_name FROM "+SUBCATEGORY_TABLE+" WHERE subcategory_name=?";
+	
+	private static final String RETRIVE_CATEGORY_BY_PRD_ID = "SELECT category_name FROM "+HAS_CATEGORY+" WHERE product_id=?";
+	
 	public CatalogDAOImp(DataSource ds) {
 		CatalogDAOImp.ds = ds;
 	}
@@ -314,6 +318,73 @@ public class CatalogDAOImp implements CatalogDAO {
 		}
 		
 		return products;
+	}
+
+	@Override
+	public Category getRootCategory(String subcategoryName) throws SQLException {
+		
+		Category category = new Category();
+		
+		if(subcategoryName != null && !subcategoryName.trim().equals("")) {
+			
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				connection = ds.getConnection();
+				preparedStatement = connection.prepareStatement(RETRIEVE_ROOT_CATEGORY);
+				preparedStatement.setString(1, subcategoryName);
+				
+				ResultSet rs = preparedStatement.executeQuery();
+				
+				if(rs.next())
+					category.setName(rs.getString("category_name"));
+			
+			} finally {
+				try {
+					if(preparedStatement != null)
+						preparedStatement.close();
+				} finally {
+					if(connection != null)
+						connection.close();
+				}
+			}
+		}
+		
+		return category;
+	}
+	
+	
+	@Override
+	public Category getCategoryById(int productId) throws SQLException {
+		
+		Category category = new Category();
+		
+		if(productId > 0) {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				connection = ds.getConnection();
+				preparedStatement = connection.prepareStatement(RETRIVE_CATEGORY_BY_PRD_ID);
+				preparedStatement.setInt(1, productId);
+				
+				ResultSet rs = preparedStatement.executeQuery();
+				
+				if(rs.next())
+					category.setName(rs.getString("category_name"));
+			} finally {
+				try {
+					if(preparedStatement != null)
+						preparedStatement.close();
+				} finally {
+					if(connection != null)
+						connection.close();
+				}
+			}
+		}
+		
+		return category;
 	}
 
 	private static DataSource ds;

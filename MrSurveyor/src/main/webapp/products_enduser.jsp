@@ -17,6 +17,9 @@
 	}
 	
 	String category = request.getParameter("category");
+	if(category != null)
+		session.setAttribute("category", category);
+	
 	String subcategory = request.getParameter("subcategory");
 	
 	String title = category != null ? category : subcategory;
@@ -47,7 +50,7 @@
 			Product productBean = (Product)it.next();
 			
 			if(category != null && !category.trim().equals("")) {
-				session.setAttribute("category", category);
+				//session.setAttribute("category", category);
 	%>
 	
 			<div class="item-prod" onclick="redirectToDetatils('${pageContext.request.contextPath}/CatalogServlet?detailProductID=<%=productBean.getId()%>')">

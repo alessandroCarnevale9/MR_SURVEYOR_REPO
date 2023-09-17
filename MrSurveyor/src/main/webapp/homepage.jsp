@@ -9,6 +9,8 @@
     pageEncoding="UTF-8"%>
 
 <%
+	/*p.getSubcategories().get(0).getName()*/
+
 	Collection<?> productsCollection = (Collection<?>)request.getAttribute("homepage_products");
 
 	if(productsCollection == null) {
