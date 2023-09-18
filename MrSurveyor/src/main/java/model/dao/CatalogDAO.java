@@ -18,4 +18,10 @@ public interface CatalogDAO {
 	Collection<Product> searchProducts(String param) throws SQLException;
 	Category getRootCategory(String subcategoryName) throws SQLException;
 	Category getCategoryById(int productId) throws SQLException;
+	Collection<Product> retrieveAllProducts(String ordCriteria) throws SQLException;
+	void removeProduct(int productID) throws SQLException;
+	Collection<Subcategory> retrieveSubcategoriesByCategory(String categoryName) throws SQLException;
+	void addCategory(int productId, String categoryName) throws SQLException;
+	void addSubcategories(int productId, int[] subcategoriesID) throws SQLException;
+	int saveProduct(Product product) throws SQLException;
 }

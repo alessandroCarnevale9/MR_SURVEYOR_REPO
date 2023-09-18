@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+.flex-container {
+	display: flex;
+    flex-direction: column;
+    min-height: 150vh;
+    background-color: #f0f0f0;
+}
+
+main {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	flex-grow: 1;
+}
+
+h1 {
+	margin: 0;
+}
+
+.product-container {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+
+.order-container {
+	display: flex;
+	justify-content: space-around;
+	padding-top: 10px;
+	margin-bottom: 10px;
+}
+
+.product-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: white;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.product-row img {
+	max-width: 100px;
+	height: auto;
+	margin-right: 10px;
+}
+
+.product-details {
+	flex-grow: 1;
+}
+
+.product-actions {
+	display: flex;
+	align-items: center;
+}
+
+.btn-edit,
+.btn-remove, .btn-add-product {
+	text-decoration: none;
+	width: auto;
+	margin-right: 10px;
+	padding: 5px 10px;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	transition: background-color 0.5s, color 0.5s, box-shadow 0.3s;
+}
+
+.btn-edit:hover,
+.btn-remove:hover, .btn-add-product:hover {
+	box-shadow: 4px 3px 6px rgba(0, 0, 0, 0.3);
+	background-color: #f3a712;
+	color: black;
+}
+
+select {
+	padding: 5px;
+	border-radius: 3px;
+	background-color: white;
+}
+
+/*.btn-add-product {
+	text-decoration: none;
+	background-color: #28a745;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.btn-add-product:hover {
+	background-color: #1e7e34;
+}*/

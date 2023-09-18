@@ -129,3 +129,51 @@ function displayOrderProducts(orderIndex) {
             productsContainer.style.display = "none";
         }
 }
+
+function handleSelectChange() {
+	var select = document.getElementById("order");
+	var selectedOption = select.options[select.selectedIndex].value;
+	
+	window.location.href = "http://localhost:8080/MrSurveyor/CatalogManagerServlet?cmd=showProducts&ord="+selectedOption;
+}
+
+function findSubcategories() {
+	var select = document.getElementById("product_category");
+	var selectedOption = select.options[select.selectedIndex].value;
+	
+	$.ajax({
+		url: "http://localhost:8080/MrSurveyor/AddProductServlet?param=getSubcategories",
+		method: "POST",
+		data: {categoryName: selectedOption},
+		dataType: "json",
+		
+		success: function (data) {
+            // "data" conterrà la collezione di subcategorie come oggetto JavaScript
+            // Popola dinamicamente il menu a discesa con le opzioni ottenute dalla chiamata AJAX
+            
+            var selectSub = document.getElementById('subcategory-container');
+            if (data === null || data.length ==  0) {
+				selectSub.style.display = 'none';
+			} else {
+				selectSub.style.display = 'block';
+				populateSubcategoriesDropdown(data);
+			}
+        }
+	});
+}
+
+function populateSubcategoriesDropdown(subcategories) {
+    var select = document.getElementById("product_subcategory");
+
+    // Pulisci le opzioni esistenti
+    select.innerHTML = "";
+
+    // Aggiungi le opzioni basate sulla collezione di subcategorie
+    for (var i = 0; i < subcategories.length; i++) {
+        var subcategory = subcategories[i];
+        var option = document.createElement("option");
+        option.value = subcategory.id;
+        option.textContent = subcategory.name;
+        select.appendChild(option);
+    }
+}

@@ -1,6 +1,10 @@
 package model.bean;
 
-public class Subcategory implements Cloneable {
+import java.io.Serializable;
+
+public class Subcategory implements Cloneable, Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	public Subcategory() {
 		rootCategory = new Category();
