@@ -163,6 +163,8 @@ public class AddProductServlet extends HttpServlet {
 				} catch(SQLException e) {
 					e.printStackTrace();
 				}
+				
+				response.sendRedirect(getServletContext().getContextPath()+"/homepage_manager.jsp");
 			}
 		}
 	}
